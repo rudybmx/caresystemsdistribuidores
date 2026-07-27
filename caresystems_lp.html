@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Care Systems Bio Enzymes - Porque Cuidar é Revolucionar</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+/* ── RESET & TOKENS ─────────────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green-dk:  #4C8751;
+  --green-mid: #4C8751;
+  --green-lt:  #A8D156;
+  --orange:    #A8D156;
+  --orange-lt: #A8D156;
+  --white:     #FFFFFF;
+  --off:       #F7F7F5;
+  --ink:       #2E7370;
+  --ink2:      #4C8751;
+  --ink3:      #719B72;
+  --line:      #DCE8CF;
+  --enzyme:    #2E7370;
+  --clean:     #A8D156;
+  --font:      'Gotham','Arial',sans-serif;
+  --r:         12px;
+  --sh:        0 4px 24px rgba(0,0,0,.10);
+  --sh2:       0 12px 48px rgba(0,0,0,.18);
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block;}
+
+/* ── NAV ────────────────────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(76,135,81,.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(168,209,86,.2);
+}
+.nav-in{max-width:1160px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:68px;}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-logo-mark{width:38px;height:38px;background:var(--green-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--white);}
+.nav-logo-img{width:auto;height:38px;max-width:190px;object-fit:contain;}
+/* [LOGO] - substituir .nav-logo-mark por <img src="logo.svg" alt="Care Systems"> */
+.nav-brand{font-size:13px;font-weight:800;color:var(--white);letter-spacing:.04em;text-transform:uppercase;line-height:1.2;}
+.nav-brand span{display:block;font-size:9px;font-weight:500;color:var(--green-lt);letter-spacing:.12em;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.04em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--green-lt);}
+.nav-cta{background:var(--green-lt);color:var(--white);font-size:11px;font-weight:800;padding:10px 22px;border-radius:30px;letter-spacing:.06em;text-transform:uppercase;transition:background .2s;}
+.nav-cta:hover{background:var(--orange);}
+
+/* ── HEX PATTERN (SVG inline bg) ───────────────────────────────────────── */
+.hex-bg{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%233AB795' stroke-width='0.6' opacity='0.18'/%3E%3C/svg%3E");background-size:60px 52px;}
+
+/* ── HERO ───────────────────────────────────────────────────────────────── */
+.hero{
+  min-height:100vh;background:var(--green-dk);position:relative;overflow:hidden;
+  display:flex;align-items:center;padding-top:68px;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%233AB795' stroke-width='0.7' opacity='0.12'/%3E%3C/svg%3E");
+  background-size:60px 52px;
+}
+.hero-blob{
+  position:absolute;right:-120px;top:-80px;width:640px;height:640px;
+  background:radial-gradient(circle,rgba(58,183,149,.22) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.hero-blob2{
+  position:absolute;left:-100px;bottom:-100px;width:420px;height:420px;
+  background:radial-gradient(circle,rgba(232,98,10,.12) 0%,transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.hero-in{
+  max-width:1160px;margin:0 auto;padding:80px 28px 80px;
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(58,183,149,.15);border:1px solid rgba(58,183,149,.4);
+  border-radius:30px;padding:6px 16px;margin-bottom:22px;
+}
+.hero-eyebrow span{font-size:10px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.12em;}
+.hero h1{
+  font-size:clamp(32px,4vw,54px);font-weight:900;color:var(--white);
+  line-height:1.06;letter-spacing:-.03em;margin-bottom:20px;
+}
+.hero h1 em{font-style:normal;color:var(--green-lt);}
+.hero-sub{
+  font-size:16px;font-weight:400;color:rgba(255,255,255,.65);
+  line-height:1.7;max-width:460px;margin-bottom:36px;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-primary{
+  background:var(--orange);color:var(--white);font-size:13px;font-weight:800;
+  padding:14px 30px;border-radius:30px;letter-spacing:.04em;text-transform:uppercase;
+  transition:background .2s,transform .15s;display:inline-block;
+}
+.btn-primary:hover{background:var(--orange-lt);transform:translateY(-2px);}
+.btn-ghost{
+  background:transparent;color:var(--white);font-size:13px;font-weight:700;
+  padding:14px 30px;border-radius:30px;border:1px solid rgba(255,255,255,.3);
+  letter-spacing:.04em;text-transform:uppercase;transition:border-color .2s,transform .15s;display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--green-lt);color:var(--green-lt);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap;}
+.hstat{border-left:2px solid var(--green-lt);padding-left:14px;}
+.hstat-v{font-size:30px;font-weight:900;color:var(--white);line-height:1;}
+.hstat-l{font-size:10px;font-weight:500;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;}
+
+/* Hero right - imagem visual */
+.hero-visual{
+  aspect-ratio:1;background:rgba(58,183,149,.08);border:1px solid rgba(58,183,149,.2);
+  border-radius:24px;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:16px;position:relative;overflow:hidden;
+}
+.hero-visual::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 70% 30%,rgba(58,183,149,.15),transparent 60%);
+}
+.img-placeholder{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;color:rgba(58,183,149,.6);text-align:center;padding:32px;position:relative;z-index:1;
+}
+.img-placeholder svg{opacity:.5;}
+.img-placeholder p{font-size:11px;font-weight:600;color:rgba(58,183,149,.7);letter-spacing:.06em;text-transform:uppercase;}
+/* [IMAGEM HERO] Substituir .hero-visual por <img src="hero-products.jpg"> */
+
+/* ── SEÇÃO VÍDEO ────────────────────────────────────────────────────────── */
+.video-sec{background:var(--ink);padding:80px 0;position:relative;overflow:hidden;}
+.video-sec::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 100%,rgba(58,183,149,.12),transparent 60%);
+}
+.video-in{max-width:900px;margin:0 auto;padding:0 28px;text-align:center;position:relative;z-index:1;}
+.sec-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-lt);margin-bottom:14px;}
+.video-in h2{font-size:clamp(22px,3vw,36px);font-weight:800;color:var(--white);margin-bottom:14px;line-height:1.15;}
+.video-in p{font-size:15px;color:rgba(255,255,255,.55);margin-bottom:40px;line-height:1.7;}
+.video-wrapper{
+  position:relative;background:#0a1a18;border-radius:20px;overflow:hidden;
+  border:1px solid rgba(58,183,149,.25);box-shadow:0 24px 80px rgba(0,0,0,.5);
+  aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;
+}
+.video-play-btn{
+  width:72px;height:72px;background:var(--green-lt);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 0 0 16px rgba(58,183,149,.15);transition:transform .2s;
+}
+.video-play-btn:hover{transform:scale(1.08);}
+.video-play-btn svg{margin-left:4px;}
+.video-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);margin-top:18px;letter-spacing:.06em;text-transform:uppercase;}
+/* [VIDEO] Substituir .video-wrapper por <video> ou <iframe> */
+
+/* ── HISTÓRIA / AUTORIDADE ──────────────────────────────────────────────── */
+.historia{background:var(--white);padding:96px 0;}
+.sec-in{max-width:1160px;margin:0 auto;padding:0 28px;}
+.historia-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.historia-img{
+  aspect-ratio:4/5;background:var(--off);border-radius:20px;
+  border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:12px;color:var(--ink3);position:relative;overflow:hidden;
+}
+.historia-img::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:linear-gradient(to top,rgba(0,69,60,.08),transparent);
+}
+/* [IMAGEM HISTÓRIA] Substituir .historia-img por <img src="fundador.jpg"> ou foto da equipe/sede */
+.historia-badge{
+  position:absolute;bottom:20px;left:20px;right:20px;z-index:2;
+  background:var(--green-dk);border-radius:12px;padding:14px 18px;
+  display:flex;align-items:center;gap:12px;
+}
+.historia-badge-icon{width:36px;height:36px;background:var(--green-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;}
+.historia-badge-text strong{font-size:13px;font-weight:800;color:var(--white);display:block;}
+.historia-badge-text span{font-size:11px;color:rgba(255,255,255,.6);}
+.historia-content .sec-tag{color:var(--orange);}
+.historia-content h2{font-size:clamp(26px,3.2vw,42px);font-weight:900;color:var(--ink);line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;}
+.historia-content h2 strong{color:var(--green-mid);}
+.historia-content p{font-size:15px;color:var(--ink2);line-height:1.8;margin-bottom:16px;}
+.historia-pilares{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
+.pilar{background:var(--off);border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+.pilar-label{font-size:9px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.pilar-text{font-size:12px;font-weight:600;color:var(--ink);line-height:1.4;}
+.parceiros{margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.parceiro-tag{
+  background:var(--green-dk);color:var(--white);font-size:11px;font-weight:700;
+  padding:8px 16px;border-radius:8px;letter-spacing:.04em;
+}
+
+/* ── NÚMEROS / AUTORIDADE ───────────────────────────────────────────────── */
+.numeros{background:var(--green-dk);padding:72px 0;position:relative;overflow:hidden;}
+.numeros::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%233AB795' stroke-width='0.6' opacity='0.1'/%3E%3C/svg%3E");background-size:60px 52px;}
+.numeros-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;position:relative;z-index:1;}
+.num-card{text-align:center;padding:40px 20px;border-right:1px solid rgba(58,183,149,.15);}
+.num-card:last-child{border-right:none;}
+.num-v{font-size:52px;font-weight:900;color:var(--white);line-height:1;letter-spacing:-.03em;}
+.num-v span{color:var(--green-lt);}
+.num-l{font-size:12px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-top:8px;}
+
+/* ── PRODUTOS DESTAQUE ──────────────────────────────────────────────────── */
+.produtos{background:var(--off);padding:96px 0;}
+.produtos-header{text-align:center;margin-bottom:60px;}
+.produtos-header .sec-tag{color:var(--orange);}
+.produtos-header h2{font-size:clamp(26px,3.2vw,44px);font-weight:900;color:var(--ink);line-height:1.1;letter-spacing:-.02em;max-width:600px;margin:12px auto 0;}
+.produto-cards{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+
+/* Card LIPAX ENZYME */
+.prod-card{border-radius:20px;overflow:hidden;box-shadow:var(--sh2);}
+.prod-card-header{padding:32px 32px 0;display:flex;justify-content:space-between;align-items:flex-start;}
+.prod-card-header .prod-tag{font-size:10px;font-weight:800;padding:6px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;}
+.prod-card-img{
+  margin:24px 32px;height:200px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:10px;border:1px dashed;
+}
+/* [IMG PRODUTO] Substituir .prod-card-img por <img src="lipax-enzyme.png"> */
+.prod-card-body{padding:0 32px 32px;}
+.prod-name{font-size:26px;font-weight:900;line-height:1;letter-spacing:-.02em;margin-bottom:8px;}
+.prod-sub{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;opacity:.7;}
+.prod-desc{font-size:14px;line-height:1.75;margin-bottom:20px;}
+.prod-enzimas{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;}
+.prod-enzima-tag{font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em;}
+.prod-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;}
+.prod-spec{padding:10px 14px;border-radius:10px;}
+.prod-spec-k{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.prod-spec-v{font-size:13px;font-weight:800;}
+.prod-sizes{display:flex;gap:8px;align-items:center;margin-bottom:24px;}
+.prod-size{font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;border:1.5px solid;text-transform:uppercase;}
+.prod-btn{display:block;text-align:center;padding:14px;border-radius:12px;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;transition:opacity .2s;}
+.prod-btn:hover{opacity:.85;}
+
+/* ENZYME */
+.card-enzyme{background:linear-gradient(160deg,#E8F8F5,#FFFFFF);}
+.card-enzyme .prod-tag{background:rgba(0,124,140,.12);color:#007C8C;}
+.card-enzyme .prod-card-img{background:rgba(0,124,140,.06);border-color:rgba(0,124,140,.25);color:rgba(0,124,140,.5);}
+.card-enzyme .prod-name{color:#005F6E;}
+.card-enzyme .prod-sub{color:#007C8C;}
+.card-enzyme .prod-desc{color:var(--ink2);}
+.card-enzyme .prod-enzima-tag{background:rgba(0,124,140,.1);color:#007C8C;}
+.card-enzyme .prod-spec{background:rgba(0,124,140,.07);}
+.card-enzyme .prod-spec-k{color:#007C8C;}
+.card-enzyme .prod-spec-v{color:#005F6E;}
+.card-enzyme .prod-size{border-color:rgba(0,124,140,.4);color:#007C8C;}
+.card-enzyme .prod-btn{background:#007C8C;color:#fff;}
+
+/* CLEAN */
+.card-clean{background:linear-gradient(160deg,#F5EEF8,#FFFFFF);}
+.card-clean .prod-tag{background:rgba(107,36,132,.12);color:#6B2484;}
+.card-clean .prod-card-img{background:rgba(107,36,132,.06);border-color:rgba(107,36,132,.25);color:rgba(107,36,132,.5);}
+.card-clean .prod-name{color:#4A1860;}
+.card-clean .prod-sub{color:#6B2484;}
+.card-clean .prod-desc{color:var(--ink2);}
+.card-clean .prod-enzima-tag{background:rgba(107,36,132,.1);color:#6B2484;}
+.card-clean .prod-spec{background:rgba(107,36,132,.07);}
+.card-clean .prod-spec-k{color:#6B2484;}
+.card-clean .prod-spec-v{color:#4A1860;}
+.card-clean .prod-size{border-color:rgba(107,36,132,.4);color:#6B2484;}
+.card-clean .prod-btn{background:#6B2484;color:#fff;}
+
+/* ── DIFERENCIAIS / GATILHOS ────────────────────────────────────────────── */
+.diferenciais{background:var(--white);padding:96px 0;}
+.dif-header{text-align:center;margin-bottom:56px;}
+.dif-header h2{font-size:clamp(24px,3vw,40px);font-weight:900;color:var(--ink);letter-spacing:-.02em;margin-top:12px;max-width:540px;margin-left:auto;margin-right:auto;}
+.dif-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.dif-card{
+  background:var(--off);border:1px solid var(--line);border-radius:16px;
+  padding:28px 24px;transition:transform .2s,box-shadow .2s;
+}
+.dif-card:hover{transform:translateY(-4px);box-shadow:var(--sh);}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.is-visible{opacity:1;transform:none;}
+.offer{background:var(--white);padding:96px 0;}
+.offer-header{text-align:center;max-width:650px;margin:0 auto 52px;}
+.offer-header h2{font-size:clamp(26px,3.2vw,44px);font-weight:900;color:var(--ink);line-height:1.1;letter-spacing:-.02em;margin-top:12px;}
+.offer-header p{font-size:15px;color:var(--ink2);line-height:1.7;margin-top:14px;}
+.offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;}
+.offer-card{position:relative;background:var(--green-lt);border:1px solid var(--green-lt);border-radius:20px;padding:30px 26px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;}
+.offer-card:hover{transform:translateY(-5px);box-shadow:var(--sh2);}
+.offer-card.featured{background:var(--green-dk);border-color:var(--green-lt);box-shadow:0 16px 48px rgba(76,135,81,.22);}
+.offer-badge{position:absolute;top:18px;right:18px;background:var(--orange);color:var(--white);padding:5px 10px;border-radius:30px;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+.offer-card h3{font-size:20px;font-weight:900;color:var(--ink);margin-bottom:8px;}
+.offer-card.featured h3{color:var(--white);}
+.offer-card p{font-size:13px;color:var(--ink);line-height:1.7;margin-bottom:22px;}
+.offer-card.featured p{color:rgba(255,255,255,.68);}
+.offer-price{font-size:20px;font-weight:900;color:var(--green-mid);margin-bottom:20px;}
+.offer-card.featured .offer-price{color:var(--green-lt);}
+.offer-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:26px;flex:1;}
+.offer-list li{font-size:12px;color:var(--ink);line-height:1.5;padding-left:20px;position:relative;}
+.offer-card.featured .offer-list li{color:rgba(255,255,255,.72);}
+.offer-list li::before{content:'✓';position:absolute;left:0;color:var(--green-mid);font-weight:900;}
+.offer-card.featured .offer-list li::before{color:var(--green-lt);}
+.offer-btn{display:block;text-align:center;background:var(--green-mid);color:var(--white);padding:13px 16px;border-radius:12px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;transition:transform .2s,background .2s;}
+.offer-card.featured .offer-btn{background:var(--orange);}
+.offer-btn:hover{transform:scale(1.02);background:var(--green-lt);}
+.faq{background:var(--off);padding:96px 0;}
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:start;}
+.faq-intro h2{font-size:clamp(26px,3.2vw,42px);font-weight:900;color:var(--ink);line-height:1.1;letter-spacing:-.02em;margin:12px 0 16px;}
+.faq-intro p{font-size:15px;color:var(--ink2);line-height:1.7;}
+.faq-list{display:flex;flex-direction:column;gap:10px;}
+.faq-item{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.faq-question{width:100%;display:flex;justify-content:space-between;align-items:center;gap:18px;background:none;border:0;padding:20px;text-align:left;font:700 14px var(--font);color:var(--ink);cursor:pointer;}
+.faq-question span:last-child{font-size:22px;font-weight:400;color:var(--green-mid);transition:transform .2s;}
+.faq-item.open .faq-question span:last-child{transform:rotate(45deg);}
+.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease;}
+.faq-answer > div{overflow:hidden;}
+.faq-answer p{padding:0 20px 20px;font-size:13px;color:var(--ink2);line-height:1.7;}
+.faq-item.open .faq-answer{grid-template-rows:1fr;}
+.dif-icon{
+  width:48px;height:48px;border-radius:12px;background:var(--green-dk);
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px;
+}
+/* [ÍCONE] Substituir emoji por SVG customizado ou ícone de biblioteca */
+.dif-title{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:8px;}
+.dif-text{font-size:13px;color:var(--ink2);line-height:1.7;}
+
+/* ── LINHA DE PRODUTOS ──────────────────────────────────────────────────── */
+.linhas{background:var(--green-dk);padding:80px 0;position:relative;overflow:hidden;}
+.linhas::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%233AB795' stroke-width='0.6' opacity='0.1'/%3E%3C/svg%3E");background-size:60px 52px;}
+.linhas-header{text-align:center;margin-bottom:48px;position:relative;z-index:1;}
+.linhas-header .sec-tag{color:var(--green-lt);}
+.linhas-header h2{font-size:clamp(22px,2.8vw,36px);font-weight:900;color:var(--white);margin-top:10px;letter-spacing:-.02em;}
+.linhas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1;}
+.linha-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(58,183,149,.2);
+  border-radius:16px;padding:24px 20px;
+}
+.linha-pill{
+  font-size:9px;font-weight:800;padding:4px 12px;border-radius:20px;
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;display:inline-block;
+}
+.linha-card h3{font-size:14px;font-weight:800;color:var(--white);margin-bottom:12px;}
+.linha-produtos{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.linha-produtos li{font-size:11px;color:rgba(255,255,255,.6);padding-left:14px;position:relative;line-height:1.4;}
+.linha-produtos li::before{content:'→';position:absolute;left:0;color:var(--green-lt);font-size:9px;top:2px;}
+
+.linha-agro .linha-pill{background:rgba(58,183,149,.2);color:var(--green-lt);}
+.linha-dom .linha-pill{background:rgba(232,98,10,.2);color:var(--orange-lt);}
+.linha-prof .linha-pill{background:rgba(0,124,140,.2);color:#5ECFDB;}
+.linha-dental .linha-pill{background:rgba(107,36,132,.2);color:#C080E0;}
+
+/* ── DISTRIBUIDORES + MAPA ──────────────────────────────────────────────── */
+.distribuidores{background:var(--off);padding:96px 0;}
+.distrib-header{text-align:center;margin-bottom:60px;}
+.distrib-header .sec-tag{color:var(--orange);}
+.distrib-header h2{font-size:clamp(24px,3vw,40px);font-weight:900;color:var(--ink);letter-spacing:-.02em;margin-top:12px;}
+.distrib-header p{font-size:15px;color:var(--ink2);margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7;}
+.distrib-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:start;}
+
+/* Lista de distribuidores */
+.distrib-list{display:flex;flex-direction:column;gap:10px;}
+.distrib-item{
+  background:var(--white);border:1px solid var(--line);border-radius:12px;
+  padding:14px 18px;display:flex;align-items:center;gap:14px;
+  transition:border-color .2s,transform .15s;cursor:pointer;
+}
+.distrib-item:hover{border-color:var(--green-lt);transform:translateX(4px);}
+.distrib-item.sede{border-color:var(--orange);background:rgba(232,98,10,.04);}
+.distrib-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.distrib-dot.verde{background:var(--green-lt);}
+.distrib-dot.laranja{background:var(--orange);}
+.distrib-info{flex:1;}
+.distrib-nome{font-size:13px;font-weight:700;color:var(--ink);}
+.distrib-cidade{font-size:11px;color:var(--ink3);margin-top:2px;}
+.distrib-rota{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:var(--green-dk);color:var(--white);}
+
+/* Mapa embed */
+.mapa-wrapper{
+  border-radius:20px;overflow:hidden;border:1px solid var(--line);
+  box-shadow:var(--sh);background:var(--line);position:relative;
+}
+.mapa-wrapper svg{width:100%;height:100%;display:block;}
+.mapa-wrapper .mapa-label{
+  position:absolute;top:14px;left:14px;background:rgba(0,85,48,.95);color:var(--white);
+  font-size:11px;font-weight:700;padding:8px 16px;border-radius:22px;
+  box-shadow:0 10px 28px rgba(0,0,0,.14);z-index:10;
+}
+.map-state{filter:drop-shadow(0 5px 8px rgba(0,85,48,.16));transition:transform .25s,opacity .25s;}
+.map-state:hover{transform:translateY(-1.5px);opacity:.98;}
+.map-state-extrude{fill:#3B8F61;stroke:#2E7650;stroke-width:.8;opacity:.72;transform:translateY(2.2px);filter:drop-shadow(0 3px 4px rgba(0,67,38,.18));vector-effect:non-scaling-stroke;}
+.map-state-face{stroke:#58B978;stroke-width:1;paint-order:stroke;vector-effect:non-scaling-stroke;}
+.map-territory-label{font-family:'Gotham',Arial,sans-serif;font-size:5.8px;font-weight:600;letter-spacing:.12em;fill:#2E7370;text-anchor:middle;}
+.map-territory-sub{font-family:'Gotham',Arial,sans-serif;font-size:3.2px;font-weight:500;letter-spacing:.08em;fill:#4C8751;text-anchor:middle;text-transform:uppercase;}
+.map-connection{stroke:#20C85A;stroke-width:1.6;stroke-dasharray:5 4;opacity:.94;filter:drop-shadow(0 0 1.5px rgba(32,200,90,.42));vector-effect:non-scaling-stroke;animation:connectionFlow 2.4s linear infinite;}
+.map-pin-group{cursor:pointer;}
+.map-pin-pulse{fill:none;stroke-width:1.2;stroke-linecap:round;opacity:.56;transform-box:fill-box;transform-origin:center;animation:pinPulse 1.8s ease-out infinite;}
+.map-pin-core{fill:#A8D156;filter:url(#glow);}
+.map-pin-center{fill:#fff;}
+.map-pin-label{font-family:'Gotham',Arial,sans-serif;font-size:4.6px;font-weight:700;fill:#2E7370;}
+.map-pin-sub{font-family:'Gotham',Arial,sans-serif;font-size:3.6px;fill:#4C8751;}
+@keyframes pinPulse{0%{transform:scale(.9);stroke-opacity:.65;}50%{transform:scale(1.35);stroke-opacity:.22;}100%{transform:scale(1.8);stroke-opacity:0;}}
+@keyframes connectionFlow{to{stroke-dashoffset:-26;}}
+
+/* Sede badge */
+.sede-card{
+  background:var(--green-dk);border-radius:16px;padding:20px 24px;margin-top:12px;
+  display:flex;gap:14px;align-items:flex-start;
+}
+.sede-card-icon{font-size:24px;flex-shrink:0;margin-top:2px;}
+.sede-card h4{font-size:13px;font-weight:800;color:var(--white);margin-bottom:6px;}
+.sede-card p{font-size:12px;color:rgba(255,255,255,.6);line-height:1.6;}
+
+/* ── SLOGAN CTA ─────────────────────────────────────────────────────────── */
+.slogan-cta{
+  background:var(--orange);padding:80px 0;text-align:center;position:relative;overflow:hidden;
+}
+.slogan-cta::before{
+  content:'"';font-size:320px;font-weight:900;color:rgba(255,255,255,.06);
+  position:absolute;top:-80px;left:50%;transform:translateX(-50%);line-height:1;pointer-events:none;
+}
+.slogan-cta-in{position:relative;z-index:1;}
+.slogan-cta h2{font-size:clamp(28px,4vw,52px);font-weight:900;color:var(--white);letter-spacing:-.02em;margin-bottom:12px;}
+.slogan-cta p{font-size:16px;color:rgba(255,255,255,.8);margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto;}
+.btn-white{background:var(--white);color:var(--orange);font-size:13px;font-weight:800;padding:16px 36px;border-radius:30px;letter-spacing:.04em;text-transform:uppercase;display:inline-block;transition:transform .15s;}
+.btn-white:hover{transform:translateY(-2px);}
+
+/* ── RODAPÉ ─────────────────────────────────────────────────────────────── */
+footer{background:var(--ink);padding:60px 0 32px;color:rgba(255,255,255,.7);}
+.footer-in{max-width:1160px;margin:0 auto;padding:0 28px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.footer-logo-mark{width:36px;height:36px;background:var(--green-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:var(--white);}
+.footer-logo-img{width:auto;height:36px;max-width:190px;object-fit:contain;}
+/* [LOGO RODAPÉ] Substituir .footer-logo-mark por <img src="logo.svg"> */
+.footer-logo-name{font-size:13px;font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:.04em;}
+.footer-slogan{font-size:13px;font-style:italic;color:var(--green-lt);margin-bottom:14px;}
+.footer-addr{font-size:12px;line-height:1.7;color:rgba(255,255,255,.5);}
+.footer-col h4{font-size:11px;font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col a{font-size:13px;color:rgba(255,255,255,.55);transition:color .2s;}
+.footer-col a:hover{color:var(--green-lt);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,.35);}
+.footer-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.footer-tag{font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;background:rgba(58,183,149,.12);color:var(--green-lt);text-transform:uppercase;letter-spacing:.06em;}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .hero-in,.historia-grid,.distrib-layout{grid-template-columns:1fr;}
+  .hero-visual{aspect-ratio:16/9;max-height:280px;}
+  .numeros-grid{grid-template-columns:repeat(2,1fr);}
+  .produto-cards{grid-template-columns:1fr;}
+  .dif-grid{grid-template-columns:1fr 1fr;}
+  .linhas-grid{grid-template-columns:1fr 1fr;}
+  .offer-grid{grid-template-columns:1fr;max-width:560px;margin:0 auto;}
+  .faq-grid{grid-template-columns:1fr;gap:36px;}
+  .linhas-feature-grid,.cadastro-grid{grid-template-columns:1fr !important;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+}
+@media(max-width:560px){
+  .numeros-grid{grid-template-columns:1fr 1fr;}
+  .dif-grid,.linhas-grid{grid-template-columns:1fr;}
+  .historia-pilares{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+}
+
+/* ── CARESYSTEMNEW VISUAL LAYER ───────────────────────────────────────── */
+:root{
+  --page:#FFFFFF;
+  --surface:#FFFFFF;
+  --primary:#4C8751;
+  --secondary:#A8D156;
+  --accent:#A8D156;
+  --brand-text:#2E7370;
+  --surface-glass:rgba(255,255,255,.68);
+  --slate:#4C8751;
+  --slate-dark:#2E7370;
+  --sage:#A8D156;
+  --sage-dark:#4C8751;
+  --line-soft:rgba(46,115,112,.16);
+  --shadow-soft:0 18px 48px rgba(80,72,91,.08);
+  --shadow-hover:0 24px 60px rgba(80,72,91,.14);
+}
+html{scroll-padding-top:5rem;}
+body{background:var(--page);color:var(--slate);}
+body,p,a,button,input,select,h1,h2,h3,h4,h5,h6,.nav-brand,.footer-logo-name{font-family:var(--font);}
+h1,h2,h3{font-weight:400;letter-spacing:-.045em;line-height:1.02;}
+h2{color:var(--slate-dark);}
+nav{top:.65rem;left:50%;right:auto;width:min(calc(100% - 48px),1440px);transform:translateX(-50%);background:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.72);border-radius:999px;backdrop-filter:blur(18px);box-shadow:0 12px 36px rgba(75,86,110,.08);transition:top .25s ease,width .25s ease,background .25s ease,box-shadow .25s ease;}
+.nav-in{max-width:1536px;height:52px;padding:0 20px;transition:height .25s ease,padding .25s ease;}
+.nav-logo-img{height:32px;max-width:170px;transition:height .25s ease,max-width .25s ease;}
+.nav-links{gap:24px;transition:gap .25s ease;}
+.nav-links a{font-size:11px;transition:font-size .25s ease,color .2s;}
+.nav-logo-mark{background:var(--sage);}
+.nav-brand{color:var(--slate-dark);}
+.nav-brand span{color:var(--sage);}
+.nav-links a{color:var(--slate);}
+.nav-links a:hover{color:var(--sage-dark);}
+.nav-cta{background:var(--accent);color:#545454;}
+.nav-cta:hover{background:var(--secondary);}
+section{margin:0 .75rem 1rem;border-radius:1.6rem;overflow:hidden;}
+.sec-in,.footer-in{max-width:1536px;}
+.hero{min-height:calc(100vh - 1.5rem);margin-top:0;padding-top:68px;border-radius:2.7rem;background:#4C8751;}
+.hero{isolation:isolate;}
+.hero::before{
+  z-index:0;pointer-events:none;opacity:1;
+  background:url('https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/hero_care_distribuidores.png') center 42%/cover no-repeat;
+}
+.hero > .hero-blob,.hero > .hero-blob2{display:none;}
+.hero > .hero-in{z-index:2;}
+.hero-blob{background:radial-gradient(circle,rgba(255,255,255,.34) 0%,transparent 70%);}
+.hero-blob2{background:radial-gradient(circle,rgba(198,163,103,.22) 0%,transparent 70%);}
+.hero-in{max-width:1536px;padding:80px 5vw;}
+.hero-in{width:100%;display:flex;flex-direction:column;gap:34px;align-items:stretch;}
+.hero-left{width:100%;max-width:850px;margin:0 auto;text-align:center;}
+.hero-left .hero-sub{margin-left:auto;margin-right:auto;}
+.hero-left .hero-actions,.hero-left .hero-stats{justify-content:center;}
+.hero-in > div:last-child{width:100%;max-width:920px;margin:0 auto;}
+.hero-in #hf-step1 > div:first-child{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.hero-in #hf-step2 > div:first-child{display:grid!important;grid-template-columns:1fr 1fr 1.25fr;gap:10px;align-items:end;}
+.hero-in #hf-step2 > div:first-child > div{display:contents;}
+.hero-in #hf-step2 > div:first-child > div > div{display:contents;}
+.hero h1{font-size:clamp(3rem,6vw,5rem);color:var(--slate-dark);}
+.hero h1 em{color:var(--brand-text);}
+
+/* ── LAMP EFFECT (hero title) ─────────────────────────────────────────── */
+.lamp-title-wrap{position:relative;isolation:isolate;padding-top:clamp(2.5rem,8vh,4.5rem);margin-bottom:20px;}
+.lamp-title-wrap .lamp-visual{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.lamp-title-wrap .lamp-beam{position:absolute;top:0;left:50%;height:7rem;width:7rem;opacity:0;filter:blur(2px);transition:width .8s ease-in-out,opacity .8s ease-in-out;}
+.lamp-title-wrap .lamp-beam-left{transform:translateX(-100%) scaleY(1.2);transform-origin:center top;background-image:conic-gradient(from 70deg at center top,rgba(180,232,199,.75),rgba(180,232,199,.08) 34%,transparent 72%);}
+.lamp-title-wrap .lamp-beam-right{transform:scaleY(1.2);transform-origin:center top;background-image:conic-gradient(from 290deg at center top,transparent 28%,rgba(180,232,199,.08) 66%,rgba(180,232,199,.75) 100%);}
+.lamp-title-wrap .lamp-core{position:absolute;top:0;left:50%;width:7rem;height:3.5rem;transform:translate(-50%,-.6rem);border-radius:999px;background:rgba(180,232,199,.65);filter:blur(30px);opacity:0;transition:width .8s ease-in-out,opacity .8s ease-in-out;}
+.lamp-title-wrap .lamp-line{position:absolute;top:0;left:50%;width:7rem;height:2px;transform:translate(-50%,.4rem);background:rgba(180,232,199,.85);box-shadow:0 0 12px 2px rgba(180,232,199,.6);opacity:0;transition:width .8s ease-in-out,opacity .8s ease-in-out;}
+.lamp-title-wrap h1{position:relative;z-index:2;opacity:.45;transform:translateY(40px);transition:opacity .8s ease-in-out,transform .8s ease-in-out;text-shadow:0 2px 24px rgba(0,85,48,.25);}
+.lamp-title-wrap.is-visible .lamp-beam{width:17rem;opacity:.85;}
+.lamp-title-wrap.is-visible .lamp-core{width:13rem;opacity:.55;}
+.lamp-title-wrap.is-visible .lamp-line{width:17rem;opacity:.9;}
+.lamp-title-wrap.is-visible h1{opacity:1;transform:translateY(0);}
+.lamp-title-wrap.reduced-motion *{transition:none!important;}
+.lamp-title-wrap.reduced-motion .lamp-beam{width:17rem;opacity:.85;}
+.lamp-title-wrap.reduced-motion .lamp-core{width:13rem;opacity:.55;}
+.lamp-title-wrap.reduced-motion .lamp-line{width:17rem;opacity:.9;}
+.lamp-title-wrap.reduced-motion h1{opacity:1;transform:none;}
+@media(max-width:768px){
+  .lamp-title-wrap .lamp-beam{height:5.5rem;}
+  .lamp-title-wrap.is-visible .lamp-beam,.lamp-title-wrap.reduced-motion .lamp-beam{width:11rem;}
+  .lamp-title-wrap.is-visible .lamp-core,.lamp-title-wrap.reduced-motion .lamp-core{width:9rem;}
+  .lamp-title-wrap.is-visible .lamp-line,.lamp-title-wrap.reduced-motion .lamp-line{width:11rem;}
+}
+.hero-sub{color:rgba(42,50,64,.72);}
+.hero-left > p:first-child{color:var(--sage-dark)!important;}
+.hero-actions .btn-primary{background:var(--accent);color:#545454;border:1px solid rgba(255,255,255,.35);box-shadow:0 10px 24px rgba(80,72,91,.18);}
+.hero-actions .btn-primary:hover{background:var(--secondary);}
+.btn-ghost{color:var(--slate-dark);border-color:rgba(42,50,64,.24);background:rgba(255,255,255,.28);backdrop-filter:blur(12px);}
+.btn-ghost:hover{border-color:var(--sage);color:var(--sage-dark);}
+.hstat{border-left-color:var(--sage-dark);}
+.hstat-v{color:var(--slate-dark);}
+.hstat-l{color:rgba(42,50,64,.58);}
+.hero-in > div:last-child{background:#fff!important;border:1px solid rgba(255,255,255,.58)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:var(--shadow-soft);}
+.hero-in > div:last-child > div:first-child{background:var(--green-dk)!important;}
+.hero-in > div:last-child > div:nth-child(3){background:#fff!important;}
+.hero-in > div:last-child > div:first-child p{color:var(--white)!important;}
+.hero-in #h-step-label,
+.hero-in #h-step-title,
+.hero-in #hf-step3 p,
+.hero-in #hf-resumo,
+.hero-in > div:last-child > div:last-child > p{color:var(--green-dk)!important;}
+.hero-in input{background:rgba(255,255,255,.78)!important;color:var(--green-dk)!important;border-color:rgba(46,115,112,.2)!important;}
+.hero-in input::placeholder{color:rgba(42,50,64,.58);}
+.hero-in select{background:rgba(255,255,255,.78)!important;color:var(--green-dk)!important;border-color:rgba(46,115,112,.2)!important;}
+.video-sec,.numeros,.linhas,#cadastro{background:var(--primary);}
+.video-sec::before{z-index:0;}
+.video-sec .dotted-surface{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.video-sec .dotted-surface canvas{width:100%;height:100%;display:block;}
+.video-sec .video-in{z-index:2;}
+.video-sec,.numeros,.linhas,#cadastro,.slogan-cta{box-shadow:var(--shadow-soft);}
+.video-wrapper{background:linear-gradient(135deg,rgba(95,109,79,.8),rgba(42,50,64,.9));border-color:rgba(255,255,255,.16);box-shadow:var(--shadow-soft);}
+.video-play-btn{background:var(--surface);box-shadow:0 0 0 16px rgba(255,255,255,.12);}
+.video-play-btn svg{fill:var(--sage-dark);}
+.historia,.produtos,.diferenciais,.distribuidores,.offer,.faq{background:var(--surface);}
+.historia,.produtos,.diferenciais,.distribuidores,.offer,.faq{box-shadow:var(--shadow-soft);}
+.historia-content h2,.produtos-header h2,.dif-header h2,.distrib-header h2,.offer-header h2,.faq-intro h2{font-weight:400;color:var(--slate-dark);}
+.historia-content p,.prod-desc,.dif-text,.distrib-header p,.offer-header p,.faq-intro p{color:var(--slate);}
+.historia-img{background:linear-gradient(160deg,#e5e9e1,#c9d3c7);border:1px solid var(--line-soft);box-shadow:var(--shadow-soft);}
+.historia-badge{background:rgba(56,69,47,.88);backdrop-filter:blur(16px);}
+.pilar,.dif-card,.offer-card,.faq-item,.distrib-item{background:var(--surface-glass);border-color:var(--line-soft);box-shadow:var(--shadow-soft);}
+.pilar{border-radius:1.2rem;}
+.dif-card,.offer-card,.faq-item,.distrib-item{border-radius:1.4rem;}
+.dif-card{min-height:220px;transition:transform .3s cubic-bezier(.2,.75,.25,1),box-shadow .3s ease;}
+.dif-card:hover,.offer-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
+.dif-icon{background:var(--sage-dark);}
+.prod-card{border-radius:1.6rem;box-shadow:var(--shadow-soft);}
+.prod-card input,input,select{background:#F4F4F4;}
+.hero-in input{background:#F4F4F4!important;color:#AAAAAA!important;}
+.offer-card.featured .offer-btn,.prod-btn{background:var(--accent);color:#545454;}
+.btn-white{color:var(--accent);}
+.prod-card-img{border-radius:1.2rem;}
+.prod-card-img{height:500px;}
+.prod-card-img img{width:100%;height:100%;object-fit:contain;padding:8px;}
+.prod-btn,.offer-btn{border-radius:999px;}
+.linhas-header h2,.slogan-cta h2{font-weight:400;}
+.linha-card{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16);border-radius:1.4rem;}
+.slogan-cta{background:linear-gradient(135deg,var(--sage),var(--sage-dark));border-radius:2.1rem;}
+.slogan-cta .btn-white{border-radius:999px;}
+.offer-card.featured{background:linear-gradient(145deg,var(--sage-dark),#4C8751);border-color:rgba(255,255,255,.24);}
+.offer-card h3{font-weight:400;color:var(--slate-dark);}
+.faq{background:#F7F7F5;}
+.faq-question{font-weight:500;color:var(--slate-dark);}
+.faq-question span:last-child{color:var(--sage-dark);}
+
+/* CTAs principais */
+.nav-cta,
+.btn-primary,
+.prod-btn,
+.offer-btn,
+.btn-white,
+.cta-button{
+  background:#A8D156!important;
+  color:#2E7370!important;
+  border:1px solid #A8D156!important;
+  box-shadow:none!important;
+  text-shadow:none;
+  font-family:var(--font)!important;
+  font-weight:800;
+  transition:background-color .2s ease,filter .2s ease!important;
+}
+.nav-cta,
+.btn-primary,
+.btn-ghost,
+.prod-btn,
+.offer-btn,
+.btn-white,
+.cta-button{
+  font-family:var(--font)!important;
+}
+.nav-cta:hover,
+.btn-primary:hover,
+.prod-btn:hover,
+.offer-btn:hover,
+.btn-white:hover,
+.cta-button:hover{
+  filter:saturate(1.12) brightness(1.05);
+}
+.nav-cta:active,
+.btn-primary:active,
+.prod-btn:active,
+.offer-btn:active,
+.btn-white:active,
+.cta-button:active{
+  filter:brightness(.96);
+}
+.nav-cta{box-shadow:none!important;}
+.cta-button{border-radius:999px!important;cursor:pointer;}
+nav.is-scrolled{top:.35rem;width:min(calc(100% - 88px),1320px);background:rgba(255,255,255,.78);box-shadow:0 8px 24px rgba(0,85,48,.14);}
+nav.is-scrolled .nav-in{height:42px;padding:0 16px;}
+nav.is-scrolled .nav-logo-img{height:26px;max-width:145px;}
+nav.is-scrolled .nav-links{gap:19px;}
+nav.is-scrolled .nav-links a{font-size:10px;}
+nav .nav-cta{font-size:10px;padding:8px 18px;transition:padding .25s ease,font-size .25s ease,transform .2s ease,box-shadow .2s ease,filter .2s ease!important;}
+nav.is-scrolled .nav-cta{font-size:9px;padding:6px 14px;box-shadow:none!important;}
+.hero h1{text-shadow:0 4px 16px rgba(46,115,112,.32),0 1px 3px rgba(255,255,255,.55);}
+.hero h1 em{color:#2E7370;text-shadow:0 4px 14px rgba(46,115,112,.42);}
+.hero-left > p:first-child{color:#4C8751!important;}
+.hstat{border-left-color:#A8D156;}
+.hstat-v span{color:#A8D156;}
+.sec-tag{color:#A8D156!important;}
+.lamp-title-wrap .lamp-core{background:rgba(234,102,33,.42);}
+.lamp-title-wrap .lamp-line{background:rgba(234,102,33,.9);box-shadow:0 0 12px 2px rgba(234,102,33,.48);}
+.sede-card{background:var(--sage-dark);border-radius:1.4rem;}
+footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
+.footer-logo-mark{background:var(--sage);}
+.footer-slogan{color:#A8D156;}
+.footer-tag{background:rgba(168,209,86,.16);color:#A8D156;}
+.reveal{transform:translateY(44px) scale(.985);transition:opacity 750ms cubic-bezier(.2,.75,.25,1),transform 750ms cubic-bezier(.2,.75,.25,1);}
+@media(max-width:900px){
+  nav{width:calc(100% - 24px);}
+  nav.is-scrolled{width:calc(100% - 32px);}
+  section{border-radius:1.5rem;}
+  .hero{border-radius:1.8rem;}
+  .hero-in{padding:72px 28px 56px;}
+  .hero-in #hf-step1 > div:first-child,.hero-in #hf-step2 > div:first-child{grid-template-columns:1fr;}
+  .hero-in #hf-step2 > div:first-child > div,.hero-in #hf-step2 > div:first-child > div > div{display:block;}
+  .nav-links{display:none;}
+}
+@media(max-width:560px){
+  section{margin-left:.75rem;margin-right:.75rem;border-radius:1.35rem;}
+  .hero{min-height:calc(100vh - 1.5rem);border-radius:1.5rem;}
+  footer{margin-left:.75rem;margin-right:.75rem;border-radius:1.35rem 1.35rem 0 0;}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important;}
+  .reveal{opacity:1;transform:none;}
+}
+.offer-card,.offer-card.featured{background:var(--green-dk)!important;border-color:var(--green-dk)!important;}
+.offer-card h3,.offer-card p,.offer-list li{color:rgba(255,255,255,.9)!important;}
+.offer-card .offer-price{color:var(--green-lt)!important;}
+.offer-card .offer-list li::before{color:var(--green-lt)!important;}
+.offer-card .offer-btn,.offer-card.featured .offer-btn{background:var(--green-lt)!important;color:var(--ink)!important;border-color:var(--green-lt)!important;}
+.dif-icon{display:none;}
+.stats-marquee{background:var(--green-dk);border:1px solid rgba(117,214,156,.38);padding:0;}
+.stats-marquee-viewport{overflow:hidden;padding:20px 0;}
+.stats-marquee-track{display:flex;width:max-content;animation:stats-marquee-scroll 32s linear infinite;will-change:transform;}
+.stats-marquee-group{display:flex;align-items:center;flex-shrink:0;}
+.stats-marquee-item{display:flex;align-items:baseline;gap:12px;padding:0 54px;white-space:nowrap;}
+.stats-marquee-value{font-family:var(--font);font-size:clamp(24px,3vw,36px);font-weight:800;line-height:1;color:var(--green-lt);}
+.stats-marquee-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.82);}
+.stats-marquee-separator{width:5px;height:5px;border-radius:50%;background:var(--orange);flex:0 0 auto;}
+.stats-marquee:hover .stats-marquee-track{animation-play-state:paused;}
+@keyframes stats-marquee-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@media(max-width:560px){
+  .stats-marquee-viewport{padding:16px 0;}
+  .stats-marquee-item{gap:8px;padding:0 30px;}
+  .stats-marquee-label{font-size:9px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav>
+  <div class="nav-in">
+    <div class="nav-logo">
+      <img class="nav-logo-img" src="https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/logo_caresystems.png" alt="CARE SYSTEMS BIO ENZYMES">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#historia">História</a></li>
+      <li><a href="#produtos">Produtos</a></li>
+      <li><a href="#linhas">Linhas</a></li>
+      <li><a href="#oferta">Parceria</a></li>
+      <li><a href="#distribuidores">Distribuidores</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#cadastro" class="nav-cta">Quero distribuir</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-in">
+    <div class="hero-left">
+      <p style="font-size:12px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;">17 anos de inovação enzimática brasileira</p>
+      <div class="lamp-title-wrap" data-lamp>
+        <div class="lamp-visual" aria-hidden="true">
+          <div class="lamp-beam lamp-beam-left"></div>
+          <div class="lamp-beam lamp-beam-right"></div>
+          <div class="lamp-core"></div>
+          <div class="lamp-line"></div>
+        </div>
+        <h1>Porque Cuidar<br>é <em>Revolucionar.</em></h1>
+      </div>
+      <p class="hero-sub">A Care Systems Bio Enzymes protege profissionais e ambientes com a força das enzimas - soluções 100% brasileiras, biodegradáveis e com tecnologia de ponta.</p>
+    </div>
+    <!-- BOX CADASTRO HERO -->
+    <div style="background:#fff;border:1px solid rgba(58,183,149,.25);border-radius:20px;overflow:hidden;">
+      <div style="background:var(--green-lt);padding:16px 24px;">
+        <p style="font-size:11px;font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:.12em;margin:0;">Quero ser distribuidor</p>
+      </div>
+      <div style="background:#f0f0f0;height:3px;">
+        <div id="h-prog-bar" style="height:3px;background:linear-gradient(90deg,var(--green-lt),var(--orange));border-radius:2px;transition:width .4s;width:33%;"></div>
+      </div>
+      <div style="padding:24px;background:#fff;">
+        <div id="h-step-label" style="font-size:10px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px;">Etapa 1 de 3</div>
+        <h3 id="h-step-title" style="font-size:16px;font-weight:800;color:var(--white);margin-bottom:18px;">Seus dados de contato</h3>
+
+        <!-- HERO ETAPA 1 -->
+        <div id="hf-step1">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <input id="hf-nome" type="text" placeholder="Nome completo *"
+              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
+              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'"
+              oninput="this.style.color='var(--white)'" >
+            <input id="hf-wapp" type="tel" placeholder="WhatsApp *"
+              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
+              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
+            <input id="hf-email" type="email" placeholder="E-mail"
+              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
+              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
+          </div>
+          <button class="cta-button" onclick="hNextStep(2)" style="width:100%;margin-top:14px;background:var(--orange);color:#fff;font-family:var(--font);font-size:12px;font-weight:800;padding:13px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;">Continuar →</button>
+        </div>
+
+        <!-- HERO ETAPA 2 -->
+        <div id="hf-step2" style="display:none;">
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <input id="hf-empresa" type="text" placeholder="Nome da empresa *"
+              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
+              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
+            <input id="hf-cnpj" type="text" placeholder="CNPJ *"
+              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
+              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
+            <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;">
+              <input id="hf-cidade" type="text" placeholder="Cidade *"
+                style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
+                onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
+              <select id="hf-estado" style="width:100%;font-family:var(--font);font-size:13px;padding:11px 10px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(0,69,60,.8);color:var(--white);outline:none;">
+                <option value="">UF</option>
+                <option>PR</option><option>SP</option><option>SC</option><option>RS</option>
+                <option>MG</option><option>RJ</option><option>GO</option><option>MS</option><option>Outro</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <button onclick="hNextStep(1)" style="flex:0 0 auto;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:var(--font);font-size:12px;font-weight:700;padding:13px 16px;border:1px solid rgba(255,255,255,.2);border-radius:10px;cursor:pointer;">←</button>
+            <button class="cta-button" onclick="hNextStep(3)" style="flex:1;background:var(--orange);color:#fff;font-family:var(--font);font-size:12px;font-weight:800;padding:13px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;">Continuar →</button>
+          </div>
+        </div>
+
+        <!-- HERO ETAPA 3 -->
+        <div id="hf-step3" style="display:none;">
+          <div style="background:rgba(58,183,149,.1);border:1px solid rgba(58,183,149,.25);border-radius:10px;padding:14px;margin-bottom:12px;">
+            <p style="font-size:10px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Confirme</p>
+            <div id="hf-resumo" style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.9;"></div>
+          </div>
+          <select id="hf-interesse" style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(0,69,60,.8);color:var(--white);outline:none;margin-bottom:12px;">
+            <option>LIPAX ENZYME - instrumentais</option>
+            <option>LIPAX CLEAN - cuspideiras</option>
+            <option>Ambos os produtos</option>
+          </select>
+          <div style="display:flex;gap:8px;">
+            <button onclick="hNextStep(2)" style="flex:0 0 auto;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:var(--font);font-size:12px;font-weight:700;padding:13px 16px;border:1px solid rgba(255,255,255,.2);border-radius:10px;cursor:pointer;">←</button>
+            <button id="hf-submit" class="cta-button" onclick="hSubmitForm()" style="flex:1;background:var(--orange);color:#fff;font-family:var(--font);font-size:12px;font-weight:800;padding:13px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;">Enviar solicitação</button>
+          </div>
+        </div>
+
+        <!-- HERO SUCESSO -->
+        <div id="hf-success" style="display:none;text-align:center;padding:16px 0;">
+          <div style="font-size:40px;margin-bottom:10px;"></div>
+          <h3 style="font-size:17px;font-weight:900;color:var(--green-lt);margin-bottom:6px;">Solicitação enviada!</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;">Nossa equipe entrará em contato<br>via WhatsApp em até <strong style="color:var(--white);">24 horas</strong>.</p>
+        </div>
+
+        <p style="font-size:10px;color:rgba(255,255,255,.4);text-align:center;margin-top:14px;">Dados confidenciais · não compartilhados com terceiros</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ VÍDEO ═══════════════════════ -->
+<section class="stats-marquee" aria-label="Indicadores Care Systems">
+  <div class="stats-marquee-viewport">
+    <div class="stats-marquee-track">
+      <div class="stats-marquee-group">
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">17+</strong><span class="stats-marquee-label">Anos de mercado</span></div>
+        <span class="stats-marquee-separator" aria-hidden="true"></span>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">50+</strong><span class="stats-marquee-label">Produtos desenvolvidos</span></div>
+        <span class="stats-marquee-separator" aria-hidden="true"></span>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">4</strong><span class="stats-marquee-label">Linhas de produto</span></div>
+        <span class="stats-marquee-separator" aria-hidden="true"></span>
+      </div>
+      <div class="stats-marquee-group" aria-hidden="true">
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">17+</strong><span class="stats-marquee-label">Anos de mercado</span></div>
+        <span class="stats-marquee-separator"></span>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">50+</strong><span class="stats-marquee-label">Produtos desenvolvidos</span></div>
+        <span class="stats-marquee-separator"></span>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">4</strong><span class="stats-marquee-label">Linhas de produto</span></div>
+        <span class="stats-marquee-separator"></span>
+      </div>
+      <div class="stats-marquee-group" aria-hidden="true">
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">17+</strong><span class="stats-marquee-label">Anos de mercado</span></div>
+        <span class="stats-marquee-separator"></span>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">50+</strong><span class="stats-marquee-label">Produtos desenvolvidos</span></div>
+        <span class="stats-marquee-separator"></span>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">4</strong><span class="stats-marquee-label">Linhas de produto</span></div>
+        <span class="stats-marquee-separator"></span>
+      </div>
+      <div class="stats-marquee-group" aria-hidden="true">
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">17+</strong><span class="stats-marquee-label">Anos de mercado</span></div>
+        <span class="stats-marquee-separator"></span>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">50+</strong><span class="stats-marquee-label">Produtos desenvolvidos</span></div>
+        <span class="stats-marquee-separator"></span>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">4</strong><span class="stats-marquee-label">Linhas de produto</span></div>
+        <span class="stats-marquee-separator"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="video-sec" id="video">
+  <div class="dotted-surface" aria-hidden="true"></div>
+  <div class="video-in">
+    <span class="sec-tag">Veja na prática</span>
+    <h2>Tecnologia enzimática que transforma o cuidado com pessoas e ambientes</h2>
+    <p>Conheça a Care Systems, nossa história e como nossas soluções estão mudando padrões de higienização no Brasil.</p>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/uGEPafy6jXM" title="Vídeo institucional Care Systems Bio Enzymes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+    </div>
+    <p class="video-label">▶ Vídeo institucional Care Systems Bio Enzymes</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════ HISTÓRIA ═══════════════════════ -->
+<section class="historia" id="historia">
+  <div class="sec-in">
+    <div class="historia-grid">
+      <div class="historia-img">
+        <!-- [IMAGEM HISTÓRIA] Substituir por:
+             <img src="assets/sede-ou-equipe.jpg" alt="Equipe Care Systems"
+                  style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+             Sugestão: foto da sede em São João da Boa Vista, fundador ou equipe em laboratório -->
+        <div class="img-placeholder">
+          <svg width="56" height="56" fill="none" viewBox="0 0 64 64"><circle cx="32" cy="22" r="10" stroke="#A8D156" stroke-width="2"/><path d="M10 54c0-12.15 9.85-22 22-22s22 9.85 22 22" stroke="#A8D156" stroke-width="2" stroke-linecap="round"/></svg>
+          <p>Foto da equipe<br>ou sede da empresa</p>
+        </div>
+        <div class="historia-badge">
+          <div class="historia-badge-icon">🏆</div>
+          <div class="historia-badge-text">
+            <strong>Pioneiros em enzimas no Brasil</strong>
+            <span>Do invólucro à formulação, tecnologia 100% nacional</span>
+          </div>
+        </div>
+      </div>
+      <div class="historia-content">
+        <span class="sec-tag">Nossa História</span>
+        <h2>17 anos transformando o cuidado com <strong>tecnologia enzimática brasileira</strong></h2>
+        <p>A Care Systems nasceu da distribuição de biocidas sanitizantes para a agroindústria, desenvolvidos em parceria com a <strong>Universidade Federal de Lavras (UFLA)</strong> - onde ficou incubada por anos. Hoje, é reconhecida como a primeira empresa fornecedora de insumos inovadores do país, com bioprotetores e biofiltros para águas residuais.</p>
+        <p>Com mais de 50 produtos desenvolvidos e parcerias ativas com <strong>UFLA</strong> e <strong>ESALQ/USP</strong>, garantimos um fundo de investimento em pesquisa e formação dos melhores talentos do setor.</p>
+        <div class="historia-pilares">
+          <div class="pilar">
+            <div class="pilar-label">Missão</div>
+            <div class="pilar-text">Proteger profissionais e ambientes com sanitizantes enzimáticos seguros e sustentáveis.</div>
+          </div>
+          <div class="pilar">
+            <div class="pilar-label">Visão</div>
+            <div class="pilar-text">Ser referência nacional em soluções enzimáticas para agro, sanitário e cuidado.</div>
+          </div>
+          <div class="pilar">
+            <div class="pilar-label">Valores</div>
+            <div class="pilar-text">Sustentabilidade · Inovação · Eficiência · Segurança · Responsabilidade social</div>
+          </div>
+          <div class="pilar">
+            <div class="pilar-label">Diferenciais</div>
+            <div class="pilar-text">Formulação desde a base, tecnologia própria, zero comparação com químicos.</div>
+          </div>
+        </div>
+        <div class="parceiros">
+          <span style="font-size:12px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;">Parceiros acadêmicos:</span>
+          <span class="parceiro-tag">UFLA</span>
+          <span class="parceiro-tag">ESALQ / USP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ NÚMEROS ═══════════════════════ -->
+<section class="numeros">
+  <div class="sec-in">
+    <div class="numeros-grid">
+      <div class="num-card">
+        <div class="num-v">17<span>+</span></div>
+        <div class="num-l">Anos de mercado</div>
+      </div>
+      <div class="num-card">
+        <div class="num-v">50<span>+</span></div>
+        <div class="num-l">Produtos desenvolvidos</div>
+      </div>
+      <div class="num-card">
+        <div class="num-v">4</div>
+        <div class="num-l">Linhas de produto</div>
+      </div>
+      <div class="num-card">
+        <div class="num-v">2</div>
+        <div class="num-l">Universidades parceiras</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ PRODUTOS DESTAQUE ═══════════════════════ -->
+<section class="produtos" id="produtos">
+  <div class="sec-in">
+    <div class="produtos-header">
+      <span class="sec-tag">Linha Dental Med · Destaque</span>
+      <h2>Dois produtos. Um protocolo completo de higienização.</h2>
+    </div>
+    <div class="produto-cards">
+
+      <!-- LIPAX ENZYME -->
+      <div class="prod-card card-enzyme">
+        <div class="prod-card-header">
+          <span class="prod-tag">Detergente Multienzimático</span>
+          <span style="font-size:11px;font-weight:700;color:rgba(0,124,140,.6);text-transform:uppercase;letter-spacing:.06em;">Linha Dental Med</span>
+        </div>
+        <div class="prod-card-img">
+          <img src="https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/L-PAX%20ENZYME.png" alt="LIPAX ENZYME">
+        </div>
+        <div class="prod-card-body">
+          <div class="prod-name" style="color:#005F6E;">LIPAX ENZYME</div>
+          <div class="prod-sub">Higienização de Instrumentos</div>
+          <div class="prod-desc">Detergente multienzimático concentrado para limpeza de instrumentais odontológicos, médicos e hospitalares. pH neutro - não corrói, não mancha, não danifica.</div>
+          <div class="prod-enzimas">
+            <span class="prod-enzima-tag">Lipase</span>
+            <span class="prod-enzima-tag">Protease</span>
+            <span class="prod-enzima-tag">Carboidrase</span>
+          </div>
+          <div class="prod-specs">
+            <div class="prod-spec">
+              <div class="prod-spec-k">Diluição</div>
+              <div class="prod-spec-v">0,2-0,5%</div>
+            </div>
+            <div class="prod-spec">
+              <div class="prod-spec-k">Imersão</div>
+              <div class="prod-spec-v">10 minutos</div>
+            </div>
+            <div class="prod-spec">
+              <div class="prod-spec-k">pH</div>
+              <div class="prod-spec-v">6,91 ± 0,02</div>
+            </div>
+            <div class="prod-spec">
+              <div class="prod-spec-k">Validade</div>
+              <div class="prod-spec-v">18 meses</div>
+            </div>
+          </div>
+          <a href="#cadastro" class="prod-btn">Solicitar informações</a>
+        </div>
+      </div>
+
+      <!-- LIPAX CLEAN -->
+      <div class="prod-card card-clean">
+        <div class="prod-card-header">
+          <span class="prod-tag">Detergente Multienzimático</span>
+          <span style="font-size:11px;font-weight:700;color:rgba(107,36,132,.6);text-transform:uppercase;letter-spacing:.06em;">Linha Dental Med</span>
+        </div>
+        <div class="prod-card-img">
+          <img src="https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/L-PAX%20CLEAN.png" alt="LIPAX CLEAN">
+        </div>
+        <div class="prod-card-body">
+          <div class="prod-name" style="color:#4A1860;">LIPAX CLEAN</div>
+          <div class="prod-sub">Manutenção de Cuspideiras · Fragrância Camomila</div>
+          <div class="prod-desc">Alta concentração enzimática para limpeza e remoção de incrustações em cuspideiras, pias e tubulações de consultórios. Previne entupimentos, mau odor e fermentações.</div>
+          <div class="prod-enzimas">
+            <span class="prod-enzima-tag">Lipase</span>
+            <span class="prod-enzima-tag">Protease</span>
+            <span class="prod-enzima-tag">Carboidrase</span>
+            <span class="prod-enzima-tag">Xilanase</span>
+          </div>
+          <div class="prod-specs">
+            <div class="prod-spec">
+              <div class="prod-spec-k">Diluição</div>
+              <div class="prod-spec-v">10% (1:10)</div>
+            </div>
+            <div class="prod-spec">
+              <div class="prod-spec-k">Aplicação</div>
+              <div class="prod-spec-v">Final do turno</div>
+            </div>
+            <div class="prod-spec">
+              <div class="prod-spec-k">pH</div>
+              <div class="prod-spec-v">6,0 - 8,0</div>
+            </div>
+            <div class="prod-spec">
+              <div class="prod-spec-k">Validade</div>
+              <div class="prod-spec-v">18 meses</div>
+            </div>
+          </div>
+          <a href="#cadastro" class="prod-btn">Solicitar informações</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DIFERENCIAIS ═══════════════════════ -->
+<section class="diferenciais" id="diferenciais">
+  <div class="sec-in">
+    <div class="dif-header">
+      <span class="sec-tag">Por que Care Systems</span>
+      <h2>Gatilhos que provam a diferença enzimática</h2>
+    </div>
+    <div class="dif-grid">
+      <div class="dif-card">
+        <div class="dif-icon"></div>
+        <!-- [ÍCONE] Substituir emoji por ícone SVG de microscópio ou molécula -->
+        <div class="dif-title">Tecnologia Enzimática Real</div>
+        <div class="dif-text">Formulação com atividade enzimática comprovada em laudo técnico. Enzimas desenvolvidas desde a base - do invólucro à formulação.</div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"></div>
+        <!-- [ÍCONE] Substituir por ícone SVG de folha/sustentabilidade -->
+        <div class="dif-title">Biodegradável e Sustentável</div>
+        <div class="dif-text">Atende à agenda ESDG. Produtos ambientalmente corretos, sem geração de resíduos tóxicos. Atende à agenda ESDG.</div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"></div>
+        <!-- [ÍCONE] Substituir por ícone SVG de escudo -->
+        <div class="dif-title">Seguro sem EPI obrigatório</div>
+        <div class="dif-text">Não corrosivo, não contaminante, não classificado como desinfetante. Manuseio seguro sem necessidade de equipamento de proteção individual.</div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"></div>
+        <!-- [ÍCONE] Substituir por ícone SVG de resultado/relâmpago -->
+        <div class="dif-title">Eliminação de Odores Imediata</div>
+        <div class="dif-text">A hidrólise enzimática elimina a fonte do odor - não apenas mascara. Resultados duradouros com uso regular preventivo.</div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"></div>
+        <!-- [ÍCONE] Substituir por ícone SVG de made in Brazil ou bandeira -->
+        <div class="dif-title">100% Brasileira</div>
+        <div class="dif-text">Empresa nacional com parceria com UFLA e ESALQ/USP. Tecnologia própria, procedência garantida e compromisso com inovação nacional.</div>
+      </div>
+      <div class="dif-card">
+        <div class="dif-icon"></div>
+        <!-- [ÍCONE] Substituir por ícone SVG de certificado/ANVISA -->
+        <div class="dif-title">ANVISA Regularizado</div>
+        <div class="dif-text">Produtos notificados (nº 361320051) e fabricados conforme RDC 59/2010 e RDC 703/2022. Conformidade total com as normas sanitárias brasileiras.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ LINHAS ═══════════════════════ -->
+<section class="linhas" id="linhas">
+  <div class="sec-in">
+    <div class="linhas-header">
+      <span class="sec-tag">Linha Dental Med</span>
+      <h2>As enzimas certas para cada etapa da higienização</h2>
+    </div>
+    <!-- 2 cards grandes, destaque total nos produtos LIPAX -->
+    <div class="linhas-feature-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1;">
+      <div class="linha-card linha-dental" style="padding:32px 28px;">
+        <span class="linha-pill" style="font-size:11px;padding:6px 16px;margin-bottom:18px;">LIPAX ENZYME</span>
+        <h3 style="font-size:20px;margin-bottom:10px;">Higienização de Instrumentais</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:18px;">Detergente multienzimático concentrado para limpeza de instrumentais odontológicos, médicos e hospitalares. pH neutro - não corrói, não mancha.</p>
+        <ul class="linha-produtos">
+          <li>3 enzimas: Lipase · Protease · Carboidrase</li>
+          <li>Diluição 0,2-0,5% · Imersão 10 min</li>
+          <li>Manual e lavadoras ultrassônicas</li>
+          <li>Embalagens: 500 mL · 1 L · 5 L</li>
+        </ul>
+      </div>
+      <div class="linha-card linha-dental" style="padding:32px 28px;border-color:rgba(192,128,224,.4);">
+        <span class="linha-pill" style="font-size:11px;padding:6px 16px;margin-bottom:18px;">LIPAX CLEAN</span>
+        <h3 style="font-size:20px;margin-bottom:10px;">Manutenção de Cuspideiras</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:18px;">Alta concentração enzimática para remoção de incrustações em cuspideiras, pias e tubulações. Fragrância camomila. Previne entupimentos e mau odor.</p>
+        <ul class="linha-produtos">
+          <li>4 enzimas: Lipase · Protease · Carboidrase · Xilanase</li>
+          <li>Diluição 10% · Aplicar ao final do turno</li>
+          <li>Uso regular para resultados prolongados</li>
+          <li>Embalagens: 500 mL · 1 L · 5 L</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:36px;position:relative;z-index:1;">
+      <a href="#cadastro" class="btn-primary" style="background:var(--green-lt);color:var(--white);">Quero ser distribuidor</a>
+    </div>
+  </div>
+</section>
+
+<section class="offer" id="oferta">
+  <div class="sec-in">
+    <div class="offer-header reveal">
+      <span class="sec-tag" style="color:var(--orange);">Escolha seu próximo passo</span>
+      <h2>Uma parceria pensada para crescer junto com sua região.</h2>
+      <p>Você entra com o relacionamento local. A Care Systems entrega produto, tecnologia e suporte para transformar interesse em recorrência.</p>
+    </div>
+    <div class="offer-grid">
+      <article class="offer-card reveal"><h3>Conhecer a linha</h3><p>Para profissionais e empresas que querem entender onde a tecnologia enzimática se encaixa.</p><div class="offer-price">Materiais técnicos</div><ul class="offer-list"><li>Apresentação dos produtos</li><li>Fichas técnicas e aplicações</li><li>Orientação inicial da equipe</li></ul><a class="offer-btn" href="#produtos">Ver produtos</a></article>
+      <article class="offer-card reveal"><h3>Ser distribuidor</h3><p>Para quem quer representar a Care Systems e desenvolver uma carteira regional.</p><div class="offer-price">Condições personalizadas</div><ul class="offer-list"><li>Suporte comercial e técnico</li><li>Portfólio com demanda recorrente</li><li>Atendimento direto da fábrica</li></ul><a class="offer-btn" href="#cadastro">Quero ser distribuidor</a></article>
+      <article class="offer-card reveal"><h3>Expandir a operação</h3><p>Para distribuidores que querem ampliar mix, cobertura e presença no mercado de saúde.</p><div class="offer-price">Fale com nossa equipe</div><ul class="offer-list"><li>Mapeamento de oportunidade</li><li>Novas linhas e aplicações</li><li>Plano de expansão regional</li></ul><a class="offer-btn" href="#cadastro">Conversar com a equipe</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="sec-in">
+    <div class="faq-grid">
+      <div class="faq-intro reveal"><span class="sec-tag" style="color:var(--orange);">Dúvidas frequentes</span><h2>Pronto para começar uma parceria mais limpa?</h2><p>Reunimos as respostas que ajudam a avaliar se a distribuição Care Systems faz sentido para o seu negócio.</p></div>
+      <div class="faq-list reveal">
+        <div class="faq-item open"><button class="faq-question" type="button"><span>Quem pode ser distribuidor?</span><span>+</span></button><div class="faq-answer"><div><p>Empresas e profissionais com atuação comercial no segmento odontológico, médico, hospitalar, agro ou de higiene profissional podem conversar com nossa equipe.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button"><span>Quais produtos posso distribuir?</span><span>+</span></button><div class="faq-answer"><div><p>O destaque atual é a linha Dental Med, com LIPAX ENZYME para instrumentais e LIPAX CLEAN para cuspideiras e tubulações. Também existem outras linhas profissionais.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button"><span>A Care Systems oferece suporte?</span><span>+</span></button><div class="faq-answer"><div><p>Sim. A parceria inclui orientação técnica e comercial, materiais de apoio e contato direto com a equipe para desenvolver sua região.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button"><span>Como recebo as condições comerciais?</span><span>+</span></button><div class="faq-answer"><div><p>Preencha o cadastro com seus dados e a equipe analisará seu perfil e sua região para retornar com as condições adequadas ao seu cenário.</p></div></div></div>
+        <div class="faq-item"><button class="faq-question" type="button"><span>Em quanto tempo terei retorno?</span><span>+</span></button><div class="faq-answer"><div><p>O compromisso informado pela Care Systems é de retorno da equipe comercial em até 24 horas.</p></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ DISTRIBUIDORES + MAPA ═══════════════════════ -->
+<section class="distribuidores" id="distribuidores">
+  <div class="sec-in">
+    <div class="distrib-header">
+      <span class="sec-tag">Parceiros oficiais</span>
+      <h2>Distribuidores Care Systems no Paraná</h2>
+      <p>Parceiros selecionados que levam a tecnologia enzimática LIPAX até os profissionais de saúde.</p>
+    </div>
+    <div class="distrib-layout">
+
+      <!-- Lista -->
+      <div>
+        <div class="distrib-list">
+          <div class="distrib-item sede">
+            <div class="distrib-dot laranja"></div>
+            <div class="distrib-info">
+              <div class="distrib-nome">Care Systems Bio Enzymes - Sede</div>
+              <div class="distrib-cidade">São João da Boa Vista, SP</div>
+            </div>
+          </div>
+          <div class="distrib-item">
+            <div class="distrib-dot verde"></div>
+            <div class="distrib-info">
+              <div class="distrib-nome">Dental Ice</div>
+              <div class="distrib-cidade">Apucarana, PR</div>
+            </div>
+          </div>
+          <div class="distrib-item">
+            <div class="distrib-dot verde"></div>
+            <div class="distrib-info">
+              <div class="distrib-nome">Dental Classe A</div>
+              <div class="distrib-cidade">Londrina, PR</div>
+            </div>
+          </div>
+          <div class="distrib-item">
+            <div class="distrib-dot verde"></div>
+            <div class="distrib-info">
+              <div class="distrib-nome">Dental Odonthomaz</div>
+              <div class="distrib-cidade">Londrina, PR</div>
+            </div>
+          </div>
+          <div class="distrib-item">
+            <div class="distrib-dot verde"></div>
+            <div class="distrib-info">
+              <div class="distrib-nome">Dental Odonthomaz</div>
+              <div class="distrib-cidade">Guarapuava, PR</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sede-card" style="margin-top:20px;">
+          <div class="sede-card-icon"></div>
+          <div>
+            <h4>Sede Care Systems Bio Enzymes</h4>
+            <p>Av. Dr. Durval Nicolau, 2353 - Bairro Alegre<br>São João da Boa Vista, SP - CEP 13874-788<br>caresystems@caresystems.com.br · marcio@caresystems.com.br</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mapa SVG interativo SP + PR com pins -->
+      <div class="mapa-wrapper" style="background:#E8F5F2;padding:0;">
+        <div class="mapa-label">Rede de Distribuidores - SP e PR</div>
+        <div style="position:relative;width:100%;height:540px;overflow:hidden;">
+          <svg viewBox="274 370 220 170" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+               style="width:100%;height:100%;display:block;">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#C8E5DF" stroke-width="0.5"/>
+              </pattern>
+              <linearGradient id="sp-gradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#E7F9EC"/>
+                <stop offset="58%" stop-color="#AFE7BF"/>
+                <stop offset="100%" stop-color="#76CE96"/>
+              </linearGradient>
+              <linearGradient id="pr-gradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#DDF5E5"/>
+                <stop offset="60%" stop-color="#8FD9A8"/>
+                <stop offset="100%" stop-color="#62BE82"/>
+              </linearGradient>
+              <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#A8D156" flood-opacity=".28"/>
+              </filter>
+            </defs>
+            <rect width="680" height="540" fill="#E8F5F2"/>
+            <rect width="680" height="540" fill="url(#grid)" opacity=".75"/>
+
+            <!-- ESTADO DE SÃO PAULO -->
+            <path class="map-state-extrude sp-extrude" d="M 300 430 L 500 430 L 500 520 L 300 520 Z"/>
+            <path class="map-state map-state-face sp" fill="url(#sp-gradient)" d="M 300 430 L 500 430 L 500 520 L 300 520 Z"/>
+            <text x="135" y="108" class="map-territory-label">SÃO PAULO</text>
+            <text x="135" y="128" class="map-territory-sub">sede e origem</text>
+
+            <!-- ESTADO DO PARANÁ -->
+            <path class="map-state-extrude pr-extrude" d="M 300 500 L 500 500 L 500 575 L 300 575 Z"/>
+            <path class="map-state map-state-face pr" fill="url(#pr-gradient)" d="M 300 500 L 500 500 L 500 575 L 300 575 Z"/>
+            <text x="420" y="335" class="map-territory-label">PARANÁ</text>
+            <text x="420" y="355" class="map-territory-sub">rede ativa</text>
+
+            <!-- Linhas tracejadas da sede para cada distribuidor -->
+            <line class="map-connection" x1="205" y1="142" x2="450" y2="285"/>
+            <line class="map-connection" x1="205" y1="142" x2="490" y2="255"/>
+            <line class="map-connection" x1="205" y1="142" x2="395" y2="375"/>
+
+            <!-- SEDE: São João da Boa Vista, SP -->
+            <g class="map-pin-group" onmouseenter="showMapTip(event,'Care Systems - Sede','São João da Boa Vista, SP')" onmouseleave="hideMapTip()">
+              <circle class="map-pin-pulse" cx="205" cy="142" r="18" stroke="#A8D156"/>
+              <circle class="map-pin-pulse" cx="205" cy="142" r="25" stroke="#A8D156"/>
+              <circle class="map-pin-core" cx="205" cy="142" r="9"/>
+              <circle class="map-pin-center" cx="205" cy="142" r="3.5"/>
+              <text x="245" y="128" class="map-pin-label">SEDE</text>
+              <text x="245" y="140" class="map-pin-sub">São João da Boa Vista</text>
+            </g>
+
+            <!-- Apucarana -->
+            <g class="map-pin-group" onmouseenter="showMapTip(event,'Dental Ice','Apucarana, PR')" onmouseleave="hideMapTip()">
+              <circle class="map-pin-pulse" cx="450" cy="285" r="16" stroke="#A8D156"/>
+              <circle class="map-pin-core" cx="450" cy="285" r="8"/>
+              <circle class="map-pin-center" cx="450" cy="285" r="3"/>
+              <text x="465" y="278" class="map-pin-label">Dental Ice</text>
+              <text x="465" y="289" class="map-pin-sub">Apucarana</text>
+            </g>
+
+            <!-- Londrina -->
+            <g class="map-pin-group" onmouseenter="showMapTip(event,'Dental Classe A · Dental Odonthomaz','Londrina, PR')" onmouseleave="hideMapTip()">
+              <circle class="map-pin-pulse" cx="490" cy="255" r="16" stroke="#A8D156"/>
+              <circle class="map-pin-core" cx="490" cy="255" r="8"/>
+              <circle class="map-pin-center" cx="490" cy="255" r="3"/>
+              <text x="505" y="248" class="map-pin-label">Classe A</text>
+              <text x="505" y="259" class="map-pin-sub">Londrina</text>
+            </g>
+
+            <!-- Guarapuava -->
+            <g class="map-pin-group" onmouseenter="showMapTip(event,'Dental Odonthomaz','Guarapuava, PR')" onmouseleave="hideMapTip()">
+              <circle class="map-pin-pulse" cx="395" cy="375" r="16" stroke="#A8D156"/>
+              <circle class="map-pin-core" cx="395" cy="375" r="8"/>
+              <circle class="map-pin-center" cx="395" cy="375" r="3"/>
+              <text x="410" y="368" class="map-pin-label">Odonthomaz</text>
+              <text x="410" y="379" class="map-pin-sub">Guarapuava</text>
+            </g>
+
+            <!-- Legenda -->
+            <rect x="22" y="458" width="220" height="66" rx="10" fill="white" opacity="0.92"/>
+            <circle cx="42" cy="477" r="7" fill="#A8D156"/>
+            <text x="56" y="481" font-family="Gotham,Arial,sans-serif" font-size="11" font-weight="700" fill="#2E7370">Centro logístico</text>
+            <circle cx="42" cy="498" r="7" fill="#A8D156"/>
+            <text x="56" y="502" font-family="Gotham,Arial,sans-serif" font-size="11" font-weight="700" fill="#2E7370">Distribuidor parceiro</text>
+            <text x="22" y="518" font-family="Gotham,Arial,sans-serif" font-size="9" fill="#4C8751">Rede São Paulo · Paraná</text>
+          </svg>
+
+          <!-- Tooltip -->
+          <div id="map-tip" style="position:absolute;background:#2E7370;color:#fff;font-family:var(--font);font-size:12px;padding:10px 14px;border-radius:10px;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.35);z-index:10;">
+            <strong id="map-tip-nome" style="display:block;margin-bottom:2px;"></strong>
+            <span id="map-tip-cidade" style="color:rgba(255,255,255,.65);font-size:11px;"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CADASTRO ═══════════════════════ -->
+<section id="cadastro" style="background:var(--green-dk);padding:96px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%233AB795' stroke-width='0.6' opacity='0.1'/%3E%3C/svg%3E&quot;);background-size:60px 52px;pointer-events:none;"></div>
+  <div class="sec-in" style="position:relative;z-index:1;">
+    <div class="cadastro-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+
+      <!-- LEFT: copy -->
+      <div>
+        <p style="font-size:11px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.14em;margin-bottom:14px;">Seja um distribuidor</p>
+        <h2 style="font-size:clamp(28px,3.5vw,46px);font-weight:900;color:var(--white);line-height:1.08;letter-spacing:-.02em;margin-bottom:18px;">Porque Cuidar<br>é <span style="color:var(--green-lt);">Revolucionar!</span></h2>
+        <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:28px;">Leve a tecnologia enzimática da Care Systems para sua região. Entre em contato com nossa equipe e descubra como distribuir os produtos LIPAX ENZYME e LIPAX CLEAN.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(58,183,149,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✓</div>
+            <span style="font-size:13px;color:rgba(255,255,255,.75);">Retorno da equipe comercial em até 24h</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(58,183,149,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✓</div>
+            <span style="font-size:13px;color:rgba(255,255,255,.75);">Produtos com ANVISA · pH neutro · biodegradáveis</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(58,183,149,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✓</div>
+            <span style="font-size:13px;color:rgba(255,255,255,.75);">Suporte técnico e comercial completo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: formulário de cadastro 3 etapas -->
+      <div>
+        <div style="background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.3);">
+          <!-- progress bar -->
+          <div style="background:#f0f0f0;height:4px;">
+            <div id="prog-bar" style="height:4px;background:linear-gradient(90deg,var(--green-lt),var(--orange));border-radius:2px;transition:width .4s;width:33%;"></div>
+          </div>
+          <div style="padding:32px 32px 28px;">
+            <div id="step-label" style="font-size:10px;font-weight:700;color:var(--green-mid);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px;">Etapa 1 de 3</div>
+            <h3 id="step-title" style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:22px;">Seus dados de contato</h3>
+
+            <!-- ETAPA 1 -->
+            <div id="f-step1">
+              <div style="display:flex;flex-direction:column;gap:14px;">
+                <div>
+                  <label style="font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;">Nome completo *</label>
+                  <input id="f-nome" type="text" placeholder="Seu nome" required
+                    style="width:100%;font-family:var(--font);font-size:14px;padding:12px 16px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);outline:none;transition:border-color .2s;"
+                    onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='var(--line)'">
+                </div>
+                <div>
+                  <label style="font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;">WhatsApp *</label>
+                  <input id="f-wapp" type="tel" placeholder="(00) 00000-0000" required
+                    style="width:100%;font-family:var(--font);font-size:14px;padding:12px 16px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);outline:none;transition:border-color .2s;"
+                    onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='var(--line)'">
+                </div>
+                <div>
+                  <label style="font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;">E-mail</label>
+                  <input id="f-email" type="email" placeholder="seuemail@empresa.com"
+                    style="width:100%;font-family:var(--font);font-size:14px;padding:12px 16px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);outline:none;transition:border-color .2s;"
+                    onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='var(--line)'">
+                </div>
+              </div>
+              <button class="cta-button" onclick="nextStep(2)" style="width:100%;margin-top:20px;background:var(--green-mid);color:#fff;font-family:var(--font);font-size:13px;font-weight:800;padding:15px;border:none;border-radius:12px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;transition:background .2s;" onmouseover="this.style.background='var(--green-lt)'" onmouseout="this.style.background='var(--green-mid)'">Continuar →</button>
+            </div>
+
+            <!-- ETAPA 2 -->
+            <div id="f-step2" style="display:none;">
+              <div style="display:flex;flex-direction:column;gap:14px;">
+                <div>
+                  <label style="font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;">Nome da empresa *</label>
+                  <input id="f-empresa" type="text" placeholder="Razão social ou nome fantasia" required
+                    style="width:100%;font-family:var(--font);font-size:14px;padding:12px 16px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);outline:none;transition:border-color .2s;"
+                    onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='var(--line)'">
+                </div>
+                <div>
+                  <label style="font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;">CNPJ *</label>
+                  <input id="f-cnpj" type="text" placeholder="00.000.000/0000-00" required
+                    style="width:100%;font-family:var(--font);font-size:14px;padding:12px 16px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);outline:none;transition:border-color .2s;"
+                    onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='var(--line)'">
+                </div>
+                <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+                  <div>
+                    <label style="font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;">Cidade *</label>
+                    <input id="f-cidade" type="text" placeholder="Sua cidade" required
+                      style="width:100%;font-family:var(--font);font-size:14px;padding:12px 16px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);outline:none;transition:border-color .2s;"
+                      onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='var(--line)'">
+                  </div>
+                  <div>
+                    <label style="font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;">Estado *</label>
+                    <select id="f-estado"
+                      style="width:100%;font-family:var(--font);font-size:14px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);outline:none;background:#fff;transition:border-color .2s;"
+                      onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='var(--line)'">
+                      <option value="">UF</option>
+                      <option>PR</option><option>SP</option><option>SC</option><option>RS</option>
+                      <option>MG</option><option>RJ</option><option>GO</option><option>MS</option>
+                      <option>MT</option><option>BA</option><option>PE</option><option>CE</option>
+                      <option>Outro</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;margin-top:20px;">
+                <button onclick="nextStep(1)" style="flex:0 0 auto;background:var(--off);color:var(--ink2);font-family:var(--font);font-size:13px;font-weight:700;padding:15px 20px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;transition:all .2s;">← Voltar</button>
+                <button class="cta-button" onclick="nextStep(3)" style="flex:1;background:var(--green-mid);color:#fff;font-family:var(--font);font-size:13px;font-weight:800;padding:15px;border:none;border-radius:12px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;transition:background .2s;" onmouseover="this.style.background='var(--green-lt)'" onmouseout="this.style.background='var(--green-mid)'">Continuar →</button>
+              </div>
+            </div>
+
+            <!-- ETAPA 3 -->
+            <div id="f-step3" style="display:none;">
+              <div style="background:var(--off);border-radius:12px;padding:18px;margin-bottom:18px;">
+                <p style="font-size:11px;font-weight:700;color:var(--green-mid);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Confirme seus dados</p>
+                <div id="f-resumo" style="font-size:13px;color:var(--ink2);line-height:1.9;"></div>
+              </div>
+              <div>
+                <label style="font-size:11px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:6px;">Interesse principal</label>
+                <select id="f-interesse"
+                  style="width:100%;font-family:var(--font);font-size:14px;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);outline:none;background:#fff;margin-bottom:14px;">
+                  <option>LIPAX ENZYME - instrumentais odontológicos</option>
+                  <option>LIPAX CLEAN - cuspideiras e tubulações</option>
+                  <option>Ambos os produtos</option>
+                  <option>Linha Profissional (ENZI POWER / ENZI FORCE)</option>
+                </select>
+              </div>
+              <div style="display:flex;gap:10px;">
+                <button onclick="nextStep(2)" style="flex:0 0 auto;background:var(--off);color:var(--ink2);font-family:var(--font);font-size:13px;font-weight:700;padding:15px 20px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;">← Voltar</button>
+                <button id="f-submit" class="cta-button" onclick="submitForm()" style="flex:1;background:var(--orange);color:#fff;font-family:var(--font);font-size:13px;font-weight:800;padding:15px;border:none;border-radius:12px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;transition:background .2s;">Enviar solicitação</button>
+              </div>
+            </div>
+
+            <!-- SUCESSO -->
+            <div id="f-success" style="display:none;text-align:center;padding:20px 0;">
+              <div style="font-size:48px;margin-bottom:14px;"></div>
+              <h3 style="font-size:20px;font-weight:900;color:var(--green-mid);margin-bottom:8px;">Solicitação enviada!</h3>
+              <p style="font-size:14px;color:var(--ink2);line-height:1.7;">Nossa equipe comercial entrará em contato via WhatsApp em até <strong>24 horas</strong>.</p>
+              <p style="font-size:12px;color:var(--ink3);margin-top:10px;">caresystems@caresystems.com.br</p>
+            </div>
+
+            <p style="font-size:11px;color:var(--ink3);text-align:center;margin-top:16px;">Seus dados são confidenciais e não compartilhados com terceiros.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ── HERO FORM (IDs hf-*) ── */
+function hNextStep(n) {
+  [1,2,3].forEach(function(i){document.getElementById('hf-step'+i).style.display='none';});
+  document.getElementById('hf-step'+n).style.display='block';
+  var labels = ['','Etapa 1 de 3','Etapa 2 de 3','Etapa 3 de 3'];
+  var titles = ['','Seus dados de contato','Dados da empresa','Revise e envie'];
+  var widths  = ['','33%','66%','100%'];
+  document.getElementById('h-step-label').textContent = labels[n];
+  document.getElementById('h-step-title').textContent = titles[n];
+  document.getElementById('h-prog-bar').style.width = widths[n];
+  if(n===3){
+    document.getElementById('hf-resumo').innerHTML =
+      '<strong>Nome:</strong> '+document.getElementById('hf-nome').value+'<br>'+
+      '<strong>WhatsApp:</strong> '+document.getElementById('hf-wapp').value+'<br>'+
+      '<strong>Empresa:</strong> '+document.getElementById('hf-empresa').value+'<br>'+
+      '<strong>CNPJ:</strong> '+document.getElementById('hf-cnpj').value+'<br>'+
+      '<strong>Cidade/UF:</strong> '+document.getElementById('hf-cidade').value+' - '+document.getElementById('hf-estado').value;
+  }
+}
+function hSubmitForm() {
+  var btn = document.getElementById('hf-submit');
+  btn.textContent = 'Enviando...'; btn.disabled = true;
+  setTimeout(function(){
+    [1,2,3].forEach(function(i){document.getElementById('hf-step'+i).style.display='none';});
+    document.getElementById('hf-success').style.display='block';
+    document.getElementById('h-prog-bar').style.width='100%';
+  },1500);
+}
+
+/* ── MAPA TOOLTIP ── */
+function showMapTip(e, nome, cidade, tipo) {
+  var tip = document.getElementById('map-tip');
+  document.getElementById('map-tip-nome').textContent = nome;
+  document.getElementById('map-tip-cidade').textContent = cidade;
+  tip.style.opacity = '1';
+  var wrap = tip.parentElement.getBoundingClientRect();
+  var mx = e.clientX - wrap.left + 12;
+  var my = e.clientY - wrap.top - 54;
+  tip.style.left = mx + 'px';
+  tip.style.top  = my + 'px';
+}
+function hideMapTip() {
+  document.getElementById('map-tip').style.opacity = '0';
+}
+
+/* ── MODAL FORM (IDs f-*) ── */
+function nextStep(n) {
+  [1,2,3].forEach(function(i){document.getElementById('f-step'+i).style.display='none';});
+  document.getElementById('f-step'+n).style.display='block';
+  var labels = ['','Etapa 1 de 3','Etapa 2 de 3','Etapa 3 de 3 - Confirmação'];
+  var titles = ['','Seus dados de contato','Dados da empresa','Revise e envie'];
+  var widths  = ['','33%','66%','100%'];
+  document.getElementById('step-label').textContent = labels[n];
+  document.getElementById('step-title').textContent = titles[n];
+  document.getElementById('prog-bar').style.width = widths[n];
+  if(n===3){
+    var r = document.getElementById('f-resumo');
+    r.innerHTML =
+      '<strong>Nome:</strong> '+document.getElementById('f-nome').value+'<br>'+
+      '<strong>WhatsApp:</strong> '+document.getElementById('f-wapp').value+'<br>'+
+      '<strong>Empresa:</strong> '+document.getElementById('f-empresa').value+'<br>'+
+      '<strong>CNPJ:</strong> '+document.getElementById('f-cnpj').value+'<br>'+
+      '<strong>Cidade/UF:</strong> '+document.getElementById('f-cidade').value+' - '+document.getElementById('f-estado').value;
+  }
+}
+function submitForm() {
+  var btn = document.getElementById('f-submit');
+  btn.textContent = 'Enviando...'; btn.disabled = true;
+  setTimeout(function(){
+    [1,2,3].forEach(function(i){document.getElementById('f-step'+i).style.display='none';});
+    document.getElementById('f-success').style.display='block';
+    document.getElementById('prog-bar').style.width='100%';
+  },1500);
+}
+var nav = document.querySelector('nav');
+function updateNavSize(){
+  if(nav) nav.classList.toggle('is-scrolled',window.scrollY>20);
+}
+window.addEventListener('scroll',updateNavSize,{passive:true});
+updateNavSize();
+document.querySelectorAll('.faq-question').forEach(function(button){
+  button.addEventListener('click',function(){button.closest('.faq-item').classList.toggle('open');});
+});
+var revealObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target);}
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(element){revealObserver.observe(element);});
+
+var lampWrap = document.querySelector('.lamp-title-wrap[data-lamp]');
+if(lampWrap){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    lampWrap.classList.add('is-visible','reduced-motion');
+  }else{
+    requestAnimationFrame(function(){lampWrap.classList.add('is-visible');});
+  }
+}
+</script>
+
+<!-- ═══════════════════════ RODAPÉ ═══════════════════════ -->
+<footer>
+  <div class="footer-in">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img class="footer-logo-img" src="https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/logo_caresystems.png" alt="CARE SYSTEMS BIO ENZYMES">
+        </div>
+        <div class="footer-slogan">"Porque Cuidar é Revolucionar!"</div>
+        <div class="footer-addr">
+          Av. Dr. Durval Nicolau, 2353 - Bairro Alegre<br>
+          São João da Boa Vista, SP · CEP 13874-788<br>
+          <a href="mailto:caresystems@caresystems.com.br" style="color:var(--green-lt);margin-top:8px;display:block;">caresystems@caresystems.com.br</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Linhas</h4>
+        <ul>
+          <li><a href="#linhas">Linha Agro</a></li>
+          <li><a href="#linhas">Linha Doméstica</a></li>
+          <li><a href="#linhas">Linha Profissional</a></li>
+          <li><a href="#linhas">Linha Dental Med</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Produtos</h4>
+        <ul>
+          <li><a href="#produtos">LIPAX ENZYME</a></li>
+          <li><a href="#produtos">LIPAX CLEAN</a></li>
+          <li><a href="#linhas">Enzi Power</a></li>
+          <li><a href="#linhas">Enzi Force</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#historia">Nossa História</a></li>
+          <li><a href="#distribuidores">Distribuidores</a></li>
+          <li><a href="https://caresystems.com.br" target="_blank">Site Oficial</a></li>
+          <li><a href="mailto:caresystems@caresystems.com.br">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Care Systems Bio Enzymes Ltda · CNPJ: 11.482.743/0002-42 · Todos os direitos reservados</p>
+      <div class="footer-tags">
+        <span class="footer-tag"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green-lt);margin-right:5px;vertical-align:1px;"></span>Sistemas operacionais</span>
+        <span class="footer-tag">ANVISA 361320051</span>
+        <span class="footer-tag">RDC 59/2010</span>
+        <span class="footer-tag">RDC 703/2022</span>
+        <span class="footer-tag">17 anos</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var container = document.querySelector('.video-sec .dotted-surface');
+  if(!container || !window.THREE) return;
+
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var scene = new THREE.Scene();
+  var rect = container.getBoundingClientRect();
+  var width = Math.max(1, Math.floor(rect.width));
+  var height = Math.max(1, Math.floor(rect.height));
+  var camera = new THREE.PerspectiveCamera(60, width / height, 1, 10000);
+  camera.position.set(0, 360, 1100);
+  camera.lookAt(0, 0, 0);
+
+  var renderer = new THREE.WebGLRenderer({alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(width, height);
+  renderer.setClearColor(0x005530, 0);
+  container.appendChild(renderer.domElement);
+
+  var amountX = 58;
+  var amountY = 42;
+  var separation = 28;
+  var positions = [];
+  var colors = [];
+  var pointColor = new THREE.Color('#A8D156');
+
+  for(var ix=0; ix<amountX; ix++){
+    for(var iy=0; iy<amountY; iy++){
+      positions.push(ix * separation - amountX * separation / 2, 0, iy * separation - amountY * separation / 2);
+      colors.push(pointColor.r, pointColor.g, pointColor.b);
+    }
+  }
+
+  var geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions,3));
+  geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors,3));
+  var material = new THREE.PointsMaterial({size:4,vertexColors:true,transparent:true,opacity:.48,sizeAttenuation:true});
+  var points = new THREE.Points(geometry, material);
+  points.rotation.x = -.22;
+  scene.add(points);
+
+  var tick = 0;
+  var animationId = null;
+  function render(){
+    var position = geometry.getAttribute('position');
+    var values = position.array;
+    var index = 0;
+    for(var x=0; x<amountX; x++){
+      for(var y=0; y<amountY; y++){
+        var offset = index * 3;
+        values[offset + 1] = Math.sin((x + tick) * .25) * 22 + Math.sin((y + tick) * .38) * 18;
+        index++;
+      }
+    }
+    position.needsUpdate = true;
+    renderer.render(scene,camera);
+    if(!reducedMotion){
+      tick += .035;
+      animationId = requestAnimationFrame(render);
+    }
+  }
+  function resize(){
+    var next = container.getBoundingClientRect();
+    camera.aspect = Math.max(1,next.width) / Math.max(1,next.height);
+    camera.updateProjectionMatrix();
+    renderer.setSize(Math.max(1,next.width),Math.max(1,next.height));
+    render();
+  }
+  window.addEventListener('resize',resize);
+  render();
+})();
+</script>
+
+<script>
+(function(){
+  var canvas = document.getElementById('hero-shader-background');
+  if(!canvas) return;
+  var gl = canvas.getContext('webgl',{antialias:false,alpha:true,preserveDrawingBuffer:false});
+  if(!gl) return;
+
+  var vertexSource = 'attribute vec2 a_position; void main(){ gl_Position=vec4(a_position,0.0,1.0); }';
+  var fragmentSource = '\n+    precision highp float;\n+    uniform vec2 u_resolution;\n+    uniform float u_time;\n+    uniform vec3 u_colors[4];\n+    float hash21(vec2 p){ p=fract(p*vec2(234.34,435.345)); p+=dot(p,p+34.23); return fract(p.x*p.y); }\n+    float noise(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.0-2.0*f); return mix(mix(hash21(i),hash21(i+vec2(1.0,0.0)),f.x),mix(hash21(i+vec2(0.0,1.0)),hash21(i+vec2(1.0,1.0)),f.x),f.y); }\n+    float fbm(vec2 p){ float value=0.0,amp=.5; for(int i=0;i<5;i++){ value+=amp*noise(p); p=p*2.03+vec2(17.0,9.2); amp*=.5; } return value; }\n+    vec3 palette(float value){ value=clamp(value,0.0,1.0)*3.0; vec3 color=mix(u_colors[0],u_colors[1],smoothstep(0.0,1.0,clamp(value,0.0,1.0))); color=mix(color,u_colors[2],smoothstep(1.0,2.0,clamp(value,1.0,2.0))); return mix(color,u_colors[3],smoothstep(2.0,3.0,clamp(value,2.0,3.0))); }\n+    void main(){\n+      vec2 uv=gl_FragCoord.xy/u_resolution.xy;\n+      vec2 p=(gl_FragCoord.xy-.5*u_resolution.xy)/min(u_resolution.x,u_resolution.y);\n+      float time=u_time*.16;\n+      p+=.12*vec2(sin(time*.7),cos(time*.55));\n+      vec2 warp=vec2(fbm(p*1.45+time*.18),fbm(p*1.45-vec2(4.2,1.3)-time*.12))-.5;\n+      p+=warp*.42;\n+      float waves=fbm(p*2.15+vec2(time*.2,-time*.12));\n+      float glow=exp(-length(p-vec2(.2,-.18))*1.7);\n+      float value=clamp(waves*.72+glow*.3,0.0,1.0);\n+      vec3 color=palette(value);\n+      float vignette=1.0-smoothstep(.38,1.0,length(uv-.5))*.18;\n+      float grain=(hash21(gl_FragCoord.xy+time*20.0)-.5)*.025;\n+      gl_FragColor=vec4(clamp(color*vignette+grain,0.0,1.0),1.0);\n+    }';
+
+  fragmentSource = fragmentSource.replace(/\n\+/g, '\n');
+  function compile(type,source){
+    var shader=gl.createShader(type);
+    gl.shaderSource(shader,source);
+    gl.compileShader(shader);
+    if(!gl.getShaderParameter(shader,gl.COMPILE_STATUS)){gl.deleteShader(shader);return null;}
+    return shader;
+  }
+  var vertex=compile(gl.VERTEX_SHADER,vertexSource);
+  var fragment=compile(gl.FRAGMENT_SHADER,fragmentSource);
+  if(!vertex||!fragment) return;
+  var program=gl.createProgram();
+  gl.attachShader(program,vertex);gl.attachShader(program,fragment);gl.linkProgram(program);
+  gl.deleteShader(vertex);gl.deleteShader(fragment);
+  if(!gl.getProgramParameter(program,gl.LINK_STATUS)){gl.deleteProgram(program);return;}
+  gl.useProgram(program);
+
+  var buffer=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  var position=gl.getAttribLocation(program,'a_position');
+  gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
+  var resolution=gl.getUniformLocation(program,'u_resolution');
+  var timeUniform=gl.getUniformLocation(program,'u_time');
+  var colorUniform=gl.getUniformLocation(program,'u_colors');
+  gl.uniform3fv(colorUniform,new Float32Array([
+    0.0039,0.3333,0.1882,
+    0.1137,0.5569,0.3020,
+    0.4588,0.8392,0.6118,
+    0.8235,0.9725,0.8784
+  ]));
+
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var start=performance.now();
+  var frame=0;
+  function resize(){
+    var rect=canvas.getBoundingClientRect();
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var width=Math.max(1,Math.round(rect.width*dpr));
+    var height=Math.max(1,Math.round(rect.height*dpr));
+    if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;gl.viewport(0,0,width,height);}
+  }
+  function render(now){
+    frame=0;resize();
+    gl.uniform2f(resolution,canvas.width,canvas.height);
+    gl.uniform1f(timeUniform,(now-start)/1000);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    if(!reduced) frame=requestAnimationFrame(render);
+  }
+  window.addEventListener('resize',function(){resize();if(!frame)frame=requestAnimationFrame(render);});
+  render(performance.now());
+})();
+</script>
+
+<script>
+/* Replace the temporary fallback blocks with the real geographic outlines of SP and PR. */
+(function loadRealStateMap(){
+  var sourceUrl='https://cdn.jsdelivr.net/npm/@svg-maps/brazil@1.0.1/index.js';
+  var svg=document.querySelector('.mapa-wrapper svg');
+  if(!svg) return;
+  fetch(sourceUrl).then(function(response){return response.text();}).then(function(source){
+    var map=JSON.parse(source.replace(/^export default\s+/,'').replace(/;\s*$/,''));
+    var sp=map.locations.find(function(location){return location.id==='sp';});
+    var pr=map.locations.find(function(location){return location.id==='pr';});
+    if(!sp||!pr) return;
+    svg.querySelector('.sp').setAttribute('d',sp.path);
+    svg.querySelector('.sp-extrude').setAttribute('d',sp.path);
+    svg.querySelector('.pr').setAttribute('d',pr.path);
+    svg.querySelector('.pr-extrude').setAttribute('d',pr.path);
+    svg.setAttribute('viewBox','274 370 220 170');
+
+    var pins=[
+      {x:421,y:443,labelX:431,labelY:437},
+      {x:352,y:469,labelX:361,labelY:477},
+      {x:357,y:461,labelX:365,labelY:455},
+      {x:352,y:499,labelX:361,labelY:493}
+    ];
+    svg.querySelectorAll('.map-pin-group').forEach(function(group,index){
+      var point=pins[index];
+      if(!point) return;
+      group.querySelectorAll('circle').forEach(function(circle){circle.setAttribute('cx',point.x);circle.setAttribute('cy',point.y);});
+      var pulses=group.querySelectorAll('.map-pin-pulse');
+      pulses.forEach(function(pulse,pulseIndex){pulse.setAttribute('r',index===0?(pulseIndex===0?10:15):8);});
+      var core=group.querySelector('.map-pin-core');
+      var center=group.querySelector('.map-pin-center');
+      if(core) core.setAttribute('r',index===0?6:4.8);
+      if(center) center.setAttribute('r',index===0?2.2:1.8);
+      var texts=group.querySelectorAll('text');
+      if(texts.length){texts[0].setAttribute('x',point.labelX);texts[0].setAttribute('y',point.labelY);}
+      if(texts.length>1){texts[1].setAttribute('x',point.labelX);texts[1].setAttribute('y',point.labelY+5);}
+    });
+    var lines=svg.querySelectorAll('.map-connection');
+    lines.forEach(function(line,index){
+      line.setAttribute('x1',pins[0].x);line.setAttribute('y1',pins[0].y);
+      line.setAttribute('x2',pins[index+1].x);line.setAttribute('y2',pins[index+1].y);
+    });
+    var labels=svg.querySelectorAll('.map-territory-label');
+    var subs=svg.querySelectorAll('.map-territory-sub');
+    if(labels[0]){labels[0].setAttribute('x','430');labels[0].setAttribute('y','408');}
+    if(subs[0]){subs[0].setAttribute('x','430');subs[0].setAttribute('y','416');}
+    if(labels[1]){labels[1].setAttribute('x','397');labels[1].setAttribute('y','520');}
+    if(subs[1]){subs[1].setAttribute('x','397');subs[1].setAttribute('y','528');}
+  }).catch(function(){ /* keep the local fallback if the map source is unavailable */ });
+})();
+</script>
+</body>
+</html>
