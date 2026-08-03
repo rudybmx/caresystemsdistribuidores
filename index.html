@@ -84,20 +84,19 @@ img{max-width:100%;display:block;}
   display:flex;align-items:center;gap:12px;
 }
 .historia-badge-text strong{font-size:13px;font-weight:800;color:var(--white);display:block;}
-.historia-badge-text span{font-size:11px;color:rgba(255,255,255,.6);}
+.historia-badge-text span{font-size:11px;color:rgba(255,255,255,.8);}
 .historia-content .sec-tag{color:var(--orange);}
 .historia-content h2{font-size:clamp(26px,3.2vw,42px);font-weight:900;color:var(--ink);line-height:1.1;letter-spacing:-.02em;margin-bottom:20px;}
 .historia-content h2 strong{color:var(--green-mid);}
 .historia-content p{font-size:15px;color:var(--ink2);line-height:1.8;margin-bottom:16px;}
 .historia-pilares{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px;}
 .pilar{background:var(--off);border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
-.pilar-label{font-size:9px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.pilar-label{display:flex;align-items:center;gap:7px;font-size:10px;font-weight:700;color:#0a6b3d;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.pilar-ico{width:14px;height:14px;flex:none;}
 .pilar-text{font-size:12px;font-weight:600;color:var(--ink);line-height:1.4;}
-.parceiros{margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-.parceiro-tag{
-  background:var(--green-dk);color:var(--white);font-size:11px;font-weight:700;
-  padding:8px 16px;border-radius:8px;letter-spacing:.04em;
-}
+.parceiros{margin-top:32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.parceiro-logos{display:flex;align-items:center;gap:24px;}
+.parceiro-logo{height:40px;width:auto;max-width:150px;object-fit:contain;display:block;}
 
 /* ── NÚMEROS / AUTORIDADE ───────────────────────────────────────────────── */
 .numeros{background:var(--green-dk);padding:72px 0;position:relative;overflow:hidden;}
@@ -105,7 +104,7 @@ img{max-width:100%;display:block;}
 .numeros-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;position:relative;z-index:1;}
 .num-card{text-align:center;padding:40px 20px;border-right:1px solid rgba(58,183,149,.15);}
 .num-card:last-child{border-right:none;}
-.num-v{font-size:52px;font-weight:900;color:var(--white);line-height:1;letter-spacing:-.03em;}
+.num-v{font-size:clamp(15px,2.2vw,30px);font-weight:900;color:var(--white);line-height:1.15;letter-spacing:-.01em;}
 .num-v span{color:var(--green-lt);}
 .num-l{font-size:12px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-top:8px;}
 
@@ -404,9 +403,20 @@ section{margin:0 .75rem 1rem;border-radius:1.6rem;overflow:hidden;}
 .historia-content h2,.produtos-header h2,.dif-header h2,.distrib-header h2,.offer-header h2,.faq-intro h2{font-weight:400;color:var(--slate-dark);}
 .historia-content p,.prod-desc,.dif-text,.distrib-header p,.offer-header p,.faq-intro p{color:var(--slate);}
 .historia-img{background:linear-gradient(160deg,#e5e9e1,#c9d3c7);border:1px solid var(--line-soft);box-shadow:var(--shadow-soft);}
-.historia-badge{background:rgba(56,69,47,.88);backdrop-filter:blur(16px);}
+.historia-badge{
+  background:rgba(11,61,46,.42);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 8px 24px rgba(0,0,0,.22);
+}
+/* sem suporte a backdrop-filter o vidro nao existe: escurece para nao perder o texto */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .historia-badge{background:rgba(11,61,46,.82);}
+}
 .pilar,.dif-card,.offer-card,.faq-item,.distrib-item{background:var(--surface-glass);border-color:var(--line-soft);box-shadow:var(--shadow-soft);}
-.pilar{border-radius:1.2rem;}
+.pilar{border-radius:10px;border:1px solid rgba(10,107,61,.34);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 0 0 3px rgba(10,107,61,.05),0 6px 18px rgba(10,107,61,.10);transition:border-color 220ms ease,box-shadow 220ms ease;}
+.pilar:hover{border-color:rgba(10,107,61,.62);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 0 0 4px rgba(10,107,61,.10),0 10px 26px rgba(10,107,61,.16);}
 .dif-card,.offer-card,.faq-item,.distrib-item{border-radius:1.4rem;}
 .dif-card{min-height:220px;transition:transform .3s cubic-bezier(.2,.75,.25,1),box-shadow .3s ease;}
 .dif-card:hover,.offer-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
@@ -514,7 +524,7 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .prod-card-img img{width:auto;height:100%;max-width:100%;padding:0;border:1px dashed currentColor;border-radius:14px;object-fit:contain;}
 .stats-marquee{background:var(--green-dk);border:1px solid rgba(117,214,156,.38);padding:0;}
 .stats-marquee-viewport{overflow:hidden;padding:20px 0;}
-.stats-marquee-track{display:flex;width:max-content;animation:stats-marquee-scroll 73s linear infinite;will-change:transform;}
+.stats-marquee-track{display:flex;width:max-content;animation:stats-marquee-scroll 32s linear infinite;will-change:transform;}
 .stats-marquee-group{display:flex;align-items:center;flex-shrink:0;}
 .stats-marquee-item{display:flex;align-items:baseline;gap:12px;padding:0 54px;white-space:nowrap;}
 .stats-marquee-value{font-family:var(--font);font-size:clamp(24px,3vw,36px);font-weight:800;line-height:1;color:var(--green-lt);}
@@ -618,30 +628,6 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 /* imagem mobile */
 .cs-hero-mobileimg{position:relative;z-index:10;height:340px;flex:none;animation:csFadeIn .9s cubic-bezier(.16,1,.3,1) .4s both;}
 
-/* cards inferiores */
-.cs-cards{position:relative;z-index:10;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
-.cs-card{display:flex;flex-direction:column;justify-content:space-between;min-height:clamp(190px,20vw,260px);}
-.cs-card-a{overflow:hidden;background:#ECEDEC;padding:clamp(24px,3vw,40px);gap:26px;animation:csFadeUp .8s cubic-bezier(.16,1,.3,1) .9s both;}
-.cs-card-a-title{margin:0;max-width:360px;font-family:Poppins,sans-serif;font-weight:400;font-size:clamp(22px,2.6vw,35px);line-height:1.1;letter-spacing:-.05em;color:#14231b;text-wrap:pretty;}
-.cs-hero .cs-card-a-link{align-self:flex-start;font-family:Mulish,sans-serif;font-weight:500;font-size:clamp(15px,1.1vw,18px);color:#0a6b3d;text-decoration:underline;text-underline-offset:4px;}
-.cs-hero .cs-card-a-link:hover{color:#003d22;}
-.cs-partners{display:flex;flex-direction:column;gap:16px;filter:grayscale(100%);opacity:.55;transition:filter 300ms ease,opacity 300ms ease;}
-.cs-partners:hover{filter:grayscale(0%);opacity:1;}
-.cs-partners-label{font-family:Mulish,sans-serif;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6B7280;}
-.cs-seal{height:32px;width:auto;max-width:100%;object-fit:contain;display:block;}
-.cs-card-b{background:#FEFDF9;padding:clamp(24px,3vw,36px);gap:22px;animation:csFadeUp .8s cubic-bezier(.16,1,.3,1) 1s both;}
-.cs-benefits{position:relative;flex:1;display:flex;align-items:center;min-height:clamp(84px,8vw,110px);}
-.cs-benefit{display:flex;align-items:flex-start;gap:14px;max-width:420px;position:absolute;inset:0;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity 600ms cubic-bezier(.16,1,.3,1),transform 600ms cubic-bezier(.16,1,.3,1);}
-.cs-benefit.is-active{position:relative;inset:auto;opacity:1;transform:translateY(0);pointer-events:auto;}
-.cs-benefit-ico{flex:none;width:clamp(40px,3.6vw,48px);height:clamp(40px,3.6vw,48px);border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;}
-.cs-benefit-txt{margin:0;font-family:Mulish,sans-serif;font-size:clamp(14px,1.1vw,18px);line-height:1.25;letter-spacing:-.01em;color:rgba(20,35,27,.82);}
-.cs-dot{flex:1;height:2px;border-radius:9999px;transition:background 300ms ease;background:rgba(11,20,15,.2);}
-.cs-dot.is-active{background:#0b140f;}
-.cs-card-c{background:#0b140f;padding:clamp(24px,3vw,36px);gap:clamp(18px,2vw,26px);animation:csFadeUp .8s cubic-bezier(.16,1,.3,1) 1.1s both;}
-.cs-statrow{display:flex;flex-direction:column;gap:20px;}
-.cs-statimg{width:100%;height:280px;border-radius:16px;overflow:hidden;}
-.cs-stat-num{font-family:Poppins,sans-serif;font-weight:500;font-size:clamp(24px,2.6vw,35px);letter-spacing:-.05em;color:#fff;line-height:1;}
-.cs-stat-txt{margin:0;font-family:Mulish,sans-serif;font-size:clamp(14px,1.1vw,18px);line-height:1.25;color:rgba(255,255,255,.62);text-wrap:pretty;}
 
 /* ── breakpoint 768px (wide) ── */
 .cs-hero .cs-only-wide{display:none;}
@@ -655,9 +641,6 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
   .cs-logo-img{height:40px;}
   .cs-textcol{max-width:min(700px,52%);}
   .cs-row{flex-direction:row;}
-  .cs-seal{height:40px;}
-  .cs-statrow{flex-direction:row;align-items:center;gap:32px;flex:1;min-height:0;}
-  .cs-statimg{flex:0 0 45%;align-self:center;aspect-ratio:1122 / 1402;width:auto;height:auto;max-height:100%;}
 }
 
 /* ── CTAs primários: mesmo tratamento do botão do formulário da hero ───── */
@@ -678,6 +661,62 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .cs-hero .cs-nav-manual{margin-bottom:0;}
 @media(prefers-reduced-motion:reduce){
   .prod-btn,.offer-card .offer-btn,.cta-button,.cs-hero .cs-nav-manual{transition:none;}
+}
+
+/* ── LINHA DENTAL MED · DESTAQUE ──────────────────────────────────────── */
+.pm{position:relative;isolation:isolate;padding:64px 0;background:#F7FAFB;}
+.pm-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;pointer-events:none;}
+.pm-in{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 24px;}
+.pm-title{max-width:620px;margin:0 auto 48px;text-align:center;font-size:clamp(26px,3.4vw,36px);font-weight:700;line-height:1.25;color:#1B2A4A;letter-spacing:-.01em;}
+.pm-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch;}
+
+.pm-card{display:flex;flex-direction:column;background:#FFFFFF;border-radius:16px;border:1px solid rgba(0,0,0,.06);box-shadow:0 8px 28px rgba(0,0,0,.06);overflow:hidden;}
+.pm-card--enzyme{--pm:#2E9B8A;--pm-soft:#E8F5F2;}
+.pm-card--clean{--pm:#7B5EA7;--pm-soft:#F0EBF7;}
+
+.pm-strip{height:32px;flex:none;display:flex;align-items:center;padding:0 20px;background:var(--pm-soft);font-size:10px;font-weight:700;line-height:1;letter-spacing:.1em;text-transform:uppercase;color:var(--pm);}
+
+.pm-body{display:flex;flex:1;min-height:0;}
+.pm-media{flex:0 0 45%;max-width:45%;display:flex;align-items:stretch;justify-content:center;padding:0;overflow:hidden;}
+.pm-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;cursor:zoom-in;transition:transform 300ms cubic-bezier(.16,1,.3,1);}
+.pm-media img:hover{transform:scale(1.03);}
+.pm-media img:focus-visible{outline:2px solid var(--pm);outline-offset:-2px;}
+
+/* lightbox da foto do produto */
+.pm-lb{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:32px;background:rgba(8,20,16,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:csFadeIn 180ms ease both;}
+.pm-lb img{max-width:min(92vw,900px);max-height:90vh;width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.5);display:block;}
+.pm-lb-x{position:absolute;top:20px;right:20px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:0;border-radius:50%;cursor:pointer;background:rgba(255,255,255,.12);color:#fff;}
+.pm-lb-x:hover{background:rgba(255,255,255,.24);}
+@media(prefers-reduced-motion:reduce){
+  .pm-media img{transition:none;}
+  .pm-lb{animation:none;}
+}
+.pm-content{flex:1 1 55%;min-width:0;padding:24px;display:flex;flex-direction:column;}
+
+.pm-name{font-size:26px;font-weight:700;line-height:1.15;color:var(--pm);letter-spacing:-.01em;}
+.pm-kicker{margin-top:6px;font-size:11px;font-weight:600;line-height:1.4;letter-spacing:.06em;text-transform:uppercase;color:#6B7280;min-height:2.8em;}
+.pm-desc{margin-top:12px;font-size:14px;line-height:1.5;color:#4B5563;}
+
+.pm-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+.pm-tag{font-size:11px;font-weight:600;line-height:1;letter-spacing:.04em;text-transform:uppercase;padding:6px 9px;border-radius:4px;background:var(--pm-soft);color:var(--pm);}
+
+.pm-specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.pm-spec{display:flex;align-items:center;gap:9px;border:1px solid var(--pm-soft);border-radius:8px;padding:10px;}
+.pm-spec-ico{flex:none;width:16px;height:16px;color:var(--pm);}
+.pm-spec-k{font-size:9px;font-weight:700;line-height:1.2;letter-spacing:.08em;text-transform:uppercase;color:#9CA3AF;}
+.pm-spec-v{font-size:13px;font-weight:700;line-height:1.2;color:#1F2937;margin-top:2px;}
+
+.pm-btn{display:flex;align-items:center;justify-content:center;width:100%;height:44px;border:1.5px solid var(--pm);border-radius:22px;background:transparent;color:var(--pm);font-size:13px;font-weight:700;line-height:1;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background 200ms ease,color 200ms ease;}
+.pm-btn-wrap{margin-top:auto;padding-top:20px;}
+.pm-btn:hover{background:var(--pm);color:#FFFFFF;text-decoration:none;}
+
+@media(max-width:900px){
+  .pm-grid{grid-template-columns:1fr;}
+}
+@media(max-width:560px){
+  .pm-body{flex-direction:column;}
+  .pm-media{flex:none;max-width:none;width:100%;height:340px;}
+  .pm-specs{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -855,69 +894,6 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
     <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(11,61,46,0.35) 0%,rgba(11,61,46,0) 30%,rgba(11,61,46,0) 75%,rgba(11,61,46,0.4) 100%)"></div>
   </div>
 
-  <div class="cs-cards">
-
-    <div class="cs-card cs-card-a">
-      <div style="display:flex;flex-direction:column;gap:18px">
-        <p class="cs-card-a-title">Comece o seu caminho para um cuidado natural e não tóxico</p>
-        <a href="#cadastro" class="cs-card-a-link">Diagnóstico Personalizado</a>
-      </div>
-      <div class="cs-partners">
-        <div class="cs-partners-label">Parceiros acadêmicos</div>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:24px">
-          <img src="assets/selo-ufla.png" alt="Universidade Federal de Lavras" class="cs-seal">
-          <img src="assets/selo-esalq-usp.png" alt="ESALQ / USP" class="cs-seal">
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-card cs-card-b">
-      <div class="cs-benefits">
-        <div class="cs-benefit is-active" data-cs-benefit="0">
-          <div class="cs-benefit-ico" style="background:#005530">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6.5L4.5 18A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3L14 8.5V2"></path><path d="M8 2h8"></path><path d="M7.5 15h9"></path></svg>
-          </div>
-          <p class="cs-benefit-txt">Formulação enzimática aprimorada, desenvolvida com UFLA e USP/ESALQ</p>
-        </div>
-        <div class="cs-benefit" data-cs-benefit="1">
-          <div class="cs-benefit-ico" style="background:#4e9a1e">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-6 8-9 16-9 0 8-3 16-9 16Z"></path><path d="M4 21c2-6 6-9 11-11"></path></svg>
-          </div>
-          <p class="cs-benefit-txt">Insumos de origem natural, produzidos com responsabilidade</p>
-        </div>
-        <div class="cs-benefit" data-cs-benefit="2">
-          <div class="cs-benefit-ico" style="background:#1e7fa8">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.5a4 4 0 0 0 8 0C15 13 11 9 11 9s-4 4-4 7.5Z"></path><path d="M16.5 11.5a2.5 2.5 0 0 0 5 0C21.5 9 19 6.5 19 6.5s-2.5 2.5-2.5 5Z"></path></svg>
-          </div>
-          <p class="cs-benefit-txt">Degradação da matéria orgânica até 500 vezes mais rápida</p>
-        </div>
-        <div class="cs-benefit" data-cs-benefit="3">
-          <div class="cs-benefit-ico" style="background:#14857a">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 8-8 8s-8-3-8-8 3.5-9 8-11c4.5 2 8 6 8 11Z"></path><path d="m9 12 2 2 4-4"></path></svg>
-          </div>
-          <p class="cs-benefit-txt">Seguro para o agro, a indústria, a clínica e a sua casa</p>
-        </div>
-      </div>
-      <div style="display:flex;gap:6px">
-        <span class="cs-dot is-active" data-cs-dot="0"></span>
-        <span class="cs-dot" data-cs-dot="1"></span>
-        <span class="cs-dot" data-cs-dot="2"></span>
-        <span class="cs-dot" data-cs-dot="3"></span>
-      </div>
-    </div>
-
-    <div class="cs-card cs-card-c">
-      <div class="cs-statrow">
-        <div class="cs-statimg">
-          <img src="assets/linha-produtos.png" alt="Linha de produtos Care Systems" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:16px">
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div class="cs-stat-num">+50</div>
-          <p class="cs-stat-txt">produtos enzimáticos já cuidando de lavouras, indústrias e famílias</p>
-        </div>
-      </div>
-    </div>
-  </div>
 </header>
 
 <!-- ═══════════════════════ VÍDEO ═══════════════════════ -->
@@ -925,43 +901,35 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
   <div class="stats-marquee-viewport">
     <div class="stats-marquee-track">
       <div class="stats-marquee-group">
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPAX ENZYME</strong><span class="stats-marquee-label">Detergente enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">17+</strong><span class="stats-marquee-label">Anos de mercado</span></div>
         <span class="stats-marquee-separator" aria-hidden="true"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPAX CLEAN</strong><span class="stats-marquee-label">Detergente enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">50+</strong><span class="stats-marquee-label">Produtos desenvolvidos</span></div>
         <span class="stats-marquee-separator" aria-hidden="true"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPHOS FRESH</strong><span class="stats-marquee-label">Aromatizante enzimático</span></div>
-        <span class="stats-marquee-separator" aria-hidden="true"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">CUIDAR</strong><span class="stats-marquee-label">Sabonete líquido enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">4</strong><span class="stats-marquee-label">Linhas de produto</span></div>
         <span class="stats-marquee-separator" aria-hidden="true"></span>
       </div>
       <div class="stats-marquee-group" aria-hidden="true">
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPAX ENZYME</strong><span class="stats-marquee-label">Detergente enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">17+</strong><span class="stats-marquee-label">Anos de mercado</span></div>
         <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPAX CLEAN</strong><span class="stats-marquee-label">Detergente enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">50+</strong><span class="stats-marquee-label">Produtos desenvolvidos</span></div>
         <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPHOS FRESH</strong><span class="stats-marquee-label">Aromatizante enzimático</span></div>
-        <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">CUIDAR</strong><span class="stats-marquee-label">Sabonete líquido enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">4</strong><span class="stats-marquee-label">Linhas de produto</span></div>
         <span class="stats-marquee-separator"></span>
       </div>
       <div class="stats-marquee-group" aria-hidden="true">
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPAX ENZYME</strong><span class="stats-marquee-label">Detergente enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">17+</strong><span class="stats-marquee-label">Anos de mercado</span></div>
         <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPAX CLEAN</strong><span class="stats-marquee-label">Detergente enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">50+</strong><span class="stats-marquee-label">Produtos desenvolvidos</span></div>
         <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPHOS FRESH</strong><span class="stats-marquee-label">Aromatizante enzimático</span></div>
-        <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">CUIDAR</strong><span class="stats-marquee-label">Sabonete líquido enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">4</strong><span class="stats-marquee-label">Linhas de produto</span></div>
         <span class="stats-marquee-separator"></span>
       </div>
       <div class="stats-marquee-group" aria-hidden="true">
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPAX ENZYME</strong><span class="stats-marquee-label">Detergente enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">17+</strong><span class="stats-marquee-label">Anos de mercado</span></div>
         <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPAX CLEAN</strong><span class="stats-marquee-label">Detergente enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">50+</strong><span class="stats-marquee-label">Produtos desenvolvidos</span></div>
         <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">LIPHOS FRESH</strong><span class="stats-marquee-label">Aromatizante enzimático</span></div>
-        <span class="stats-marquee-separator"></span>
-        <div class="stats-marquee-item"><strong class="stats-marquee-value">CUIDAR</strong><span class="stats-marquee-label">Sabonete líquido enzimático</span></div>
+        <div class="stats-marquee-item"><strong class="stats-marquee-value">4</strong><span class="stats-marquee-label">Linhas de produto</span></div>
         <span class="stats-marquee-separator"></span>
       </div>
     </div>
@@ -1001,26 +969,40 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
         <p>Com mais de 50 produtos desenvolvidos e parcerias ativas com <strong>UFLA</strong> e <strong>ESALQ/USP</strong>, garantimos um fundo de investimento em pesquisa e formação dos melhores talentos do setor.</p>
         <div class="historia-pilares">
           <div class="pilar">
-            <div class="pilar-label">Missão</div>
+            <div class="pilar-label">
+              <svg class="pilar-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 4 13c0-6 8-9 16-9 0 8-3 16-9 16Z"></path><path d="M4 21c2-6 6-9 11-11"></path></svg>
+              Missão
+            </div>
             <div class="pilar-text">Proteger profissionais e ambientes com sanitizantes enzimáticos seguros e sustentáveis.</div>
           </div>
           <div class="pilar">
-            <div class="pilar-label">Visão</div>
+            <div class="pilar-label">
+              <svg class="pilar-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              Visão
+            </div>
             <div class="pilar-text">Ser referência nacional em soluções enzimáticas para agro, sanitário e cuidado.</div>
           </div>
           <div class="pilar">
-            <div class="pilar-label">Valores</div>
+            <div class="pilar-label">
+              <svg class="pilar-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.4 3-5.5A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-10 2.5C2 10.6 3.5 12.5 5 14l7 7Z"></path></svg>
+              Valores
+            </div>
             <div class="pilar-text">Sustentabilidade · Inovação · Eficiência · Segurança · Responsabilidade social</div>
           </div>
           <div class="pilar">
-            <div class="pilar-label">Diferenciais</div>
+            <div class="pilar-label">
+              <svg class="pilar-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.9 5.9 6.1.9-4.5 4.3 1.1 6.4L12 17.5 6.4 20.5l1.1-6.4L3 9.8l6.1-.9L12 3Z"></path></svg>
+              Diferenciais
+            </div>
             <div class="pilar-text">Formulação desde a base, tecnologia própria, zero comparação com químicos.</div>
           </div>
         </div>
         <div class="parceiros">
           <span style="font-size:12px;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;">Parceiros acadêmicos:</span>
-          <span class="parceiro-tag">UFLA</span>
-          <span class="parceiro-tag">ESALQ / USP</span>
+          <div class="parceiro-logos">
+            <img class="parceiro-logo" src="assets/selo-ufla.png" alt="Universidade Federal de Lavras (UFLA)" loading="lazy" decoding="async" width="320" height="133">
+            <img class="parceiro-logo" src="assets/selo-esalq-usp.png" alt="ESALQ / USP" loading="lazy" decoding="async" width="3544" height="1240">
+          </div>
         </div>
       </div>
     </div>
@@ -1032,114 +1014,143 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
   <div class="sec-in">
     <div class="numeros-grid">
       <div class="num-card">
-        <div class="num-v">17<span>+</span></div>
-        <div class="num-l">Anos de mercado</div>
+        <div class="num-v">LIPAX <span>ENZYME</span></div>
+        <div class="num-l">Detergente enzimático</div>
       </div>
       <div class="num-card">
-        <div class="num-v">50<span>+</span></div>
-        <div class="num-l">Produtos desenvolvidos</div>
+        <div class="num-v">LIPAX <span>CLEAN</span></div>
+        <div class="num-l">Detergente enzimático</div>
       </div>
       <div class="num-card">
-        <div class="num-v">4</div>
-        <div class="num-l">Linhas de produto</div>
+        <div class="num-v">LIPHOS <span>FRESH</span></div>
+        <div class="num-l">Aromatizante enzimático</div>
       </div>
       <div class="num-card">
-        <div class="num-v">2</div>
-        <div class="num-l">Universidades parceiras</div>
+        <div class="num-v">CUIDAR</div>
+        <div class="num-l">Sabonete líquido enzimático</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ PRODUTOS DESTAQUE ═══════════════════════ -->
-<section class="produtos" id="produtos">
-  <div class="sec-in">
-    <div class="produtos-header">
-      <span class="sec-tag">Linha Dental Med · Destaque</span>
-      <h2>Dois produtos. Um protocolo completo de higienização.</h2>
-    </div>
-    <div class="produto-cards">
+<!-- ═══════════════════════ LINHA DENTAL MED · DESTAQUE ═══════════════════════ -->
+<section class="pm produtos" id="produtos">
+  <img class="pm-bg" src="/public/bg-produtos.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+  <div class="pm-in">
+    <h2 class="pm-title">Dois produtos. Um protocolo completo de higienização.</h2>
 
-      <!-- LIPAX ENZYME -->
-      <div class="prod-card card-enzyme">
-        <div class="prod-card-header">
-          <span class="prod-tag">Detergente Multienzimático</span>
-          <span style="font-size:11px;font-weight:700;color:rgba(0,124,140,.6);text-transform:uppercase;letter-spacing:.06em;">Linha Dental Med</span>
-        </div>
-        <div class="prod-card-img">
-          <img src="https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/L-PAX%20ENZYME.png" alt="LIPAX ENZYME">
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-name" style="color:#005F6E;">LIPAX ENZYME</div>
-          <div class="prod-sub">Higienização de Instrumentos</div>
-          <div class="prod-desc">Detergente multienzimático concentrado para limpeza de instrumentais odontológicos, médicos e hospitalares. pH neutro - não corrói, não mancha, não danifica.</div>
-          <div class="prod-enzimas">
-            <span class="prod-enzima-tag">Lipase</span>
-            <span class="prod-enzima-tag">Protease</span>
-            <span class="prod-enzima-tag">Carboidrase</span>
-          </div>
-          <div class="prod-specs">
-            <div class="prod-spec">
-              <div class="prod-spec-k">Diluição</div>
-              <div class="prod-spec-v">0,2-0,5%</div>
-            </div>
-            <div class="prod-spec">
-              <div class="prod-spec-k">Imersão</div>
-              <div class="prod-spec-v">10 minutos</div>
-            </div>
-            <div class="prod-spec">
-              <div class="prod-spec-k">pH</div>
-              <div class="prod-spec-v">6,91 ± 0,02</div>
-            </div>
-            <div class="prod-spec">
-              <div class="prod-spec-k">Validade</div>
-              <div class="prod-spec-v">18 meses</div>
-            </div>
-          </div>
-          <a href="#cadastro" class="prod-btn">Solicitar informações</a>
-        </div>
-      </div>
+    <div class="pm-grid">
 
-      <!-- LIPAX CLEAN -->
-      <div class="prod-card card-clean">
-        <div class="prod-card-header">
-          <span class="prod-tag">Detergente Multienzimático</span>
-          <span style="font-size:11px;font-weight:700;color:rgba(107,36,132,.6);text-transform:uppercase;letter-spacing:.06em;">Linha Dental Med</span>
-        </div>
-        <div class="prod-card-img">
-          <img src="https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/L-PAX%20CLEAN.png" alt="LIPAX CLEAN">
-        </div>
-        <div class="prod-card-body">
-          <div class="prod-name" style="color:#4A1860;">LIPAX CLEAN</div>
-          <div class="prod-sub">Manutenção de Cuspideiras · Fragrância Camomila</div>
-          <div class="prod-desc">Alta concentração enzimática para limpeza e remoção de incrustações em cuspideiras, pias e tubulações de consultórios. Previne entupimentos, mau odor e fermentações.</div>
-          <div class="prod-enzimas">
-            <span class="prod-enzima-tag">Lipase</span>
-            <span class="prod-enzima-tag">Protease</span>
-            <span class="prod-enzima-tag">Carboidrase</span>
-            <span class="prod-enzima-tag">Xilanase</span>
+      <article class="pm-card pm-card--enzyme">
+        <div class="pm-strip">Linha Dental Med</div>
+        <div class="pm-body">
+          <div class="pm-media">
+            <img src="/public/produtos/lipax-enzyme-card.jpg" data-pm-full="/public/produtos/lipax-enzyme.png" alt="Frasco de LIPAX ENZYME 1L — clique para ampliar" role="button" tabindex="0" width="810" height="1012" loading="lazy" decoding="async">
           </div>
-          <div class="prod-specs">
-            <div class="prod-spec">
-              <div class="prod-spec-k">Diluição</div>
-              <div class="prod-spec-v">10% (1:10)</div>
+          <div class="pm-content">
+            <div class="pm-name">LIPAX ENZYME</div>
+            <div class="pm-kicker">Higienização de instrumentos</div>
+            <p class="pm-desc">Detergente multienzimático concentrado para limpeza de instrumentais odontológicos, médicos e hospitalares. pH neutro — não corrói, não mancha, não danifica.</p>
+
+            <div class="pm-tags">
+              <span class="pm-tag">Lipase</span>
+              <span class="pm-tag">Protease</span>
+              <span class="pm-tag">Carboidrase</span>
             </div>
-            <div class="prod-spec">
-              <div class="prod-spec-k">Aplicação</div>
-              <div class="prod-spec-v">Final do turno</div>
+
+            <div class="pm-specs">
+              <div class="pm-spec">
+                <svg class="pm-spec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3Z"></path></svg>
+                <div>
+                  <div class="pm-spec-k">Diluição</div>
+                  <div class="pm-spec-v">0,2–0,5%</div>
+                </div>
+              </div>
+              <div class="pm-spec">
+                <svg class="pm-spec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12"></path><path d="M6 21h12"></path><path d="M8 3v4l4 5 4-5V3"></path><path d="M8 21v-4l4-5 4 5v4"></path></svg>
+                <div>
+                  <div class="pm-spec-k">Imersão</div>
+                  <div class="pm-spec-v">10 minutos</div>
+                </div>
+              </div>
+              <div class="pm-spec">
+                <svg class="pm-spec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v6.5L4.5 18A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3L14 8.5V2"></path><path d="M8 2h8"></path><path d="M7.5 15h9"></path></svg>
+                <div>
+                  <div class="pm-spec-k">pH</div>
+                  <div class="pm-spec-v">6,91 ± 0,02</div>
+                </div>
+              </div>
+              <div class="pm-spec">
+                <svg class="pm-spec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18"></path><path d="M8 3v4"></path><path d="M16 3v4"></path></svg>
+                <div>
+                  <div class="pm-spec-k">Validade</div>
+                  <div class="pm-spec-v">18 meses</div>
+                </div>
+              </div>
             </div>
-            <div class="prod-spec">
-              <div class="prod-spec-k">pH</div>
-              <div class="prod-spec-v">6,0 - 8,0</div>
-            </div>
-            <div class="prod-spec">
-              <div class="prod-spec-k">Validade</div>
-              <div class="prod-spec-v">18 meses</div>
+
+            <div class="pm-btn-wrap">
+              <a class="pm-btn" href="#cadastro">Solicitar informações</a>
             </div>
           </div>
-          <a href="#cadastro" class="prod-btn">Solicitar informações</a>
         </div>
-      </div>
+      </article>
+
+      <article class="pm-card pm-card--clean">
+        <div class="pm-strip">Linha Dental Med</div>
+        <div class="pm-body">
+          <div class="pm-media">
+            <img src="/public/produtos/lipax-clean-card.jpg" data-pm-full="/public/produtos/lipax-clean.png" alt="Frasco de LIPAX CLEAN 1L — clique para ampliar" role="button" tabindex="0" width="810" height="1012" loading="lazy" decoding="async">
+          </div>
+          <div class="pm-content">
+            <div class="pm-name">LIPAX CLEAN</div>
+            <div class="pm-kicker">Manutenção de cuspideiras · Fragrância camomila</div>
+            <p class="pm-desc">Alta concentração enzimática para limpeza e remoção de incrustações em cuspideiras, pias e tubulações de consultórios. Previne entupimentos, mau odor e fermentações.</p>
+
+            <div class="pm-tags">
+              <span class="pm-tag">Lipase</span>
+              <span class="pm-tag">Protease</span>
+              <span class="pm-tag">Carboidrase</span>
+              <span class="pm-tag">Xilanase</span>
+            </div>
+
+            <div class="pm-specs">
+              <div class="pm-spec">
+                <svg class="pm-spec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3Z"></path></svg>
+                <div>
+                  <div class="pm-spec-k">Diluição</div>
+                  <div class="pm-spec-v">10% (1:10)</div>
+                </div>
+              </div>
+              <div class="pm-spec">
+                <svg class="pm-spec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                <div>
+                  <div class="pm-spec-k">Aplicação</div>
+                  <div class="pm-spec-v">Final do turno</div>
+                </div>
+              </div>
+              <div class="pm-spec">
+                <svg class="pm-spec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v6.5L4.5 18A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3L14 8.5V2"></path><path d="M8 2h8"></path><path d="M7.5 15h9"></path></svg>
+                <div>
+                  <div class="pm-spec-k">pH</div>
+                  <div class="pm-spec-v">6,0 – 8,0</div>
+                </div>
+              </div>
+              <div class="pm-spec">
+                <svg class="pm-spec-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18"></path><path d="M8 3v4"></path><path d="M16 3v4"></path></svg>
+                <div>
+                  <div class="pm-spec-k">Validade</div>
+                  <div class="pm-spec-v">18 meses</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pm-btn-wrap">
+              <a class="pm-btn" href="#cadastro">Solicitar informações</a>
+            </div>
+          </div>
+        </div>
+      </article>
 
     </div>
   </div>
@@ -1713,15 +1724,6 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
     b.addEventListener('click', function(){ state.menuAberto = !state.menuAberto; render(); });
   });
 
-  /* rotação dos cards de benefício */
-  var benefits = hero.querySelectorAll('[data-cs-benefit]');
-  var dots     = hero.querySelectorAll('[data-cs-dot]');
-  var i = 0;
-  setInterval(function(){
-    i = (i + 1) % benefits.length;
-    for(var n=0;n<benefits.length;n++) benefits[n].classList.toggle('is-active', n === i);
-    for(var d=0;d<dots.length;d++)     dots[d].classList.toggle('is-active', d === i);
-  }, 3500);
 
   render();
 })();
@@ -1780,6 +1782,62 @@ var revealObserver = new IntersectionObserver(function(entries){
   });
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(element){revealObserver.observe(element);});
+
+/* ── LIGHTBOX das fotos de produto: abre o PNG em qualidade cheia ── */
+(function(){
+  var alvos = document.querySelectorAll('.pm-media img[data-pm-full]');
+  if(!alvos.length) return;
+  var overlay = null, origem = null;
+
+  function fechar(){
+    if(!overlay) return;
+    overlay.remove();
+    overlay = null;
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', onKey);
+    if(origem) origem.focus();
+  }
+  function onKey(e){
+    if(e.key === 'Escape'){ e.preventDefault(); fechar(); }
+    if(e.key === 'Tab'){ e.preventDefault(); }   /* prende o foco no overlay */
+  }
+  function abrir(img){
+    if(overlay) return;
+    origem = img;
+    overlay = document.createElement('div');
+    overlay.className = 'pm-lb';
+    overlay.setAttribute('role','dialog');
+    overlay.setAttribute('aria-modal','true');
+    overlay.setAttribute('aria-label', img.getAttribute('alt') || 'Foto do produto');
+
+    var cheia = document.createElement('img');
+    cheia.src = img.getAttribute('data-pm-full');
+    cheia.alt = img.getAttribute('alt') || '';
+
+    var x = document.createElement('button');
+    x.type = 'button';
+    x.className = 'pm-lb-x';
+    x.setAttribute('aria-label','Fechar');
+    x.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>';
+
+    overlay.appendChild(cheia);
+    overlay.appendChild(x);
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+
+    x.addEventListener('click', fechar);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) fechar(); });
+    document.addEventListener('keydown', onKey);
+    x.focus();
+  }
+
+  Array.prototype.forEach.call(alvos, function(img){
+    img.addEventListener('click', function(){ abrir(img); });
+    img.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); abrir(img); }
+    });
+  });
+})();
 </script>
 
 <!-- ═══════════════════════ RODAPÉ ═══════════════════════ -->
