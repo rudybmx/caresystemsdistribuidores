@@ -4,12 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Care Systems Bio Enzymes - Porque Cuidar é Revolucionar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 /* ── RESET & TOKENS ─────────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --green-dk:  #4C8751;
+  --green-hero:#0B3D2E;          /* verde padrão da hero — fundos de seção */
+  --green-dk:  var(--green-hero);
   --green-mid: #4C8751;
   --green-lt:  #A8D156;
   --orange:    #A8D156;
@@ -32,104 +36,11 @@ body{font-family:var(--font);background:var(--white);color:var(--ink);-webkit-fo
 a{text-decoration:none;color:inherit;}
 img{max-width:100%;display:block;}
 
-/* ── NAV ────────────────────────────────────────────────────────────────── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(76,135,81,.95);backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(168,209,86,.2);
-}
-.nav-in{max-width:1160px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:68px;}
-.nav-logo{display:flex;align-items:center;gap:12px;}
-.nav-logo-mark{width:38px;height:38px;background:var(--green-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--white);}
-.nav-logo-img{width:auto;height:38px;max-width:190px;object-fit:contain;}
-/* [LOGO] - substituir .nav-logo-mark por <img src="logo.svg" alt="Care Systems"> */
-.nav-brand{font-size:13px;font-weight:800;color:var(--white);letter-spacing:.04em;text-transform:uppercase;line-height:1.2;}
-.nav-brand span{display:block;font-size:9px;font-weight:500;color:var(--green-lt);letter-spacing:.12em;}
-.nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.04em;text-transform:uppercase;transition:color .2s;}
-.nav-links a:hover{color:var(--green-lt);}
-.nav-cta{background:var(--green-lt);color:var(--white);font-size:11px;font-weight:800;padding:10px 22px;border-radius:30px;letter-spacing:.06em;text-transform:uppercase;transition:background .2s;}
-.nav-cta:hover{background:var(--orange);}
 
 /* ── HEX PATTERN (SVG inline bg) ───────────────────────────────────────── */
 .hex-bg{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%233AB795' stroke-width='0.6' opacity='0.18'/%3E%3C/svg%3E");background-size:60px 52px;}
 
-/* ── HERO ───────────────────────────────────────────────────────────────── */
-.hero{
-  min-height:100vh;background:var(--green-dk);position:relative;overflow:hidden;
-  display:flex;align-items:center;padding-top:68px;
-}
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%233AB795' stroke-width='0.7' opacity='0.12'/%3E%3C/svg%3E");
-  background-size:60px 52px;
-}
-.hero-blob{
-  position:absolute;right:-120px;top:-80px;width:640px;height:640px;
-  background:radial-gradient(circle,rgba(58,183,149,.22) 0%,transparent 70%);
-  border-radius:50%;pointer-events:none;
-}
-.hero-blob2{
-  position:absolute;left:-100px;bottom:-100px;width:420px;height:420px;
-  background:radial-gradient(circle,rgba(232,98,10,.12) 0%,transparent 70%);
-  border-radius:50%;pointer-events:none;
-}
-.hero-in{
-  max-width:1160px;margin:0 auto;padding:80px 28px 80px;
-  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(58,183,149,.15);border:1px solid rgba(58,183,149,.4);
-  border-radius:30px;padding:6px 16px;margin-bottom:22px;
-}
-.hero-eyebrow span{font-size:10px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.12em;}
-.hero h1{
-  font-size:clamp(32px,4vw,54px);font-weight:900;color:var(--white);
-  line-height:1.06;letter-spacing:-.03em;margin-bottom:20px;
-}
-.hero h1 em{font-style:normal;color:var(--green-lt);}
-.hero-sub{
-  font-size:16px;font-weight:400;color:rgba(255,255,255,.65);
-  line-height:1.7;max-width:460px;margin-bottom:36px;
-}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
-.btn-primary{
-  background:var(--orange);color:var(--white);font-size:13px;font-weight:800;
-  padding:14px 30px;border-radius:30px;letter-spacing:.04em;text-transform:uppercase;
-  transition:background .2s,transform .15s;display:inline-block;
-}
-.btn-primary:hover{background:var(--orange-lt);transform:translateY(-2px);}
-.btn-ghost{
-  background:transparent;color:var(--white);font-size:13px;font-weight:700;
-  padding:14px 30px;border-radius:30px;border:1px solid rgba(255,255,255,.3);
-  letter-spacing:.04em;text-transform:uppercase;transition:border-color .2s,transform .15s;display:inline-block;
-}
-.btn-ghost:hover{border-color:var(--green-lt);color:var(--green-lt);transform:translateY(-2px);}
-.hero-stats{display:flex;gap:28px;margin-top:44px;flex-wrap:wrap;}
-.hstat{border-left:2px solid var(--green-lt);padding-left:14px;}
-.hstat-v{font-size:30px;font-weight:900;color:var(--white);line-height:1;}
-.hstat-l{font-size:10px;font-weight:500;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;}
-
-/* Hero right - imagem visual */
-.hero-visual{
-  aspect-ratio:1;background:rgba(58,183,149,.08);border:1px solid rgba(58,183,149,.2);
-  border-radius:24px;display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:16px;position:relative;overflow:hidden;
-}
-.hero-visual::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at 70% 30%,rgba(58,183,149,.15),transparent 60%);
-}
-.img-placeholder{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;color:rgba(58,183,149,.6);text-align:center;padding:32px;position:relative;z-index:1;
-}
-.img-placeholder svg{opacity:.5;}
-.img-placeholder p{font-size:11px;font-weight:600;color:rgba(58,183,149,.7);letter-spacing:.06em;text-transform:uppercase;}
-/* [IMAGEM HERO] Substituir .hero-visual por <img src="hero-products.jpg"> */
-
-/* ── SEÇÃO VÍDEO ────────────────────────────────────────────────────────── */
+/* ── SEÇÃO VÍDEO ──────────────────────────────────────────────────────── */
 .video-sec{background:var(--ink);padding:80px 0;position:relative;overflow:hidden;}
 .video-sec::before{
   content:'';position:absolute;inset:0;
@@ -439,8 +350,7 @@ footer{background:var(--ink);padding:60px 0 32px;color:rgba(255,255,255,.7);}
 
 /* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
 @media(max-width:900px){
-  .hero-in,.historia-grid,.distrib-layout{grid-template-columns:1fr;}
-  .hero-visual{aspect-ratio:16/9;max-height:280px;}
+  .historia-grid,.distrib-layout{grid-template-columns:1fr;}
   .numeros-grid{grid-template-columns:repeat(2,1fr);}
   .produto-cards{grid-template-columns:1fr;}
   .dif-grid{grid-template-columns:1fr 1fr;}
@@ -449,7 +359,6 @@ footer{background:var(--ink);padding:60px 0 32px;color:rgba(255,255,255,.7);}
   .faq-grid{grid-template-columns:1fr;gap:36px;}
   .linhas-feature-grid,.cadastro-grid{grid-template-columns:1fr !important;}
   .footer-grid{grid-template-columns:1fr 1fr;}
-  .nav-links{display:none;}
 }
 @media(max-width:560px){
   .numeros-grid{grid-template-columns:1fr 1fr;}
@@ -463,7 +372,7 @@ footer{background:var(--ink);padding:60px 0 32px;color:rgba(255,255,255,.7);}
 :root{
   --page:#FFFFFF;
   --surface:#FFFFFF;
-  --primary:#4C8751;
+  --primary:var(--green-hero);
   --secondary:#A8D156;
   --accent:#A8D156;
   --brand-text:#2E7370;
@@ -481,88 +390,8 @@ body{background:var(--page);color:var(--slate);}
 body,p,a,button,input,select,h1,h2,h3,h4,h5,h6,.nav-brand,.footer-logo-name{font-family:var(--font);}
 h1,h2,h3{font-weight:400;letter-spacing:-.045em;line-height:1.02;}
 h2{color:var(--slate-dark);}
-nav{top:.65rem;left:50%;right:auto;width:min(calc(100% - 48px),1440px);transform:translateX(-50%);background:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.72);border-radius:999px;backdrop-filter:blur(18px);box-shadow:0 12px 36px rgba(75,86,110,.08);transition:top .25s ease,width .25s ease,background .25s ease,box-shadow .25s ease;}
-.nav-in{max-width:1536px;height:52px;padding:0 20px;transition:height .25s ease,padding .25s ease;}
-.nav-logo-img{height:32px;max-width:170px;transition:height .25s ease,max-width .25s ease;}
-.nav-links{gap:24px;transition:gap .25s ease;}
-.nav-links a{font-size:11px;transition:font-size .25s ease,color .2s;}
-.nav-logo-mark{background:var(--sage);}
-.nav-brand{color:var(--slate-dark);}
-.nav-brand span{color:var(--sage);}
-.nav-links a{color:var(--slate);}
-.nav-links a:hover{color:var(--sage-dark);}
-.nav-cta{background:var(--accent);color:#545454;}
-.nav-cta:hover{background:var(--secondary);}
 section{margin:0 .75rem 1rem;border-radius:1.6rem;overflow:hidden;}
 .sec-in,.footer-in{max-width:1536px;}
-.hero{min-height:calc(100vh - 1.5rem);margin-top:0;padding-top:68px;border-radius:2.7rem;background:#4C8751;}
-.hero{isolation:isolate;}
-.hero::before{
-  z-index:0;pointer-events:none;opacity:1;
-  background:url('https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/hero_care_distribuidores.png') center 42%/cover no-repeat;
-}
-.hero > .hero-blob,.hero > .hero-blob2{display:none;}
-.hero > .hero-in{z-index:2;}
-.hero-blob{background:radial-gradient(circle,rgba(255,255,255,.34) 0%,transparent 70%);}
-.hero-blob2{background:radial-gradient(circle,rgba(198,163,103,.22) 0%,transparent 70%);}
-.hero-in{max-width:1536px;padding:80px 5vw;}
-.hero-in{width:100%;display:flex;flex-direction:column;gap:34px;align-items:stretch;}
-.hero-left{width:100%;max-width:850px;margin:0 auto;text-align:center;}
-.hero-left .hero-sub{margin-left:auto;margin-right:auto;}
-.hero-left .hero-actions,.hero-left .hero-stats{justify-content:center;}
-.hero-in > div:last-child{width:100%;max-width:920px;margin:0 auto;}
-.hero-in #hf-step1 > div:first-child{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
-.hero-in #hf-step2 > div:first-child{display:grid!important;grid-template-columns:1fr 1fr 1.25fr;gap:10px;align-items:end;}
-.hero-in #hf-step2 > div:first-child > div{display:contents;}
-.hero-in #hf-step2 > div:first-child > div > div{display:contents;}
-.hero h1{font-size:clamp(3rem,6vw,5rem);color:var(--slate-dark);}
-.hero h1 em{color:var(--brand-text);}
-
-/* ── LAMP EFFECT (hero title) ─────────────────────────────────────────── */
-.lamp-title-wrap{position:relative;isolation:isolate;padding-top:clamp(2.5rem,8vh,4.5rem);margin-bottom:20px;}
-.lamp-title-wrap .lamp-visual{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-.lamp-title-wrap .lamp-beam{position:absolute;top:0;left:50%;height:7rem;width:7rem;opacity:0;filter:blur(2px);transition:width .8s ease-in-out,opacity .8s ease-in-out;}
-.lamp-title-wrap .lamp-beam-left{transform:translateX(-100%) scaleY(1.2);transform-origin:center top;background-image:conic-gradient(from 70deg at center top,rgba(180,232,199,.75),rgba(180,232,199,.08) 34%,transparent 72%);}
-.lamp-title-wrap .lamp-beam-right{transform:scaleY(1.2);transform-origin:center top;background-image:conic-gradient(from 290deg at center top,transparent 28%,rgba(180,232,199,.08) 66%,rgba(180,232,199,.75) 100%);}
-.lamp-title-wrap .lamp-core{position:absolute;top:0;left:50%;width:7rem;height:3.5rem;transform:translate(-50%,-.6rem);border-radius:999px;background:rgba(180,232,199,.65);filter:blur(30px);opacity:0;transition:width .8s ease-in-out,opacity .8s ease-in-out;}
-.lamp-title-wrap .lamp-line{position:absolute;top:0;left:50%;width:7rem;height:2px;transform:translate(-50%,.4rem);background:rgba(180,232,199,.85);box-shadow:0 0 12px 2px rgba(180,232,199,.6);opacity:0;transition:width .8s ease-in-out,opacity .8s ease-in-out;}
-.lamp-title-wrap h1{position:relative;z-index:2;opacity:.45;transform:translateY(40px);transition:opacity .8s ease-in-out,transform .8s ease-in-out;text-shadow:0 2px 24px rgba(0,85,48,.25);}
-.lamp-title-wrap.is-visible .lamp-beam{width:17rem;opacity:.85;}
-.lamp-title-wrap.is-visible .lamp-core{width:13rem;opacity:.55;}
-.lamp-title-wrap.is-visible .lamp-line{width:17rem;opacity:.9;}
-.lamp-title-wrap.is-visible h1{opacity:1;transform:translateY(0);}
-.lamp-title-wrap.reduced-motion *{transition:none!important;}
-.lamp-title-wrap.reduced-motion .lamp-beam{width:17rem;opacity:.85;}
-.lamp-title-wrap.reduced-motion .lamp-core{width:13rem;opacity:.55;}
-.lamp-title-wrap.reduced-motion .lamp-line{width:17rem;opacity:.9;}
-.lamp-title-wrap.reduced-motion h1{opacity:1;transform:none;}
-@media(max-width:768px){
-  .lamp-title-wrap .lamp-beam{height:5.5rem;}
-  .lamp-title-wrap.is-visible .lamp-beam,.lamp-title-wrap.reduced-motion .lamp-beam{width:11rem;}
-  .lamp-title-wrap.is-visible .lamp-core,.lamp-title-wrap.reduced-motion .lamp-core{width:9rem;}
-  .lamp-title-wrap.is-visible .lamp-line,.lamp-title-wrap.reduced-motion .lamp-line{width:11rem;}
-}
-.hero-sub{color:rgba(42,50,64,.72);}
-.hero-left > p:first-child{color:var(--sage-dark)!important;}
-.hero-actions .btn-primary{background:var(--accent);color:#545454;border:1px solid rgba(255,255,255,.35);box-shadow:0 10px 24px rgba(80,72,91,.18);}
-.hero-actions .btn-primary:hover{background:var(--secondary);}
-.btn-ghost{color:var(--slate-dark);border-color:rgba(42,50,64,.24);background:rgba(255,255,255,.28);backdrop-filter:blur(12px);}
-.btn-ghost:hover{border-color:var(--sage);color:var(--sage-dark);}
-.hstat{border-left-color:var(--sage-dark);}
-.hstat-v{color:var(--slate-dark);}
-.hstat-l{color:rgba(42,50,64,.58);}
-.hero-in > div:last-child{background:#fff!important;border:1px solid rgba(255,255,255,.58)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:var(--shadow-soft);}
-.hero-in > div:last-child > div:first-child{background:var(--green-dk)!important;}
-.hero-in > div:last-child > div:nth-child(3){background:#fff!important;}
-.hero-in > div:last-child > div:first-child p{color:var(--white)!important;}
-.hero-in #h-step-label,
-.hero-in #h-step-title,
-.hero-in #hf-step3 p,
-.hero-in #hf-resumo,
-.hero-in > div:last-child > div:last-child > p{color:var(--green-dk)!important;}
-.hero-in input{background:rgba(255,255,255,.78)!important;color:var(--green-dk)!important;border-color:rgba(46,115,112,.2)!important;}
-.hero-in input::placeholder{color:rgba(42,50,64,.58);}
-.hero-in select{background:rgba(255,255,255,.78)!important;color:var(--green-dk)!important;border-color:rgba(46,115,112,.2)!important;}
 .video-sec,.numeros,.linhas,#cadastro{background:var(--primary);}
 .video-sec::before{z-index:0;}
 .video-sec .dotted-surface{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
@@ -583,10 +412,9 @@ section{margin:0 .75rem 1rem;border-radius:1.6rem;overflow:hidden;}
 .dif-card,.offer-card,.faq-item,.distrib-item{border-radius:1.4rem;}
 .dif-card{min-height:220px;transition:transform .3s cubic-bezier(.2,.75,.25,1),box-shadow .3s ease;}
 .dif-card:hover,.offer-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
-.dif-icon{background:var(--sage-dark);}
+.dif-icon{background:var(--green-hero);}
 .prod-card{border-radius:1.6rem;box-shadow:var(--shadow-soft);}
 .prod-card input,input,select{background:#F4F4F4;}
-.hero-in input{background:#F4F4F4!important;color:#AAAAAA!important;}
 .offer-card.featured .offer-btn,.prod-btn{background:var(--accent);color:#545454;}
 .btn-white{color:var(--accent);}
 .prod-card-img{border-radius:1.2rem;}
@@ -595,9 +423,9 @@ section{margin:0 .75rem 1rem;border-radius:1.6rem;overflow:hidden;}
 .prod-btn,.offer-btn{border-radius:999px;}
 .linhas-header h2,.slogan-cta h2{font-weight:400;}
 .linha-card{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16);border-radius:1.4rem;}
-.slogan-cta{background:linear-gradient(135deg,var(--sage),var(--sage-dark));border-radius:2.1rem;}
+.slogan-cta{background:linear-gradient(135deg,var(--sage),var(--green-hero));border-radius:2.1rem;}
 .slogan-cta .btn-white{border-radius:999px;}
-.offer-card.featured{background:linear-gradient(145deg,var(--sage-dark),#4C8751);border-color:rgba(255,255,255,.24);}
+.offer-card.featured{background:linear-gradient(145deg,var(--green-hero),var(--green-hero));border-color:rgba(255,255,255,.24);}
 .offer-card h3{font-weight:400;color:var(--slate-dark);}
 .faq{background:#F7F7F5;}
 .faq-question{font-weight:500;color:var(--slate-dark);}
@@ -661,7 +489,7 @@ nav.is-scrolled .nav-cta{font-size:9px;padding:6px 14px;box-shadow:none!importan
 .sec-tag{color:#A8D156!important;}
 .lamp-title-wrap .lamp-core{background:rgba(234,102,33,.42);}
 .lamp-title-wrap .lamp-line{background:rgba(234,102,33,.9);box-shadow:0 0 12px 2px rgba(234,102,33,.48);}
-.sede-card{background:var(--sage-dark);border-radius:1.4rem;}
+.sede-card{background:var(--green-hero);border-radius:1.4rem;}
 footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .footer-logo-mark{background:var(--sage);}
 .footer-slogan{color:#A8D156;}
@@ -710,130 +538,365 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
   .stats-marquee-item{gap:8px;padding:0 30px;}
   .stats-marquee-label{font-size:9px;}
 }
+
+/* ══════════ HERO CARE SYSTEMS (bloco isolado, prefixo .cs-) ══════════ */
+@keyframes csFadeUp      { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes csFadeIn      { from { opacity:0; } to { opacity:1; } }
+@keyframes csSlideInLeft { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }
+@keyframes csSlideInRight{ from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }
+@keyframes csStepIn      { from { opacity:0; transform:translateX(16px); } to { opacity:1; transform:translateX(0); } }
+@keyframes csWordReveal  { from { opacity:0; transform:translateY(100%); filter:blur(4px); } to { opacity:1; transform:translateY(0); filter:blur(0px); } }
+
+.cs-hero{--cs-orange:#FA641D;--cs-orange-hover:#E85712;}
+.cs-hero,.cs-hero *{box-sizing:border-box;}
+.cs-hero [hidden]{display:none!important;}
+.cs-hero{position:relative;min-height:calc(100vh - 24px);display:flex;flex-direction:column;overflow:hidden;background:#0B3D2E;font-family:Mulish,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;margin:12px;border-radius:24px;}
+.cs-hero a{color:#6cb33f;text-decoration:none;transition:color 120ms cubic-bezier(.4,0,.2,1);}
+.cs-hero a:hover{color:#8fc85e;text-decoration:underline;}
+.cs-hero-top{position:relative;flex:1;display:flex;flex-direction:column;min-height:0;}
+
+/* fundo (desktop) */
+.cs-hero-bg{position:absolute;top:0;bottom:0;right:0;z-index:1;width:min(56%,900px);animation:csFadeIn .9s cubic-bezier(.16,1,.3,1) .2s both;}
+
+/* nav */
+.cs-nav{position:relative;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:clamp(16px,2vw,22px) clamp(20px,3vw,40px);animation:csFadeIn .7s cubic-bezier(.16,1,.3,1) both;background:none;border:0;border-radius:0;box-shadow:none;top:auto;left:auto;right:auto;width:auto;transform:none;backdrop-filter:none;}
+.cs-nav-logo{display:flex;align-items:center;animation:csSlideInLeft .8s cubic-bezier(.16,1,.3,1) .2s both;}
+.cs-logo-img{height:32px;width:auto;max-width:none;object-fit:contain;display:block;}
+.cs-nav-links{display:flex;align-items:center;gap:clamp(20px,2.6vw,40px);animation:csFadeIn .7s cubic-bezier(.16,1,.3,1) .4s both;}
+.cs-nav-link{font-family:Poppins,sans-serif;font-weight:500;font-size:clamp(14px,1.1vw,18px);color:rgba(255,255,255,.9);letter-spacing:-.01em;text-transform:none;}
+.cs-nav-link:hover{color:#fff;}
+.cs-nav-right{display:flex;align-items:center;gap:clamp(14px,1.4vw,22px);animation:csSlideInRight .8s cubic-bezier(.16,1,.3,1) .3s both;}
+.cs-nav-manual{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 22px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-family:Mulish,sans-serif;font-weight:600;font-size:15px;letter-spacing:-.01em;text-transform:none;transition:background 200ms ease,border-color 200ms ease;}
+.cs-nav-manual:hover{background:rgba(255,255,255,.16);border-color:rgba(143,200,94,.7);color:#fff;}
+.cs-burger{background:none;border:0;padding:0;cursor:pointer;color:#fff;display:flex;}
+
+/* menu mobile */
+.cs-menu{position:fixed;inset:0;z-index:40;background:rgba(0,20,11,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;animation:csFadeIn .3s ease both;}
+.cs-menu-close{position:absolute;top:24px;right:24px;background:none;border:0;color:#fff;cursor:pointer;display:flex;}
+.cs-menu-link{font-family:Poppins,sans-serif;font-weight:500;font-size:24px;color:#fff;}
+.cs-menu-link:hover{color:#fff;}
+
+/* coluna de texto */
+.cs-textcol{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,6vh,80px) clamp(20px,3vw,40px);max-width:100%;margin:0;border-radius:0;overflow:visible;background:none;box-shadow:none;}
+.cs-eyebrow{font-family:Mulish,sans-serif;font-weight:600;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#8fc85e;margin-bottom:clamp(14px,2vh,24px);animation:csFadeIn .7s cubic-bezier(.16,1,.3,1) .25s both;}
+.cs-h1{margin:0;font-family:Poppins,sans-serif;font-weight:400;letter-spacing:-.05em;font-size:clamp(34px,5.4vw,104px);line-height:.94;color:#fff;text-shadow:0 2px 24px rgba(11,61,46,.6);}
+.cs-textcol-body{display:flex;flex-direction:column;gap:24px;margin-top:clamp(26px,4.5vh,60px);animation:csFadeUp .8s cubic-bezier(.16,1,.3,1) .6s both;}
+.cs-lead{margin:0;max-width:440px;color:#fff;font-family:Mulish,sans-serif;font-weight:400;font-size:clamp(14px,1.1vw,18px);line-height:1.45;letter-spacing:-.01em;text-wrap:pretty;}
+.cs-privacy{margin:0;font-family:Mulish,sans-serif;font-size:12px;color:rgba(255,255,255,.55);}
+
+/* formulário */
+.cs-success{display:flex;align-items:center;justify-content:center;gap:10px;flex:none;width:100%;height:56px;padding:0 24px;border-radius:999px;background:rgba(0,85,48,.2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(143,200,94,.35);color:#fff;font-family:Mulish,sans-serif;font-size:15px;text-align:center;animation:csFadeIn 300ms ease-out both;}
+.cs-formcol{display:flex;flex-direction:column;gap:10px;width:100%;max-width:none;flex:none;}
+.cs-formlabel{font-family:Mulish,sans-serif;font-weight:600;font-size:14px;color:#FFFFFF;margin-bottom:2px;}
+.cs-segs{display:flex;gap:6px;margin-bottom:12px;}
+.cs-seg{flex:1;height:4px;border-radius:2px;transition:background 220ms ease;background:rgba(255,255,255,.25);}
+.cs-seg.is-on{background:var(--cs-orange);}
+.cs-pill{display:flex;align-items:center;gap:10px;width:100%;height:56px;padding:0 8px 0 22px;border-radius:999px;background:#FFFFFF;border:none;box-shadow:0 8px 32px rgba(0,0,0,.25);transition:box-shadow 200ms ease;}
+.cs-pill.has-error{box-shadow:0 8px 32px rgba(0,0,0,.25),inset 0 0 0 2px rgba(214,69,69,.8);}
+.cs-fgroup{display:contents;}
+.cs-divider{width:1px;height:26px;background:rgba(11,61,46,.15);flex:none;}
+.cs-hero .cs-input{flex:1;min-width:0;border:0;outline:none;background:transparent;color:#0B3D2E;font-family:Mulish,sans-serif;font-size:16px;animation:csStepIn 220ms ease-out both;padding:0;border-radius:0;}
+.cs-hero .cs-input::placeholder{color:rgba(11,61,46,.45);}
+.cs-hero .cs-input-phone{flex:0 0 52%;}
+.cs-hero .cs-input-city{flex:0 0 68%;}
+.cs-selectwrap{position:relative;display:flex;align-items:center;min-width:0;}
+.cs-selectwrap-profile{flex:0 0 48%;}
+.cs-selectwrap-uf{flex:0 0 32%;}
+.cs-selectwrap-flex{flex:1;}
+.cs-hero .cs-select{width:100%;min-width:0;border:0;outline:none;background:transparent;color:#0B3D2E;color-scheme:light;font-family:Mulish,sans-serif;font-size:16px;cursor:pointer;appearance:none;-webkit-appearance:none;padding:0 32px 0 0;border-radius:0;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;animation:csStepIn 220ms ease-out both;}
+.cs-hero .cs-select:invalid,.cs-hero .cs-select option[value=""]{color:rgba(11,61,46,.45);}
+.cs-iconbtn-wrap{flex:none;display:flex;}
+.cs-hero .cs-iconbtn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;flex:none;border:none;border-radius:50%;cursor:pointer;background:var(--cs-orange);color:#fff;padding:0;transition:background 160ms cubic-bezier(.4,0,.2,1),transform 180ms cubic-bezier(.16,1,.3,1),box-shadow 180ms ease,filter 160ms ease;}
+.cs-hero .cs-iconbtn:hover{background:var(--cs-orange-hover);transform:scale(1.06);filter:brightness(1.08);box-shadow:0 6px 22px rgba(250,100,29,.5);}
+.cs-hero .cs-iconbtn:active{transform:scale(1);}
+.cs-hero .cs-sendbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:auto;flex:none;padding:0 22px;height:48px;min-height:48px;font-family:Mulish,sans-serif;font-weight:700;font-size:16px;line-height:1;border-radius:999px;cursor:pointer;background:var(--cs-orange);color:#fff;border:1px solid var(--cs-orange);text-transform:none;letter-spacing:normal;transition:background 160ms cubic-bezier(.4,0,.2,1),transform 180ms cubic-bezier(.16,1,.3,1),border-color 160ms cubic-bezier(.4,0,.2,1),box-shadow 180ms ease,filter 160ms ease;}
+.cs-hero .cs-sendbtn:hover{background:var(--cs-orange-hover);border-color:var(--cs-orange-hover);transform:scale(1.06);filter:brightness(1.08);box-shadow:0 6px 22px rgba(250,100,29,.5);}
+.cs-hero .cs-sendbtn:active{transform:scale(.98);}
+.cs-back{font-family:Mulish,sans-serif;font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;}
+.cs-back:hover{color:#fff;text-decoration:none;}
+.cs-steplabel{font-family:Mulish,sans-serif;font-size:13px;color:rgba(255,255,255,.7);}
+.cs-steplabel.has-error{color:rgba(255,140,140,.95);}
+
+/* imagem mobile */
+.cs-hero-mobileimg{position:relative;z-index:10;height:340px;flex:none;animation:csFadeIn .9s cubic-bezier(.16,1,.3,1) .4s both;}
+
+/* cards inferiores */
+.cs-cards{position:relative;z-index:10;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+.cs-card{display:flex;flex-direction:column;justify-content:space-between;min-height:clamp(190px,20vw,260px);}
+.cs-card-a{overflow:hidden;background:#ECEDEC;padding:clamp(24px,3vw,40px);gap:26px;animation:csFadeUp .8s cubic-bezier(.16,1,.3,1) .9s both;}
+.cs-card-a-title{margin:0;max-width:360px;font-family:Poppins,sans-serif;font-weight:400;font-size:clamp(22px,2.6vw,35px);line-height:1.1;letter-spacing:-.05em;color:#14231b;text-wrap:pretty;}
+.cs-card-a-link{align-self:flex-start;font-family:Mulish,sans-serif;font-weight:500;font-size:clamp(15px,1.1vw,18px);color:#0a6b3d;text-decoration:underline;text-underline-offset:4px;}
+.cs-card-a-link:hover{color:#003d22;}
+.cs-partners{display:flex;flex-direction:column;gap:16px;filter:grayscale(100%);opacity:.55;transition:filter 300ms ease,opacity 300ms ease;}
+.cs-partners:hover{filter:grayscale(0%);opacity:1;}
+.cs-partners-label{font-family:Mulish,sans-serif;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6B7280;}
+.cs-seal{height:32px;width:auto;max-width:100%;object-fit:contain;display:block;}
+.cs-card-b{background:#FEFDF9;padding:clamp(24px,3vw,36px);gap:22px;animation:csFadeUp .8s cubic-bezier(.16,1,.3,1) 1s both;}
+.cs-benefits{position:relative;flex:1;display:flex;align-items:center;min-height:clamp(84px,8vw,110px);}
+.cs-benefit{display:flex;align-items:flex-start;gap:14px;max-width:420px;position:absolute;inset:0;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity 600ms cubic-bezier(.16,1,.3,1),transform 600ms cubic-bezier(.16,1,.3,1);}
+.cs-benefit.is-active{position:relative;inset:auto;opacity:1;transform:translateY(0);pointer-events:auto;}
+.cs-benefit-ico{flex:none;width:clamp(40px,3.6vw,48px);height:clamp(40px,3.6vw,48px);border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;}
+.cs-benefit-txt{margin:0;font-family:Mulish,sans-serif;font-size:clamp(14px,1.1vw,18px);line-height:1.25;letter-spacing:-.01em;color:rgba(20,35,27,.82);}
+.cs-dot{flex:1;height:2px;border-radius:9999px;transition:background 300ms ease;background:rgba(11,20,15,.2);}
+.cs-dot.is-active{background:#0b140f;}
+.cs-card-c{background:#0b140f;padding:clamp(24px,3vw,36px);gap:clamp(18px,2vw,26px);animation:csFadeUp .8s cubic-bezier(.16,1,.3,1) 1.1s both;}
+.cs-statrow{display:flex;flex-direction:column;gap:20px;}
+.cs-statimg{width:100%;height:280px;border-radius:16px;overflow:hidden;}
+.cs-stat-num{font-family:Poppins,sans-serif;font-weight:500;font-size:clamp(24px,2.6vw,35px);letter-spacing:-.05em;color:#fff;line-height:1;}
+.cs-stat-txt{margin:0;font-family:Mulish,sans-serif;font-size:clamp(14px,1.1vw,18px);line-height:1.25;color:rgba(255,255,255,.62);text-wrap:pretty;}
+
+/* ── breakpoint 768px (wide) ── */
+.cs-hero .cs-only-wide{display:none;}
+@media(min-width:768px){
+  .cs-hero{margin:16px 24px;border-radius:32px;min-height:calc(100vh - 32px);}
+  .cs-hero .cs-only-narrow{display:none;}
+  .cs-hero .cs-hero-bg.cs-only-wide{display:block;}
+  .cs-hero .cs-nav-links.cs-only-wide{display:flex;}
+  .cs-hero .cs-nav-manual.cs-only-wide{display:inline-flex;}
+  .cs-hero .cs-fgroup.cs-only-wide{display:contents;}
+  .cs-logo-img{height:40px;}
+  .cs-textcol{max-width:min(700px,52%);}
+  .cs-success{width:min(560px,calc(100vw - 56px));height:64px;}
+  .cs-formcol{gap:0;width:min(560px,calc(100vw - 56px));}
+  .cs-formlabel{margin-bottom:12px;}
+  .cs-pill{height:64px;}
+  .cs-seal{height:40px;}
+  .cs-statrow{flex-direction:row;align-items:center;gap:32px;flex:1;min-height:0;}
+  .cs-statimg{flex:0 0 45%;align-self:center;aspect-ratio:1122 / 1402;width:auto;height:auto;max-height:100%;}
+}
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════ NAV ═══════════════════════ -->
-<nav>
-  <div class="nav-in">
-    <div class="nav-logo">
-      <img class="nav-logo-img" src="https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/logo_caresystems.png" alt="CARE SYSTEMS BIO ENZYMES">
-    </div>
-    <ul class="nav-links">
-      <li><a href="#historia">História</a></li>
-      <li><a href="#produtos">Produtos</a></li>
-      <li><a href="#linhas">Linhas</a></li>
-      <li><a href="#oferta">Parceria</a></li>
-      <li><a href="#distribuidores">Distribuidores</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <a href="#cadastro" class="nav-cta">Quero distribuir</a>
-  </div>
-</nav>
+<!-- ═══════════════════════ HERO (Care Systems Hero) ═══════════════════════ -->
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
-<section class="hero" id="home">
-  <div class="hero-blob"></div>
-  <div class="hero-blob2"></div>
-  <div class="hero-in">
-    <div class="hero-left">
-      <p style="font-size:12px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;">17 anos de inovação enzimática brasileira</p>
-      <div class="lamp-title-wrap" data-lamp>
-        <div class="lamp-visual" aria-hidden="true">
-          <div class="lamp-beam lamp-beam-left"></div>
-          <div class="lamp-beam lamp-beam-right"></div>
-          <div class="lamp-core"></div>
-          <div class="lamp-line"></div>
-        </div>
-        <h1>Porque Cuidar<br>é <em>Revolucionar.</em></h1>
-      </div>
-      <p class="hero-sub">A Care Systems Bio Enzymes protege profissionais e ambientes com a força das enzimas - soluções 100% brasileiras, biodegradáveis e com tecnologia de ponta.</p>
+<header class="cs-hero" id="home">
+
+  <div class="cs-hero-top">
+
+    <div class="cs-hero-bg cs-only-wide">
+      <img src="assets/hero-lipax-proline.png" alt="LIPAX Enzyme e LIPAX Clean — detergentes enzimáticos Pro Line" style="width:100%;height:100%;object-fit:cover;object-position:76% center;display:block">
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to right,#0B3D2E 0%,rgba(11,61,46,0.92) 18%,rgba(11,61,46,0.45) 42%,rgba(11,61,46,0) 70%)"></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(11,61,46,0.35) 0%,rgba(11,61,46,0) 30%,rgba(11,61,46,0) 75%,rgba(11,61,46,0.4) 100%)"></div>
     </div>
-    <!-- BOX CADASTRO HERO -->
-    <div style="background:#fff;border:1px solid rgba(58,183,149,.25);border-radius:20px;overflow:hidden;">
-      <div style="background:var(--green-lt);padding:16px 24px;">
-        <p style="font-size:11px;font-weight:800;color:var(--white);text-transform:uppercase;letter-spacing:.12em;margin:0;">Quero ser distribuidor</p>
-      </div>
-      <div style="background:#f0f0f0;height:3px;">
-        <div id="h-prog-bar" style="height:3px;background:linear-gradient(90deg,var(--green-lt),var(--orange));border-radius:2px;transition:width .4s;width:33%;"></div>
-      </div>
-      <div style="padding:24px;background:#fff;">
-        <div id="h-step-label" style="font-size:10px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px;">Etapa 1 de 3</div>
-        <h3 id="h-step-title" style="font-size:16px;font-weight:800;color:var(--white);margin-bottom:18px;">Seus dados de contato</h3>
 
-        <!-- HERO ETAPA 1 -->
-        <div id="hf-step1">
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <input id="hf-nome" type="text" placeholder="Nome completo *"
-              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
-              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'"
-              oninput="this.style.color='var(--white)'" >
-            <input id="hf-wapp" type="tel" placeholder="WhatsApp *"
-              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
-              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
-            <input id="hf-email" type="email" placeholder="E-mail"
-              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
-              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
-          </div>
-          <button class="cta-button" onclick="hNextStep(2)" style="width:100%;margin-top:14px;background:var(--orange);color:#fff;font-family:var(--font);font-size:12px;font-weight:800;padding:13px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;">Continuar →</button>
+    <nav class="cs-nav">
+      <a href="#home" class="cs-nav-logo">
+        <img src="assets/logo-care-systems.png" alt="Care Systems Bio Enzymes" class="cs-logo-img">
+      </a>
+
+      <div class="cs-nav-links cs-only-wide">
+        <a href="#historia" class="cs-nav-link">Sobre Nós</a>
+        <a href="#linhas" class="cs-nav-link">Linhas</a>
+        <a href="#produtos" class="cs-nav-link">Enzimas</a>
+        <a href="#cadastro" class="cs-nav-link">Contato</a>
+      </div>
+
+      <div class="cs-nav-right">
+        <a href="#produtos" class="cs-nav-manual cs-only-wide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
+          Manual de Produtos
+        </a>
+        <button aria-label="Menu" class="cs-burger cs-only-narrow" data-cs-menu>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>
+        </button>
+      </div>
+    </nav>
+
+    <div class="cs-menu" id="cs-menu" hidden>
+      <button aria-label="Fechar" class="cs-menu-close" data-cs-menu>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+      </button>
+      <a href="#historia" class="cs-menu-link" data-cs-menu>Sobre Nós</a>
+      <a href="#linhas" class="cs-menu-link" data-cs-menu>Linhas</a>
+      <a href="#produtos" class="cs-menu-link" data-cs-menu>Enzimas</a>
+      <a href="#cadastro" class="cs-menu-link" data-cs-menu>Contato</a>
+    </div>
+
+    <section class="cs-textcol">
+      <div class="cs-eyebrow">17 anos de inovação enzimática brasileira</div>
+
+      <h1 class="cs-h1">
+        <span style="display:block;white-space:nowrap">
+          <span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span style="display:inline-block;color:rgba(255,255,255,0.55);animation:csWordReveal 0.7s cubic-bezier(0.16,1,0.3,1) 0.3s both">Porque&nbsp;</span></span>
+          <span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span style="display:inline-block;animation:csWordReveal 0.7s cubic-bezier(0.16,1,0.3,1) 0.4s both">Cuidar</span></span>
+        </span>
+        <span style="display:block;white-space:nowrap">
+          <span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span style="display:inline-block;color:rgba(255,255,255,0.55);animation:csWordReveal 0.7s cubic-bezier(0.16,1,0.3,1) 0.5s both">é&nbsp;</span></span>
+          <span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span style="display:inline-block;animation:csWordReveal 0.7s cubic-bezier(0.16,1,0.3,1) 0.6s both">Revolucionar.</span></span>
+        </span>
+      </h1>
+
+      <div class="cs-textcol-body">
+        <p class="cs-lead">A Care Systems Bio Enzymes protege profissionais e ambientes com a força das enzimas, soluções 100% brasileiras, biodegradáveis e com tecnologia de ponta.</p>
+
+        <div class="cs-success" id="cs-success" hidden>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fc85e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+          Recebemos seu contato — retornamos em até 24h
         </div>
 
-        <!-- HERO ETAPA 2 -->
-        <div id="hf-step2" style="display:none;">
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <input id="hf-empresa" type="text" placeholder="Nome da empresa *"
-              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
-              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
-            <input id="hf-cnpj" type="text" placeholder="CNPJ *"
-              style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
-              onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
-            <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;">
-              <input id="hf-cidade" type="text" placeholder="Cidade *"
-                style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(255,255,255,.1);color:var(--white);outline:none;"
-                onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='rgba(58,183,149,.3)'">
-              <select id="hf-estado" style="width:100%;font-family:var(--font);font-size:13px;padding:11px 10px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(0,69,60,.8);color:var(--white);outline:none;">
-                <option value="">UF</option>
-                <option>PR</option><option>SP</option><option>SC</option><option>RS</option>
-                <option>MG</option><option>RJ</option><option>GO</option><option>MS</option><option>Outro</option>
+        <div class="cs-formcol" id="cs-formcol">
+          <div class="cs-formlabel">Solicite as condições de distribuição</div>
+          <div class="cs-segs" id="cs-segs"></div>
+
+          <div class="cs-pill" id="cs-pill-main">
+            <input type="text" data-cs-field="name" placeholder="Seu nome completo" class="cs-input" data-cs-step="name">
+
+            <input type="email" data-cs-field="email" placeholder="Seu melhor e-mail" class="cs-input" data-cs-step="email" hidden>
+
+            <span class="cs-fgroup cs-only-wide" data-cs-step="contact" hidden>
+              <input type="tel" data-cs-field="phone" placeholder="(00) 00000-0000" class="cs-input cs-input-phone">
+              <span class="cs-divider"></span>
+              <span class="cs-selectwrap cs-selectwrap-profile">
+                <select data-cs-field="profile" class="cs-select">
+                  <option value="">Você é...</option>
+                  <option value="empresa">Empresa / Distribuidor</option>
+                  <option value="clinica">Dentista / Clínica</option>
+                </select>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(11,61,46,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:10px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg>
+              </span>
+            </span>
+
+            <input type="tel" data-cs-field="phone" placeholder="(00) 00000-0000" class="cs-input cs-only-narrow" data-cs-step="contact" hidden>
+
+            <input type="text" data-cs-field="company" placeholder="Razão social ou nome fantasia" class="cs-input" data-cs-step="company" hidden>
+
+            <input type="text" inputmode="numeric" data-cs-field="cnpj" placeholder="00.000.000/0000-00" class="cs-input" data-cs-step="cnpj" hidden>
+
+            <span class="cs-fgroup cs-only-wide" data-cs-step="cityuf" hidden>
+              <input type="text" data-cs-field="city" placeholder="Sua cidade" class="cs-input cs-input-city">
+              <span class="cs-divider"></span>
+              <span class="cs-selectwrap cs-selectwrap-uf">
+                <select data-cs-field="uf" class="cs-select">
+                  <option value="">UF</option>
+                  <option value="PR">PR</option><option value="SP">SP</option><option value="SC">SC</option><option value="RS">RS</option><option value="MG">MG</option><option value="RJ">RJ</option><option value="GO">GO</option><option value="MS">MS</option><option value="MT">MT</option><option value="BA">BA</option><option value="PE">PE</option><option value="CE">CE</option><option value="Outro">Outro</option>
+                </select>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(11,61,46,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:10px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg>
+              </span>
+            </span>
+
+            <input type="text" data-cs-field="city" placeholder="Sua cidade" class="cs-input cs-only-narrow" data-cs-step="cityuf" hidden>
+
+            <span class="cs-selectwrap cs-selectwrap-flex" data-cs-step="product" hidden>
+              <select data-cs-field="product" class="cs-select">
+                <option value="">Produto de interesse</option>
+                <option value="enzyme">LIPAX ENZYME — instrumentais</option>
+                <option value="clean">LIPAX CLEAN — cuspideiras</option>
+                <option value="ambos">Ambos os produtos</option>
               </select>
-            </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(11,61,46,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:10px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg>
+            </span>
+
+            <span class="cs-iconbtn-wrap" id="cs-arrow-wrap">
+              <button type="button" aria-label="Avançar" title="Avançar" class="cs-iconbtn" data-cs-next>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </button>
+            </span>
+            <button type="button" class="cs-sendbtn" id="cs-send" data-cs-next hidden>Enviar</button>
           </div>
-          <div style="display:flex;gap:8px;margin-top:14px;">
-            <button onclick="hNextStep(1)" style="flex:0 0 auto;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:var(--font);font-size:12px;font-weight:700;padding:13px 16px;border:1px solid rgba(255,255,255,.2);border-radius:10px;cursor:pointer;">←</button>
-            <button class="cta-button" onclick="hNextStep(3)" style="flex:1;background:var(--orange);color:#fff;font-family:var(--font);font-size:12px;font-weight:800;padding:13px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;">Continuar →</button>
+
+          <div class="cs-pill cs-only-narrow" data-cs-step="contact" hidden>
+            <span class="cs-selectwrap cs-selectwrap-flex">
+              <select data-cs-field="profile" class="cs-select">
+                <option value="">Você é...</option>
+                <option value="empresa">Empresa / Distribuidor</option>
+                <option value="clinica">Dentista / Clínica</option>
+              </select>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(11,61,46,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:10px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg>
+            </span>
+          </div>
+
+          <div class="cs-pill cs-only-narrow" data-cs-step="cityuf" hidden>
+            <span class="cs-selectwrap cs-selectwrap-flex">
+              <select data-cs-field="uf" class="cs-select">
+                <option value="">UF</option>
+                <option value="PR">PR</option><option value="SP">SP</option><option value="SC">SC</option><option value="RS">RS</option><option value="MG">MG</option><option value="RJ">RJ</option><option value="GO">GO</option><option value="MS">MS</option><option value="MT">MT</option><option value="BA">BA</option><option value="PE">PE</option><option value="CE">CE</option><option value="Outro">Outro</option>
+              </select>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(11,61,46,0.45)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:10px;pointer-events:none"><path d="m6 9 6 6 6-6"></path></svg>
+            </span>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:14px;margin-top:10px">
+            <a href="#" class="cs-back" id="cs-back" data-cs-back hidden>← voltar</a>
+            <span class="cs-steplabel" id="cs-steplabel">Passo 1 de 5</span>
           </div>
         </div>
 
-        <!-- HERO ETAPA 3 -->
-        <div id="hf-step3" style="display:none;">
-          <div style="background:rgba(58,183,149,.1);border:1px solid rgba(58,183,149,.25);border-radius:10px;padding:14px;margin-bottom:12px;">
-            <p style="font-size:10px;font-weight:700;color:var(--green-lt);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Confirme</p>
-            <div id="hf-resumo" style="font-size:12px;color:rgba(255,255,255,.8);line-height:1.9;"></div>
-          </div>
-          <select id="hf-interesse" style="width:100%;font-family:var(--font);font-size:13px;padding:11px 14px;border:1.5px solid rgba(58,183,149,.3);border-radius:10px;background:rgba(0,69,60,.8);color:var(--white);outline:none;margin-bottom:12px;">
-            <option>LIPAX ENZYME - instrumentais</option>
-            <option>LIPAX CLEAN - cuspideiras</option>
-            <option>Ambos os produtos</option>
-          </select>
-          <div style="display:flex;gap:8px;">
-            <button onclick="hNextStep(2)" style="flex:0 0 auto;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:var(--font);font-size:12px;font-weight:700;padding:13px 16px;border:1px solid rgba(255,255,255,.2);border-radius:10px;cursor:pointer;">←</button>
-            <button id="hf-submit" class="cta-button" onclick="hSubmitForm()" style="flex:1;background:var(--orange);color:#fff;font-family:var(--font);font-size:12px;font-weight:800;padding:13px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;">Enviar solicitação</button>
-          </div>
-        </div>
+        <p class="cs-privacy">Seus dados são confidenciais e não compartilhados com terceiros.</p>
+      </div>
+    </section>
+  </div>
 
-        <!-- HERO SUCESSO -->
-        <div id="hf-success" style="display:none;text-align:center;padding:16px 0;">
-          <div style="font-size:40px;margin-bottom:10px;"></div>
-          <h3 style="font-size:17px;font-weight:900;color:var(--green-lt);margin-bottom:6px;">Solicitação enviada!</h3>
-          <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;">Nossa equipe entrará em contato<br>via WhatsApp em até <strong style="color:var(--white);">24 horas</strong>.</p>
-        </div>
+  <div class="cs-hero-mobileimg cs-only-narrow">
+    <img src="assets/hero-lipax-proline.png" alt="LIPAX Enzyme e LIPAX Clean — detergentes enzimáticos Pro Line" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block">
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(11,61,46,0.35) 0%,rgba(11,61,46,0) 30%,rgba(11,61,46,0) 75%,rgba(11,61,46,0.4) 100%)"></div>
+  </div>
 
-        <p style="font-size:10px;color:rgba(255,255,255,.4);text-align:center;margin-top:14px;">Dados confidenciais · não compartilhados com terceiros</p>
+  <div class="cs-cards">
+
+    <div class="cs-card cs-card-a">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <p class="cs-card-a-title">Comece o seu caminho para um cuidado natural e não tóxico</p>
+        <a href="#cadastro" class="cs-card-a-link">Diagnóstico Personalizado</a>
+      </div>
+      <div class="cs-partners">
+        <div class="cs-partners-label">Parceiros acadêmicos</div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:24px">
+          <img src="assets/selo-ufla.png" alt="Universidade Federal de Lavras" class="cs-seal">
+          <img src="assets/selo-esalq-usp.png" alt="ESALQ / USP" class="cs-seal">
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-card cs-card-b">
+      <div class="cs-benefits">
+        <div class="cs-benefit is-active" data-cs-benefit="0">
+          <div class="cs-benefit-ico" style="background:#005530">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6.5L4.5 18A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3L14 8.5V2"></path><path d="M8 2h8"></path><path d="M7.5 15h9"></path></svg>
+          </div>
+          <p class="cs-benefit-txt">Formulação enzimática aprimorada, desenvolvida com UFLA e USP/ESALQ</p>
+        </div>
+        <div class="cs-benefit" data-cs-benefit="1">
+          <div class="cs-benefit-ico" style="background:#4e9a1e">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 4 13c0-6 8-9 16-9 0 8-3 16-9 16Z"></path><path d="M4 21c2-6 6-9 11-11"></path></svg>
+          </div>
+          <p class="cs-benefit-txt">Insumos de origem natural, produzidos com responsabilidade</p>
+        </div>
+        <div class="cs-benefit" data-cs-benefit="2">
+          <div class="cs-benefit-ico" style="background:#1e7fa8">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.5a4 4 0 0 0 8 0C15 13 11 9 11 9s-4 4-4 7.5Z"></path><path d="M16.5 11.5a2.5 2.5 0 0 0 5 0C21.5 9 19 6.5 19 6.5s-2.5 2.5-2.5 5Z"></path></svg>
+          </div>
+          <p class="cs-benefit-txt">Degradação da matéria orgânica até 500 vezes mais rápida</p>
+        </div>
+        <div class="cs-benefit" data-cs-benefit="3">
+          <div class="cs-benefit-ico" style="background:#14857a">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 8-8 8s-8-3-8-8 3.5-9 8-11c4.5 2 8 6 8 11Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+          </div>
+          <p class="cs-benefit-txt">Seguro para o agro, a indústria, a clínica e a sua casa</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <span class="cs-dot is-active" data-cs-dot="0"></span>
+        <span class="cs-dot" data-cs-dot="1"></span>
+        <span class="cs-dot" data-cs-dot="2"></span>
+        <span class="cs-dot" data-cs-dot="3"></span>
+      </div>
+    </div>
+
+    <div class="cs-card cs-card-c">
+      <div class="cs-statrow">
+        <div class="cs-statimg">
+          <img src="assets/linha-produtos.png" alt="Linha de produtos Care Systems" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:16px">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="cs-stat-num">+50</div>
+          <p class="cs-stat-txt">produtos enzimáticos já cuidando de lavouras, indústrias e famílias</p>
+        </div>
       </div>
     </div>
   </div>
-</section>
+</header>
 
 <!-- ═══════════════════════ VÍDEO ═══════════════════════ -->
 <section class="stats-marquee" aria-label="Indicadores Care Systems">
@@ -1481,34 +1544,166 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 </section>
 
 <script>
-/* ── HERO FORM (IDs hf-*) ── */
-function hNextStep(n) {
-  [1,2,3].forEach(function(i){document.getElementById('hf-step'+i).style.display='none';});
-  document.getElementById('hf-step'+n).style.display='block';
-  var labels = ['','Etapa 1 de 3','Etapa 2 de 3','Etapa 3 de 3'];
-  var titles = ['','Seus dados de contato','Dados da empresa','Revise e envie'];
-  var widths  = ['','33%','66%','100%'];
-  document.getElementById('h-step-label').textContent = labels[n];
-  document.getElementById('h-step-title').textContent = titles[n];
-  document.getElementById('h-prog-bar').style.width = widths[n];
-  if(n===3){
-    document.getElementById('hf-resumo').innerHTML =
-      '<strong>Nome:</strong> '+document.getElementById('hf-nome').value+'<br>'+
-      '<strong>WhatsApp:</strong> '+document.getElementById('hf-wapp').value+'<br>'+
-      '<strong>Empresa:</strong> '+document.getElementById('hf-empresa').value+'<br>'+
-      '<strong>CNPJ:</strong> '+document.getElementById('hf-cnpj').value+'<br>'+
-      '<strong>Cidade/UF:</strong> '+document.getElementById('hf-cidade').value+' - '+document.getElementById('hf-estado').value;
+/* ── HERO CARE SYSTEMS (form multi-step + rotação de cards + menu) ── */
+(function(){
+  var hero = document.querySelector('.cs-hero');
+  if(!hero) return;
+
+  var state = { i:0, menuOpen:false, step:0, error:'', done:false,
+    name:'', email:'', phone:'', profile:'', company:'', cnpj:'', city:'', uf:'', product:'' };
+
+  function flow(){
+    var mid = state.profile === 'empresa' ? ['company','cnpj'] : [];
+    return ['name','email','contact'].concat(mid, ['cityuf','product']);
   }
-}
-function hSubmitForm() {
-  var btn = document.getElementById('hf-submit');
-  btn.textContent = 'Enviando...'; btn.disabled = true;
-  setTimeout(function(){
-    [1,2,3].forEach(function(i){document.getElementById('hf-step'+i).style.display='none';});
-    document.getElementById('hf-success').style.display='block';
-    document.getElementById('h-prog-bar').style.width='100%';
-  },1500);
-}
+  function stepKey(){ return flow()[state.step]; }
+
+  function maskCnpj(v){
+    var d = v.replace(/\D/g,'').slice(0,14), out = d.slice(0,2);
+    if(d.length > 2)  out += '.' + d.slice(2,5);
+    if(d.length > 5)  out += '.' + d.slice(5,8);
+    if(d.length > 8)  out += '/' + d.slice(8,12);
+    if(d.length > 12) out += '-' + d.slice(12);
+    return out;
+  }
+  function validCnpj(v){
+    var d = v.replace(/\D/g,'');
+    if(d.length !== 14 || /^(\d)\1{13}$/.test(d)) return false;
+    var dv = function(len, weights){
+      var sum = 0;
+      for(var i=0;i<len;i++) sum += Number(d[i]) * weights[i];
+      var r = sum % 11;
+      return r < 2 ? 0 : 11 - r;
+    };
+    return dv(12,[5,4,3,2,9,8,7,6,5,4,3,2]) === Number(d[12])
+        && dv(13,[6,5,4,3,2,9,8,7,6,5,4,3,2]) === Number(d[13]);
+  }
+  function maskPhone(v){
+    var d = v.replace(/\D/g,'').slice(0,11);
+    if(d.length <= 2)  return d.length ? '(' + d : '';
+    if(d.length <= 6)  return '(' + d.slice(0,2) + ') ' + d.slice(2);
+    if(d.length <= 10) return '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+    return '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
+  }
+
+  function validate(){
+    switch(stepKey()){
+      case 'name':  return state.name.trim().length < 3 ? 'Digite seu nome completo (mínimo 3 caracteres).' : '';
+      case 'email': return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(state.email.trim()) ? '' : 'Informe um e-mail válido.';
+      case 'contact':
+        if(state.phone.replace(/\D/g,'').length < 10) return 'Informe um telefone com DDD.';
+        return state.profile ? '' : 'Selecione o seu perfil.';
+      case 'company': return state.company.trim().length < 2 ? 'Informe o nome da empresa.' : '';
+      case 'cnpj':    return validCnpj(state.cnpj) ? '' : 'CNPJ inválido — confira os números';
+      case 'cityuf':
+        if(state.city.trim().length < 2) return 'Informe a sua cidade.';
+        return state.uf ? '' : 'Selecione a UF.';
+      case 'product': return state.product ? '' : 'Selecione o produto de interesse.';
+      default: return '';
+    }
+  }
+  function advance(){
+    var error = validate();
+    if(error){ state.error = error; return render(); }
+    if(state.step === flow().length - 1){ state.done = true; state.error = ''; }
+    else { state.step++; state.error = ''; }
+    render();
+    focusStep();
+  }
+  function back(){
+    state.step = Math.max(0, state.step - 1);
+    state.error = '';
+    render();
+    focusStep();
+  }
+  function focusStep(){
+    var el = hero.querySelector('.cs-pill:not([hidden]) input:not([hidden]),.cs-pill:not([hidden]) select:not([hidden])');
+    if(el && el.offsetParent !== null) el.focus();
+  }
+
+  var segsEl     = hero.querySelector('#cs-segs');
+  var pillMain   = hero.querySelector('#cs-pill-main');
+  var arrowWrap  = hero.querySelector('#cs-arrow-wrap');
+  var sendBtn    = hero.querySelector('#cs-send');
+  var backLink   = hero.querySelector('#cs-back');
+  var labelEl    = hero.querySelector('#cs-steplabel');
+  var formCol    = hero.querySelector('#cs-formcol');
+  var successEl  = hero.querySelector('#cs-success');
+  var menuEl     = hero.querySelector('#cs-menu');
+
+  function render(){
+    var f = flow(), key = f[state.step], isLast = state.step === f.length - 1;
+
+    /* segmentos de progresso */
+    if(segsEl.children.length !== f.length){
+      segsEl.innerHTML = '';
+      for(var n=0;n<f.length;n++) segsEl.appendChild(document.createElement('span')).className = 'cs-seg';
+    }
+    for(var s=0;s<segsEl.children.length;s++)
+      segsEl.children[s].classList.toggle('is-on', s <= state.step);
+
+    /* campos do passo atual */
+    Array.prototype.forEach.call(hero.querySelectorAll('[data-cs-step]'), function(el){
+      el.hidden = el.getAttribute('data-cs-step') !== key;
+    });
+
+    arrowWrap.hidden = isLast;
+    sendBtn.hidden   = !isLast;
+    backLink.hidden  = state.step === 0;
+
+    Array.prototype.forEach.call(hero.querySelectorAll('.cs-pill'), function(p){
+      p.classList.toggle('has-error', !!state.error);
+    });
+    labelEl.textContent = state.error || ('Passo ' + (state.step + 1) + ' de ' + f.length);
+    labelEl.classList.toggle('has-error', !!state.error);
+
+    formCol.hidden  = state.done;
+    successEl.hidden = !state.done;
+    menuEl.hidden    = !state.menuOpen;
+  }
+
+  /* inputs — espelha o valor entre as variantes desktop/mobile do mesmo campo */
+  Array.prototype.forEach.call(hero.querySelectorAll('[data-cs-field]'), function(el){
+    var field = el.getAttribute('data-cs-field');
+    var evt = el.tagName === 'SELECT' ? 'change' : 'input';
+    el.addEventListener(evt, function(){
+      var v = el.value;
+      if(field === 'phone') v = maskPhone(v);
+      if(field === 'cnpj')  v = maskCnpj(v);
+      state[field] = v;
+      if(field === 'profile' && v !== 'empresa'){ state.company = ''; state.cnpj = ''; }
+      Array.prototype.forEach.call(hero.querySelectorAll('[data-cs-field="' + field + '"]'), function(twin){
+        if(twin.value !== v) twin.value = v;
+      });
+      state.error = '';
+      render();
+    });
+    el.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); advance(); }
+    });
+  });
+
+  Array.prototype.forEach.call(hero.querySelectorAll('[data-cs-next]'), function(b){
+    b.addEventListener('click', function(e){ e.preventDefault(); advance(); });
+  });
+  backLink.addEventListener('click', function(e){ e.preventDefault(); back(); });
+
+  /* menu mobile */
+  Array.prototype.forEach.call(hero.querySelectorAll('[data-cs-menu]'), function(b){
+    b.addEventListener('click', function(){ state.menuOpen = !state.menuOpen; render(); });
+  });
+
+  /* rotação dos cards de benefício */
+  var benefits = hero.querySelectorAll('[data-cs-benefit]');
+  var dots     = hero.querySelectorAll('[data-cs-dot]');
+  setInterval(function(){
+    state.i = (state.i + 1) % 4;
+    for(var n=0;n<benefits.length;n++) benefits[n].classList.toggle('is-active', n === state.i);
+    for(var d=0;d<dots.length;d++)     dots[d].classList.toggle('is-active', d === state.i);
+  }, 3500);
+
+  render();
+})();
 
 /* ── MAPA TOOLTIP ── */
 function showMapTip(e, nome, cidade, tipo) {
@@ -1570,15 +1765,6 @@ var revealObserver = new IntersectionObserver(function(entries){
   });
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(element){revealObserver.observe(element);});
-
-var lampWrap = document.querySelector('.lamp-title-wrap[data-lamp]');
-if(lampWrap){
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    lampWrap.classList.add('is-visible','reduced-motion');
-  }else{
-    requestAnimationFrame(function(){lampWrap.classList.add('is-visible');});
-  }
-}
 </script>
 
 <!-- ═══════════════════════ RODAPÉ ═══════════════════════ -->
@@ -1587,7 +1773,7 @@ if(lampWrap){
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img class="footer-logo-img" src="https://pub-db8ed4fb33634589a6ce5fb07e85cb46.r2.dev/landing_pages/Care%20Systems/logo_caresystems.png" alt="CARE SYSTEMS BIO ENZYMES">
+          <img class="footer-logo-img" src="assets/logo-care-systems.png" alt="CARE SYSTEMS BIO ENZYMES">
         </div>
         <div class="footer-slogan">"Porque Cuidar é Revolucionar!"</div>
         <div class="footer-addr">
