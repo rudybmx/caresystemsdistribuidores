@@ -938,6 +938,30 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 
 /* subtitulo de card (nao e kicker de secao): metrica de overline, cor neutra */
 .pm-kicker{font-family:var(--font-body);font-weight:var(--fw-semibold);letter-spacing:var(--ls-overline);text-transform:uppercase;color:#6B7280;}
+
+/* ── POR QUE CARE SYSTEMS · hover no verde da brand ─────────────────────── */
+/* .dif-card--destaque tem fundo proprio; o seletor duplo iguala a especificidade
+   dele (0,2,0) para o hover valer tambem no card em destaque */
+.dif-card:hover,.dif-card.dif-card--destaque:hover{
+  background:var(--green-hero);
+  border-color:rgba(255,255,255,.14);
+  box-shadow:0 14px 34px rgba(11,61,46,.30);
+}
+.dif-card .dif-title,.dif-card .dif-text,.dif-card .dif-icon{
+  transition:color .3s ease;
+}
+.dif-card:hover .dif-title{color:var(--white);}
+.dif-card:hover .dif-text{color:rgba(255,255,255,.78);}
+/* --lime-400: mesmo tom dos kickers sobre fundo escuro, 5.65:1 */
+.dif-card:hover .dif-icon{color:var(--lime-400);}
+.dif-card .dif-icon::before{transition:background .3s ease;}
+.dif-card:hover .dif-icon::before{
+  background:radial-gradient(circle,rgba(124,194,92,.34) 0%,transparent 70%);
+}
+@media(prefers-reduced-motion:reduce){
+  .dif-card .dif-title,.dif-card .dif-text,.dif-card .dif-icon,
+  .dif-card .dif-icon::before{transition:none;}
+}
 </style>
 </head>
 <body>
