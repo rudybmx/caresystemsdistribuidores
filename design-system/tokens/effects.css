@@ -1,0 +1,34 @@
+/* ============================================================
+   Care Systems — Effects: radius, shadow, motion, borders
+   Rounded, soft, friendly. Green-tinted shadows.
+   ============================================================ */
+:root {
+  /* Corner radius — brand skews rounded/organic */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* Shadows — soft, cool-green tint (rgba of green-900) */
+  --shadow-xs: 0 1px 2px rgba(0, 61, 34, 0.06);
+  --shadow-sm: 0 2px 6px rgba(0, 61, 34, 0.08);
+  --shadow-md: 0 6px 18px rgba(0, 61, 34, 0.10);
+  --shadow-lg: 0 14px 34px rgba(0, 61, 34, 0.14);
+  --shadow-xl: 0 24px 60px rgba(0, 61, 34, 0.18);
+  --shadow-focus: 0 0 0 3px rgba(89, 173, 51, 0.45); /* lime focus ring */
+
+  /* Border widths */
+  --border-thin: 1px;   /* @kind spacing */
+  --border-thick: 2px;  /* @kind spacing */
+
+  /* Motion — gentle, natural easing; fades over bounces */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);   /* @kind other */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);       /* @kind other */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);           /* @kind other */
+  --dur-fast: 120ms;   /* @kind other */
+  --dur-base: 200ms;   /* @kind other */
+  --dur-slow: 320ms;   /* @kind other */
+}

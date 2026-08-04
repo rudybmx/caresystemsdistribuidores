@@ -1,0 +1,107 @@
+/* ============================================================
+   Care Systems — Color Tokens
+   Brand anchor: #005530 (site theme-color), enzyme/nature greens.
+   Base ramps + semantic aliases.
+   ============================================================ */
+:root {
+  /* --- Brand green (primary) ------------------------------- */
+  --green-900: #003d22;
+  --green-800: #005530; /* PRIMARY brand green (site theme-color) */
+  --green-700: #0a6b3d;
+  --green-600: #17814b;
+  --green-500: #2e9b5e;
+  --green-400: #57b77e;
+  --green-300: #8bd0a4;
+  --green-200: #c0e6ce;
+  --green-100: #e3f4ea;
+  --green-50:  #f1faf4;
+
+  /* --- Lime / leaf (secondary accent, enzymatic vitality) --
+     --lime-500 is sampled from the official logo. */
+  --lime-700: #3f7d18;
+  --lime-600: #4e9a1e;
+  --lime-500: #59ad33; /* SECONDARY accent — EXACT from logo */
+  --lime-400: #7cc25c;
+  --lime-300: #a6d68f;
+  --lime-200: #d0e9c2;
+  --lime-100: #ecf6de;
+
+  /* --- Orange (tertiary accent) ---------------------------
+     The logo's third swoosh. Sampled from the official mark.
+     Use sparingly: highlights, energy, a single CTA accent. */
+  --orange-700: #b64a12;
+  --orange-600: #d4571a;
+  --orange-500: #ea6621; /* TERTIARY accent — EXACT from logo */
+  --orange-400: #f0854f;
+  --orange-300: #f5a97e;
+  --orange-200: #fad0b6;
+  --orange-100: #fdeade;
+
+  /* --- Neutrals (warm, faintly green-tinted) -------------- */
+  --neutral-900: #14231b;
+  --neutral-800: #263a2f;
+  --neutral-700: #3d5347;
+  --neutral-600: #5c7266;
+  --neutral-500: #7d9187;
+  --neutral-400: #a6b5ac;
+  --neutral-300: #cbd6cf;
+  --neutral-200: #e4eae6;
+  --neutral-100: #f1f5f2;
+  --neutral-50:  #f8fbf9;
+  --white: #ffffff;
+  --black: #0b140f;
+
+  /* --- Product-line accents (inferred; see readme) -------- */
+  --line-agro:         #2e9b5e; /* verde campo */
+  --line-profissional: #1e7fa8; /* azul técnico */
+  --line-residencial:  #6cb33f; /* verde-limão casa */
+  --line-medica:       #14857a; /* teal clínico */
+
+  /* --- Semantic status ------------------------------------ */
+  --status-success: #17814b;
+  --status-warning: #e0a400;
+  --status-error:   #c6413a;
+  --status-info:    #2c74b3;
+
+  /* ========================================================
+     SEMANTIC ALIASES — reference these in product UI
+     ======================================================== */
+  --brand-primary:        var(--green-800);
+  --brand-primary-hover:  var(--green-900);
+  --brand-primary-active: var(--green-900);
+  --brand-secondary:      var(--lime-500);
+  --brand-secondary-hover:var(--lime-600);
+  --brand-tertiary:       var(--orange-500);
+  --brand-tertiary-hover: var(--orange-600);
+  --brand-on-primary:     var(--white);
+
+  /* Surfaces */
+  --surface-page:      var(--neutral-50);
+  --surface-card:      var(--white);
+  --surface-raised:    var(--white);
+  --surface-sunken:    var(--neutral-100);
+  --surface-inverse:   var(--green-800);
+  --surface-accent-soft: var(--green-50);
+  --surface-lime-soft:   var(--lime-100);
+  --surface-orange-soft: var(--orange-100);
+
+  /* Text */
+  --text-strong:   var(--neutral-900);
+  --text-body:     var(--neutral-800);
+  --text-muted:    var(--neutral-600);
+  --text-subtle:   var(--neutral-500);
+  --text-on-brand: var(--white);
+  --text-link:     var(--green-700);
+  --text-link-hover: var(--green-900);
+
+  /* Borders / dividers */
+  --border-subtle:  var(--neutral-200);
+  --border-default: var(--neutral-300);
+  --border-strong:  var(--neutral-400);
+  --border-brand:   var(--green-800);
+  --focus-ring:     var(--lime-500);
+
+  /* Logo assets — official marks. dark = for light bgs, light = for dark bgs. */
+  --logo-dark:  url('../assets/logo-caresystems-dark.png'); /* @kind other */
+  --logo-light: url('../assets/logo-caresystems-light.png'); /* @kind other */
+}

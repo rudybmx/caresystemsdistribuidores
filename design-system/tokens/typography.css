@@ -1,0 +1,49 @@
+/* ============================================================
+   Care Systems — Typography Tokens
+   Display: Poppins (geometric, friendly-scientific).
+   Body:    Mulish (humanist, highly legible pt-BR text).
+   NOTE: these are SUBSTITUTE webfonts — the live site's exact
+   fonts could not be read. See readme.md > Fonts.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+:root {
+  /* Families */
+  --font-display: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Mulish', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', monospace; /* @kind font */
+
+  /* Weights */
+  --fw-regular: 400;    /* @kind other */
+  --fw-medium: 500;     /* @kind other */
+  --fw-semibold: 600;   /* @kind other */
+  --fw-bold: 700;       /* @kind other */
+  --fw-extrabold: 800;  /* @kind other */
+
+  /* Type scale (px) — 1.2 minor-third-ish, tuned */
+  --fs-display-xl: 60px;
+  --fs-display-lg: 48px;
+  --fs-display-md: 38px;
+  --fs-h1: 32px;
+  --fs-h2: 26px;
+  --fs-h3: 21px;
+  --fs-h4: 18px;
+  --fs-body-lg: 18px;
+  --fs-body: 16px;
+  --fs-body-sm: 14px;
+  --fs-caption: 13px;
+  --fs-overline: 12px;
+
+  /* Line heights */
+  --lh-tight: 1.1;      /* @kind other */
+  --lh-heading: 1.2;    /* @kind other */
+  --lh-snug: 1.35;      /* @kind other */
+  --lh-body: 1.6;       /* @kind other */
+  --lh-relaxed: 1.75;   /* @kind other */
+
+  /* Letter spacing */
+  --ls-tight: -0.02em;   /* @kind other */
+  --ls-normal: 0em;      /* @kind other */
+  --ls-wide: 0.04em;     /* @kind other */
+  --ls-overline: 0.14em; /* @kind other */
+}
