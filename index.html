@@ -224,31 +224,6 @@ img{max-width:100%;display:block;}
 .dif-title{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:8px;}
 .dif-text{font-size:13px;color:var(--ink2);line-height:1.7;}
 
-/* ── LINHA DE PRODUTOS ──────────────────────────────────────────────────── */
-.linhas{background:var(--green-dk);padding:80px 0;position:relative;overflow:hidden;}
-.linhas::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%233AB795' stroke-width='0.6' opacity='0.1'/%3E%3C/svg%3E");background-size:60px 52px;}
-.linhas-header{text-align:center;margin-bottom:48px;position:relative;z-index:1;}
-.linhas-header .sec-tag{color:var(--green-lt);}
-.linhas-header h2{font-size:clamp(22px,2.8vw,36px);font-weight:900;color:var(--white);margin-top:10px;letter-spacing:-.02em;}
-.linhas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1;}
-.linha-card{
-  background:rgba(255,255,255,.07);border:1px solid rgba(58,183,149,.2);
-  border-radius:16px;padding:24px 20px;
-}
-.linha-pill{
-  font-size:9px;font-weight:800;padding:4px 12px;border-radius:20px;
-  text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;display:inline-block;
-}
-.linha-card h3{font-size:14px;font-weight:800;color:var(--white);margin-bottom:12px;}
-.linha-produtos{list-style:none;display:flex;flex-direction:column;gap:5px;}
-.linha-produtos li{font-size:11px;color:rgba(255,255,255,.6);padding-left:14px;position:relative;line-height:1.4;}
-.linha-produtos li::before{content:'→';position:absolute;left:0;color:var(--green-lt);font-size:9px;top:2px;}
-
-.linha-agro .linha-pill{background:rgba(58,183,149,.2);color:var(--green-lt);}
-.linha-dom .linha-pill{background:rgba(232,98,10,.2);color:var(--orange-lt);}
-.linha-prof .linha-pill{background:rgba(0,124,140,.2);color:#5ECFDB;}
-.linha-dental .linha-pill{background:rgba(107,36,132,.2);color:#C080E0;}
-
 /* ── DISTRIBUIDORES + MAPA ──────────────────────────────────────────────── */
 .distribuidores{background:var(--off);padding:96px 0;}
 .distrib-header{text-align:center;margin-bottom:60px;}
@@ -351,15 +326,14 @@ footer{background:var(--ink);padding:60px 0 32px;color:rgba(255,255,255,.7);}
   .numeros-grid{grid-template-columns:repeat(2,1fr);}
   .produto-cards{grid-template-columns:1fr;}
   .dif-grid{grid-template-columns:1fr 1fr;}
-  .linhas-grid{grid-template-columns:1fr 1fr;}
   .offer-grid{grid-template-columns:1fr;max-width:560px;margin:0 auto;}
   .faq-grid{grid-template-columns:1fr;gap:36px;}
-  .linhas-feature-grid,.cadastro-grid{grid-template-columns:1fr !important;}
+  .cadastro-grid{grid-template-columns:1fr !important;}
   .footer-grid{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:560px){
   .numeros-grid{grid-template-columns:1fr 1fr;}
-  .dif-grid,.linhas-grid{grid-template-columns:1fr;}
+  .dif-grid{grid-template-columns:1fr;}
   .historia-pilares{grid-template-columns:1fr;}
   .footer-grid{grid-template-columns:1fr;}
   .footer-bottom{flex-direction:column;text-align:center;}
@@ -429,8 +403,7 @@ section{margin:0 .75rem 1rem;border-radius:1.6rem;overflow:hidden;}
 .prod-card-img{height:500px;}
 .prod-card-img img{width:100%;height:100%;object-fit:contain;padding:8px;}
 .prod-btn,.offer-btn{border-radius:999px;}
-.linhas-header h2,.slogan-cta h2{font-weight:400;}
-.linha-card{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16);border-radius:1.4rem;}
+.slogan-cta h2{font-weight:400;}
 .slogan-cta{background:linear-gradient(135deg,var(--sage),var(--green-hero));border-radius:2.1rem;}
 .slogan-cta .btn-white{border-radius:999px;}
 .offer-card.featured{background:linear-gradient(145deg,var(--green-hero),var(--green-hero));border-color:rgba(255,255,255,.24);}
@@ -519,7 +492,6 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .offer-card .offer-list li::before{color:var(--green-lt)!important;}
 .offer-card .offer-btn,.offer-card.featured .offer-btn{background:var(--green-lt)!important;color:var(--ink)!important;border-color:var(--green-lt)!important;}
 .dif-icon{display:none;}
-.linha-dental .linha-pill{background:var(--green-lt)!important;color:var(--ink)!important;}
 .prod-card-img{width:fit-content;height:500px;margin:24px auto;border:0;}
 .prod-card-img img{width:auto;height:100%;max-width:100%;padding:0;border:1px dashed currentColor;border-radius:14px;object-fit:contain;}
 .stats-marquee{background:var(--green-dk);border:1px solid rgba(117,214,156,.38);padding:0;}
@@ -645,22 +617,22 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 
 /* ── CTAs primários: mesmo tratamento do botão do formulário da hero ───── */
 /* seletores espelham a especificidade das regras !important existentes    */
-.prod-btn,.offer-card .offer-btn,.offer-card.featured .offer-btn,.cta-button,.cs-hero .cs-nav-manual{
+.prod-btn,.offer-card .offer-btn,.offer-card.featured .offer-btn,.cta-button,.cs-hero .cs-nav-manual,.linhas .dm-cta{
   background:linear-gradient(180deg,#F5792C 0%,#E8622A 52%,#D8511A 100%)!important;
   color:#FFFFFF!important;border:none!important;margin-bottom:4px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -1px 0 rgba(120,40,0,.22),0 4px 0 #B8460F,0 7px 14px rgba(184,70,15,.34)!important;
   transition:transform 90ms ease,box-shadow 90ms ease,filter 160ms ease!important;
 }
-.prod-btn:hover,.offer-card .offer-btn:hover,.offer-card.featured .offer-btn:hover,.cta-button:hover,.cs-hero .cs-nav-manual:hover{
+.prod-btn:hover,.offer-card .offer-btn:hover,.offer-card.featured .offer-btn:hover,.cta-button:hover,.cs-hero .cs-nav-manual:hover,.linhas .dm-cta:hover{
   filter:brightness(1.05);opacity:1;transform:none;
 }
-.prod-btn:active,.offer-card .offer-btn:active,.offer-card.featured .offer-btn:active,.cta-button:active,.cs-hero .cs-nav-manual:active{
+.prod-btn:active,.offer-card .offer-btn:active,.offer-card.featured .offer-btn:active,.cta-button:active,.cs-hero .cs-nav-manual:active,.linhas .dm-cta:active{
   transform:translateY(4px);filter:none;
   box-shadow:inset 0 2px 6px rgba(120,40,0,.42),inset 0 -1px 0 rgba(255,255,255,.12),0 0 0 #B8460F,0 1px 3px rgba(184,70,15,.3)!important;
 }
 .cs-hero .cs-nav-manual{margin-bottom:0;}
 @media(prefers-reduced-motion:reduce){
-  .prod-btn,.offer-card .offer-btn,.cta-button,.cs-hero .cs-nav-manual{transition:none;}
+  .prod-btn,.offer-card .offer-btn,.cta-button,.cs-hero .cs-nav-manual,.linhas .dm-cta{transition:none;}
 }
 
 /* ── LINHA DENTAL MED · DESTAQUE ──────────────────────────────────────── */
@@ -770,6 +742,63 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 @media(prefers-reduced-motion:reduce){
   .dif-card{transition:none;}
   .dif-card:hover{transform:none;}
+}
+
+/* ── LINHA DENTAL MED (#linhas) · reconstrucao ──────────────────────────── */
+.linhas{background:var(--green-hero);padding:96px 0;position:relative;overflow:hidden;}
+/* padrao hexagonal em overlay, stroke no verde de acento da brand */
+.linhas::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 56,16 56,44 30,58 4,44 4,16' fill='none' stroke='%23A8D156' stroke-width='0.6' opacity='0.14'/%3E%3C/svg%3E");
+  background-size:60px 52px;
+}
+.linhas .sec-in{position:relative;z-index:1;}
+.linhas-header{text-align:center;margin-bottom:48px;}
+.linhas-header h2{
+  font-size:clamp(26px,3.2vw,40px);font-weight:800;color:var(--white);
+  line-height:1.2;letter-spacing:-.02em;max-width:640px;margin:0 auto;
+}
+
+.dm-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch;}
+
+.dm-card{
+  --dm-acc:#2E9B8A;
+  display:flex;flex-direction:column;overflow:hidden;
+  background:#FFFFFF;border-radius:16px;
+  border-left:5px solid var(--dm-acc);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+.dm-card--enzyme{--dm-acc:#2E9B8A;}
+.dm-card--clean {--dm-acc:#7B5EA7;}
+
+/* a imagem nao arredonda sozinha: quem corta e o overflow:hidden do card */
+.dm-media{aspect-ratio:1448/1086;background:#F3F4F6;}
+.dm-media img{width:100%;height:100%;object-fit:cover;}
+
+.dm-body{padding:24px;display:flex;flex-direction:column;flex:1;}
+.dm-kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dm-acc);}
+.dm-title{font-size:24px;font-weight:800;color:#14261E;line-height:1.2;margin-top:4px;}
+.dm-desc{font-size:14px;line-height:1.55;color:#4B5563;margin-top:12px;}
+
+/* gap:1px sobre fundo cinza desenha os divisores — sem borda em celula alguma,
+   entao nao ha linha dupla nem sobra nas extremidades */
+.dm-specs{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  margin-top:20px;border-top:1px solid #E5E7EB;background:#E5E7EB;
+}
+.dm-spec{background:#FFFFFF;padding:12px;font-size:13px;line-height:1.45;color:#374151;}
+
+/* cor/sombra/estados do CTA vem do grupo laranja compartilhado */
+.dm-cta-wrap{text-align:center;margin-top:40px;}
+.dm-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:52px;padding:0 34px;border-radius:999px;
+  font-size:15px;font-weight:800;letter-spacing:.01em;
+}
+
+@media(max-width:768px){
+  .linhas{padding:72px 0;}
+  .dm-grid{grid-template-columns:1fr;gap:24px;}
 }
 </style>
 </head>
@@ -1214,36 +1243,49 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 <section class="linhas" id="linhas">
   <div class="sec-in">
     <div class="linhas-header">
-      <span class="sec-tag">Linha Dental Med</span>
       <h2>As enzimas certas para cada etapa da higienização</h2>
     </div>
-    <!-- 2 cards grandes, destaque total nos produtos LIPAX -->
-    <div class="linhas-feature-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:1;">
-      <div class="linha-card linha-dental" style="padding:32px 28px;">
-        <span class="linha-pill" style="font-size:11px;padding:6px 16px;margin-bottom:18px;">LIPAX ENZYME</span>
-        <h3 style="font-size:20px;margin-bottom:10px;">Higienização de Instrumentais</h3>
-        <p style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:18px;">Detergente multienzimático concentrado para limpeza de instrumentais odontológicos, médicos e hospitalares. pH neutro - não corrói, não mancha.</p>
-        <ul class="linha-produtos">
-          <li>3 enzimas: Lipase · Protease · Carboidrase</li>
-          <li>Diluição 0,2-0,5% · Imersão 10 min</li>
-          <li>Manual e lavadoras ultrassônicas</li>
-          <li>Embalagens: 500 mL · 1 L · 5 L</li>
-        </ul>
-      </div>
-      <div class="linha-card linha-dental" style="padding:32px 28px;border-color:rgba(192,128,224,.4);">
-        <span class="linha-pill" style="font-size:11px;padding:6px 16px;margin-bottom:18px;">LIPAX CLEAN</span>
-        <h3 style="font-size:20px;margin-bottom:10px;">Manutenção de Cuspideiras</h3>
-        <p style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:18px;">Alta concentração enzimática para remoção de incrustações em cuspideiras, pias e tubulações. Fragrância camomila. Previne entupimentos e mau odor.</p>
-        <ul class="linha-produtos">
-          <li>4 enzimas: Lipase · Protease · Carboidrase · Xilanase</li>
-          <li>Diluição 10% · Aplicar ao final do turno</li>
-          <li>Uso regular para resultados prolongados</li>
-          <li>Embalagens: 500 mL · 1 L · 5 L</li>
-        </ul>
-      </div>
+
+    <div class="dm-grid">
+
+      <article class="dm-card dm-card--enzyme">
+        <div class="dm-media">
+          <img src="/public/enzimas/lipax-enzyme-ilustra.png" alt="LIPAX ENZYME" loading="lazy" decoding="async">
+        </div>
+        <div class="dm-body">
+          <div class="dm-kicker">LIPAX ENZYME</div>
+          <h3 class="dm-title">Higienização de Instrumentais</h3>
+          <p class="dm-desc">Detergente multienzimático concentrado para limpeza de instrumentais odontológicos, médicos e hospitalares. pH neutro — não corrói, não mancha.</p>
+          <div class="dm-specs">
+            <div class="dm-spec">3 enzimas: Lipase · Protease · Carboidrase</div>
+            <div class="dm-spec">Diluição 0,2-0,5% · Imersão 10 min</div>
+            <div class="dm-spec">Manual e lavadoras ultrassônicas</div>
+            <div class="dm-spec">Embalagens: 500 mL · 1 L · 5 L</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dm-card dm-card--clean">
+        <div class="dm-media">
+          <img src="/public/enzimas/lipax-clean-ilustra.png" alt="LIPAX CLEAN" loading="lazy" decoding="async">
+        </div>
+        <div class="dm-body">
+          <div class="dm-kicker">LIPAX CLEAN</div>
+          <h3 class="dm-title">Manutenção de Cuspideiras</h3>
+          <p class="dm-desc">Alta concentração enzimática para remoção de incrustações em cuspideiras, pias e tubulações. Fragrância camomila. Previne entupimentos e mau odor.</p>
+          <div class="dm-specs">
+            <div class="dm-spec">4 enzimas: Lipase · Protease · Carboidrase · Xilanase</div>
+            <div class="dm-spec">Diluição 10% · Aplicar ao final do turno</div>
+            <div class="dm-spec">Uso regular para resultados prolongados</div>
+            <div class="dm-spec">Embalagens: 500 mL · 1 L · 5 L</div>
+          </div>
+        </div>
+      </article>
+
     </div>
-    <div style="text-align:center;margin-top:36px;position:relative;z-index:1;">
-      <a href="#cadastro" class="btn-primary" style="background:var(--green-lt);color:var(--white);">Quero ser distribuidor</a>
+
+    <div class="dm-cta-wrap">
+      <a href="#cadastro" class="dm-cta">Quero ser distribuidor</a>
     </div>
   </div>
 </section>
