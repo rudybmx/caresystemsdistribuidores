@@ -860,7 +860,7 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 /* --section-y nas 11 secoes; #home e .stats-marquee ficam de fora de
    proposito: a hero e um card com padding proprio e a marquee e uma faixa */
 .video-sec,.historia,.numeros,.pm,.linhas,.offer,.diferenciais,
-.distribuidores,.faq,#cadastro,footer{
+.distribuidores,.faq,#cadastro{
   padding-top:var(--section-y);padding-bottom:var(--section-y);
 }
 
@@ -961,6 +961,14 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 @media(prefers-reduced-motion:reduce){
   .dif-card .dif-title,.dif-card .dif-text,.dif-card .dif-icon,
   .dif-card .dif-icon::before{transition:none;}
+}
+
+/* ── RODAPE · fundo de imagem ────────────────────────────────────────────── */
+/* a cor de fundo fica como fallback e como base sob o cover */
+footer{
+  background:#0B1410 url(assets/footer-bg.png) center bottom/cover no-repeat;
+  padding-top:var(--section-y);
+  padding-bottom:var(--space-8);
 }
 </style>
 </head>
