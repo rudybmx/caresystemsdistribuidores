@@ -994,6 +994,27 @@ footer{
   .pm-content{border-radius:0 0 16px 16px;}
   .pm-selo{width:72px;height:72px;top:-20px;left:auto;right:16px;transform:rotate(-8deg);}
 }
+
+/* ── CADASTRO · fundo de imagem e glow ──────────────────────────────────── */
+/* cover/center como o object-fit pedido; a cor entra como base sob a imagem */
+#cadastro{
+  background:var(--green-hero) url(/public/bg-cadastro.png) center/cover no-repeat;
+}
+
+.cad-title{text-shadow:0 0 16px rgba(255,255,255,.18);}
+/* o span herdaria o glow branco do h2; o proprio text-shadow o substitui */
+.cad-title-lime{
+  color:var(--green-lt);
+  text-shadow:0 0 12px rgba(124,194,92,.5),0 0 32px rgba(124,194,92,.25);
+}
+#cadastro .sec-tag{text-shadow:0 0 10px rgba(124,194,92,.4);}
+.cad-bullet-ico{box-shadow:0 0 12px rgba(124,194,92,.35);}
+
+/* halo externo para o card descolar do fundo; nada dentro dele recebe glow */
+.cad-card{
+  background:var(--white);border-radius:20px;overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 60px rgba(124,194,92,.12);
+}
 </style>
 </head>
 <body>
@@ -1734,7 +1755,7 @@ footer{
       <!-- LEFT: copy -->
       <div>
         <p class="sec-tag">Seja um distribuidor</p>
-        <h2 class="cad-title">Porque Cuidar<br>é <span style="color:var(--green-lt);">Revolucionar!</span></h2>
+        <h2 class="cad-title">Porque Cuidar<br>é <span class="cad-title-lime">Revolucionar!</span></h2>
         <p class="cad-lead">Leve a tecnologia enzimática da Care Systems para sua região. Entre em contato com nossa equipe e descubra como distribuir os produtos LIPAX ENZYME e LIPAX CLEAN.</p>
         <div class="cad-bullets">
           <div class="cad-bullet">
@@ -1754,7 +1775,7 @@ footer{
 
       <!-- RIGHT: formulário de cadastro 3 etapas -->
       <div>
-        <div style="background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.3);">
+        <div class="cad-card">
           <!-- progress bar -->
           <div style="background:#f0f0f0;height:4px;">
             <div id="prog-bar" style="height:4px;background:linear-gradient(90deg,var(--green-lt),var(--orange));border-radius:2px;transition:width .4s;width:33%;"></div>
