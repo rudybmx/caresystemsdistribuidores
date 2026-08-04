@@ -718,6 +718,59 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
   .pm-media{flex:none;max-width:none;width:100%;height:340px;}
   .pm-specs{grid-template-columns:1fr;}
 }
+
+/* ── POR QUE CARE SYSTEMS · cards de vidro ───────────────────────────── */
+.diferenciais{
+  padding:96px 0;
+  background-color:#F3F4F6;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(229,231,235,.55) 10%, transparent 22%),
+    radial-gradient(circle at 85% 80%, rgba(229,231,235,.55) 15%, transparent 26%),
+    radial-gradient(circle at 50% 50%, rgba(16,185,129,.07) 20%, transparent 32%);
+}
+.diferenciais .sec-tag{color:#10b981!important;font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+.dif-header{text-align:center;margin-bottom:64px;}
+.dif-header h2{font-size:clamp(30px,4vw,48px);font-weight:800;color:#0f766e;line-height:1.15;letter-spacing:-.01em;max-width:672px;margin:0 auto;}
+.dif-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-items:start;}
+
+.dif-card{
+  position:relative;display:flex;flex-direction:column;min-height:0;
+  padding:32px;border-radius:16px;
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.5);
+  box-shadow:0 4px 6px rgba(0,0,0,.05);
+  transition:transform .3s ease,box-shadow .3s ease,background .3s ease;
+}
+.dif-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 10px 25px rgba(0,0,0,.1);background:rgba(255,255,255,.9);z-index:10;}
+.dif-card--destaque{background:rgba(255,255,255,.9);box-shadow:0 20px 40px rgba(0,0,0,.08);z-index:1;}
+
+/* isolation cria contexto proprio: sem isso o glow (z-index:-1) cairia atras do card */
+.dif-icon{
+  display:inline-flex;align-items:center;justify-content:center;isolation:isolate;
+  position:relative;width:48px;height:48px;margin-bottom:16px;
+  background:none;border-radius:0;color:#10b981;
+}
+.dif-icon::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.3) 0%,transparent 70%);z-index:-1;}
+.dif-icon svg{width:40px;height:40px;display:block;}
+
+.dif-title{font-size:20px;font-weight:700;line-height:1.3;color:#0f766e;margin-bottom:12px;}
+.dif-text{font-size:14px;line-height:1.65;color:#374151;flex-grow:1;}
+
+@media(min-width:1024px){
+  .dif-card--destaque{margin-top:-16px;margin-bottom:16px;}
+}
+@media(max-width:1023px){
+  .dif-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:640px){
+  .dif-grid{grid-template-columns:1fr;gap:20px;}
+  .dif-card{padding:24px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .dif-card{transition:none;}
+  .dif-card:hover{transform:none;}
+}
 </style>
 </head>
 <body>
@@ -1165,38 +1218,38 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
     </div>
     <div class="dif-grid">
       <div class="dif-card">
-        <div class="dif-icon"></div>
-        <!-- [ÍCONE] Substituir emoji por ícone SVG de microscópio ou molécula -->
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><circle cx="5" cy="5" r="2"></circle><circle cx="19" cy="5" r="2"></circle><circle cx="5" cy="19" r="2"></circle><circle cx="19" cy="19" r="2"></circle><path d="m6.5 6.5 3.2 3.2"></path><path d="m17.5 6.5-3.2 3.2"></path><path d="m6.5 17.5 3.2-3.2"></path><path d="m17.5 17.5-3.2-3.2"></path></svg></div>
+
         <div class="dif-title">Tecnologia Enzimática Real</div>
         <div class="dif-text">Formulação com atividade enzimática comprovada em laudo técnico. Enzimas desenvolvidas desde a base - do invólucro à formulação.</div>
       </div>
-      <div class="dif-card">
-        <div class="dif-icon"></div>
-        <!-- [ÍCONE] Substituir por ícone SVG de folha/sustentabilidade -->
+      <div class="dif-card dif-card--destaque">
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 4 13c0-6 8-9 16-9 0 8-3 16-9 16Z"></path><path d="M4 21c2-6 6-9 11-11"></path></svg></div>
+
         <div class="dif-title">Biodegradável e Sustentável</div>
         <div class="dif-text">Atende à agenda ESDG. Produtos ambientalmente corretos, sem geração de resíduos tóxicos. Atende à agenda ESDG.</div>
       </div>
       <div class="dif-card">
-        <div class="dif-icon"></div>
-        <!-- [ÍCONE] Substituir por ícone SVG de escudo -->
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 8-8 8s-8-3-8-8 3.5-9 8-11c4.5 2 8 6 8 11Z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
+
         <div class="dif-title">Seguro sem EPI obrigatório</div>
         <div class="dif-text">Não corrosivo, não contaminante, não classificado como desinfetante. Manuseio seguro sem necessidade de equipamento de proteção individual.</div>
       </div>
       <div class="dif-card">
-        <div class="dif-icon"></div>
-        <!-- [ÍCONE] Substituir por ícone SVG de resultado/relâmpago -->
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4h4v3H9z"></path><path d="M8 7h6a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-8a3 3 0 0 1 3-3Z"></path><path d="M5 12h12"></path><path d="M18 5h2"></path><path d="M18 8h3"></path></svg></div>
+
         <div class="dif-title">Eliminação de Odores Imediata</div>
         <div class="dif-text">A hidrólise enzimática elimina a fonte do odor - não apenas mascara. Resultados duradouros com uso regular preventivo.</div>
       </div>
       <div class="dif-card">
-        <div class="dif-icon"></div>
-        <!-- [ÍCONE] Substituir por ícone SVG de made in Brazil ou bandeira -->
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"></path></svg></div>
+
         <div class="dif-title">100% Brasileira</div>
         <div class="dif-text">Empresa nacional com parceria com UFLA e ESALQ/USP. Tecnologia própria, procedência garantida e compromisso com inovação nacional.</div>
       </div>
       <div class="dif-card">
-        <div class="dif-icon"></div>
-        <!-- [ÍCONE] Substituir por ícone SVG de certificado/ANVISA -->
+        <div class="dif-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 2.4 2.1 3.1-.5 1 3 2.8 1.5-1.1 3 1.1 3-2.8 1.5-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3L2.7 16l1.1-3-1.1-3 2.8-1.5 1-3 3.1.5Z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
+
         <div class="dif-title">ANVISA Regularizado</div>
         <div class="dif-text">Produtos notificados (nº 361320051) e fabricados conforme RDC 59/2010 e RDC 703/2022. Conformidade total com as normas sanitárias brasileiras.</div>
       </div>
