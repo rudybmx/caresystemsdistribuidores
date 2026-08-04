@@ -647,7 +647,7 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .pm-title{max-width:620px;margin:0 auto 48px;text-align:center;font-size:clamp(var(--fs-h2),3.4vw,var(--fs-display-md));font-weight:700;line-height:1.25;color:#1B2A4A;letter-spacing:-.01em;}
 .pm-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:stretch;}
 
-.pm-card{display:flex;flex-direction:column;background:#FFFFFF;border-radius:16px;border:1px solid rgba(0,0,0,.06);box-shadow:0 8px 28px rgba(0,0,0,.06);overflow:hidden;}
+.pm-card{position:relative;display:flex;flex-direction:column;background:#FFFFFF;border-radius:16px;border:1px solid rgba(0,0,0,.06);box-shadow:0 8px 28px rgba(0,0,0,.06);overflow:visible;}
 .pm-card--enzyme{--pm:#2E9B8A;--pm-soft:#E8F5F2;}
 .pm-card--clean{--pm:#7B5EA7;--pm-soft:#F0EBF7;}
 
@@ -969,6 +969,30 @@ footer{
   background:#0B1410 url(assets/footer-bg.png) center bottom/cover no-repeat;
   padding-top:var(--section-y);
   padding-bottom:var(--space-8);
+}
+
+/* ── SELO DE DESTAQUE · card LIPAX CLEAN ────────────────────────────────── */
+/* o card trocou overflow:hidden por visible para o selo transbordar, entao o
+   arredondamento passa a ser feito pelos filhos que tocam cada canto */
+.pm-strip{border-radius:16px 16px 0 0;}
+.pm-media{border-bottom-left-radius:16px;}
+.pm-content{border-bottom-right-radius:16px;}
+
+/* 45%: e onde .pm-media (45%) encontra .pm-content, nao os 50% do meio do card */
+.pm-selo{
+  position:absolute;top:-28px;left:45%;z-index:10;
+  width:96px;height:96px;object-fit:contain;
+  transform:translateX(-50%) rotate(-8deg);
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.25));
+  pointer-events:none;
+}
+
+@media(max-width:768px){
+  /* empilhado: .pm-media ocupa a largura toda, entao o corte de baixo vai
+     inteiro para .pm-content */
+  .pm-media{border-bottom-left-radius:0;}
+  .pm-content{border-radius:0 0 16px 16px;}
+  .pm-selo{width:72px;height:72px;top:-20px;left:auto;right:16px;transform:rotate(-8deg);}
 }
 </style>
 </head>
@@ -1349,6 +1373,7 @@ footer{
       </article>
 
       <article class="pm-card pm-card--clean">
+        <img class="pm-selo" src="/public/selos/solucao-cuspideira.png" alt="Solução para sua cuspideira" width="96" height="96" loading="lazy" decoding="async">
         <div class="pm-strip">Linha Dental Med</div>
         <div class="pm-body">
           <div class="pm-media">
