@@ -782,7 +782,7 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 
 .dm-body{padding:24px;display:flex;flex-direction:column;flex:1;}
 .dm-kicker{font-size:var(--fs-overline);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dm-acc);}
-.dm-title{font-size:var(--fs-h3);font-weight:800;color:#14261E;line-height:1.2;margin-top:4px;}
+.dm-title{font-size:var(--fs-h2);font-weight:800;color:#14261E;line-height:1.2;margin-top:4px;}
 .dm-desc{font-size:var(--fs-body);line-height:1.55;color:#4B5563;margin-top:12px;}
 
 /* gap:1px sobre fundo cinza desenha os divisores — sem borda em celula alguma,
@@ -840,12 +840,14 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 }
 
 /* kicker de SECAO — cor unificada no lime dos tokens */
-.sec-tag,.pm-kicker,.diferenciais .sec-tag{
+.sec-tag,.diferenciais .sec-tag{
   font-family:var(--font-body);font-weight:var(--fw-extrabold);
   letter-spacing:var(--ls-overline);text-transform:uppercase;
-  color:var(--lime-500)!important;
+  color:var(--lime-700)!important;
   margin-bottom:var(--space-3);
 }
+/* sobre o verde escuro o lime-700 cai para 2.42:1; o 500 sobe para 4.33:1 */
+.video-sec .sec-tag,#cadastro .sec-tag{color:var(--lime-500)!important;}
 /* kicker DENTRO do card: mesma metrica, cor do produto preservada */
 .dm-kicker{
   font-family:var(--font-body);font-weight:var(--fw-extrabold);
@@ -932,6 +934,9 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .mapa-wrapper--plain{background:#E8F5F2;padding:0;}
 .footer-mail{display:block;margin-top:var(--space-2);color:var(--green-lt);}
 .footer-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green-lt);margin-right:var(--space-1);vertical-align:1px;}
+
+/* subtitulo de card (nao e kicker de secao): metrica de overline, cor neutra */
+.pm-kicker{font-family:var(--font-body);font-weight:var(--fw-semibold);letter-spacing:var(--ls-overline);text-transform:uppercase;color:#6B7280;}
 </style>
 </head>
 <body>
