@@ -8,10 +8,10 @@ const LARGURA_MUNDO = 100;   // largura do conjunto SP+PR em unidades de cena
 const PROFUNDIDADE = 16;
 
 export const CIDADES = [
-  { id: 'sjbv',       nome: 'Sede Care Systems', cidade: 'São João da Boa Vista, SP', lon: -46.7986, lat: -21.9686, sede: true },
-  { id: 'londrina',   nome: 'Londrina',          cidade: 'Londrina, PR',              lon: -51.1628, lat: -23.3103 },
-  { id: 'apucarana',  nome: 'Apucarana',         cidade: 'Apucarana, PR',             lon: -51.4608, lat: -23.5505, desvio: 11 },
-  { id: 'guarapuava', nome: 'Guarapuava',        cidade: 'Guarapuava, PR',            lon: -51.4562, lat: -25.3935 }
+  { id: 'sjbv',       nome: 'Sede Care Systems', cidade: 'São João da Boa Vista, SP', lon: -46.7986, lat: -21.9686, uf: 'SP', sede: true },
+  { id: 'londrina',   nome: 'Londrina',          cidade: 'Londrina, PR',              lon: -51.1628, lat: -23.3103, uf: 'PR', desvio: 5 },
+  { id: 'apucarana',  nome: 'Apucarana',         cidade: 'Apucarana, PR',             lon: -51.4608, lat: -23.5505, uf: 'PR', desvio: 17 },
+  { id: 'guarapuava', nome: 'Guarapuava',        cidade: 'Guarapuava, PR',            lon: -51.4562, lat: -25.3935, uf: 'PR' }
 ];
 
 export async function iniciar(palco, opcoes = {}) {
@@ -38,7 +38,7 @@ export async function iniciar(palco, opcoes = {}) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.35;
+  renderer.toneMappingExposure = 1.2;
   palco.appendChild(renderer.domElement);
 
   const rotulos = new CSS2DRenderer();
@@ -48,7 +48,7 @@ export async function iniciar(palco, opcoes = {}) {
   const camera = new THREE.PerspectiveCamera(38, 1, 1, 1000);
   const alvoCamera = new THREE.Vector3(0, PROFUNDIDADE / 2, 0);
   // ~35 graus de elevacao, olhando o conjunto de cima e de lado
-  const ELEV = 35 * Math.PI / 180;
+  const ELEV = 62 * Math.PI / 180;
   let RAIO = 120;
   const posBase = new THREE.Vector3();
   // enquadramento derivado do tamanho do conjunto e do FOV, nao de numero chutado
@@ -94,8 +94,8 @@ export async function iniciar(palco, opcoes = {}) {
     // alfa que morre antes da borda: o painel existe so atras do mapa, para o
     // transmission ter o que refratar, e nao pinta o resto do canvas
     const g = x.createRadialGradient(128, 140, 6, 128, 140, 118);
-    g.addColorStop(0, "rgba(56,168,116,.95)");
-    g.addColorStop(0.45, "rgba(20,90,64,.72)");
+    g.addColorStop(0, "rgba(56,168,116,.5)");
+    g.addColorStop(0.45, "rgba(20,90,64,.36)");
     g.addColorStop(1, "rgba(11,61,46,0)");
     x.fillStyle = g; x.fillRect(0, 0, 256, 256);
     return new THREE.CanvasTexture(c);
@@ -123,41 +123,108 @@ export async function iniciar(palco, opcoes = {}) {
   cena.add(realce);
 
   // ── malha extrudada ─────────────────────────────────────────────────────
-  const vidro = new THREE.MeshPhysicalMaterial({
-    color: 0xd8f6e6, transmission: 0.72, roughness: 0.06, thickness: 10,
-    ior: 1.45, clearcoat: 1, clearcoatRoughness: 0.06, metalness: 0,
-    envMapIntensity: 2.0, attenuationDistance: 26,
+  // textura procedural: micro-relevo + grade geografica sutil (item 4).
+  // UV do ExtrudeGeometry = unidades do shape, entao repeat da o passo da grade.
+  const texRelevo = (() => {
+    const c = document.createElement('canvas'); c.width = c.height = 256;
+    const x = c.getContext('2d');
+    x.fillStyle = '#2e2e2e'; x.fillRect(0, 0, 256, 256);
+    for (let i = 0; i < 1600; i++) {
+      const g = 26 + Math.random() * 52 | 0;
+      x.fillStyle = 'rgba(' + g + ',' + g + ',' + g + ',.55)';
+      x.fillRect(Math.random() * 256, Math.random() * 256, 1 + Math.random() * 3, 1 + Math.random() * 3);
+    }
+    x.strokeStyle = 'rgba(168,168,168,.95)'; x.lineWidth = 1;
+    for (let k = 0; k <= 10; k++) {
+      const p = k * 25.6 + 0.5;
+      x.beginPath(); x.moveTo(p, 0); x.lineTo(p, 256); x.stroke();
+      x.beginPath(); x.moveTo(0, p); x.lineTo(256, p); x.stroke();
+    }
+    const t = new THREE.CanvasTexture(c);
+    t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    t.repeat.set(1 / 28, 1 / 28);   // grade de 10 celulas por tile -> 1 linha a cada 4 unidades
+    return t;
+  })();
+
+  // roughness base 1: o valor efetivo vem todo do mapa (variacao ~0.1-0.5)
+  const TONS = { SP: 0xdcf6e8, PR: 0x9ed8bb };
+  const vidroBase = {
+    transmission: 0.72, thickness: 10, ior: 1.45,
+    roughness: 1, roughnessMap: texRelevo,
+      bumpMap: texRelevo, bumpScale: 0.7,
+    clearcoat: 1, clearcoatRoughness: 0.06, metalness: 0,
+    envMapIntensity: 1.3, attenuationDistance: 34,
     attenuationColor: new THREE.Color(0x53c795)
-  });
+  };
+
+  // centro de cada estado em coords de shape: afastamento e rotulo de UF saem daqui
+  const infoUF = {};
+  for (const uf in malha) {
+    let ax = 1e9, bx = -1e9, ay = 1e9, by = -1e9;
+    for (const poly of malha[uf]) for (const [lo, la] of poly[0]) {
+      const [x, y] = projetar(lo, la);
+      if (x < ax) ax = x; if (x > bx) bx = x;
+      if (y < ay) ay = y; if (y > by) by = y;
+    }
+    infoUF[uf] = { cx: (ax + bx) / 2, cy: (ay + by) / 2, off: { x: 0, y: 0 } };
+  }
+  {
+    // folga pequena ao longo do eixo entre os centros (item 3)
+    const ufs = Object.keys(infoUF);
+    if (ufs.length === 2) {
+      const a = infoUF[ufs[0]], b = infoUF[ufs[1]];
+      const dx = a.cx - b.cx, dy = a.cy - b.cy, h = Math.hypot(dx, dy) || 1, G = 1.6;
+      a.off = { x: dx / h * G, y: dy / h * G };
+      b.off = { x: -dx / h * G, y: -dy / h * G };
+    }
+  }
 
   const grupo = new THREE.Group();
-  for (const uf in malha) for (const poly of malha[uf]) {
-    const forma = new THREE.Shape();
-    poly[0].forEach(([lo, la], i) => {
-      const [x, y] = projetar(lo, la);
-      i ? forma.lineTo(x, y) : forma.moveTo(x, y);
-    });
-    for (let k = 1; k < poly.length; k++) {          // aneis internos viram furos
-      const furo = new THREE.Path();
-      poly[k].forEach(([lo, la], i) => {
+  for (const uf in malha) {
+    const gUF = new THREE.Group();
+    const mat = new THREE.MeshPhysicalMaterial(Object.assign({ color: TONS[uf] || 0xd8f6e6 }, vidroBase));
+    for (const poly of malha[uf]) {
+      const forma = new THREE.Shape();
+      poly[0].forEach(([lo, la], i) => {
         const [x, y] = projetar(lo, la);
-        i ? furo.lineTo(x, y) : furo.moveTo(x, y);
+        i ? forma.lineTo(x, y) : forma.moveTo(x, y);
       });
-      forma.holes.push(furo);
+      for (let k = 1; k < poly.length; k++) {          // aneis internos viram furos
+        const furo = new THREE.Path();
+        poly[k].forEach(([lo, la], i) => {
+          const [x, y] = projetar(lo, la);
+          i ? furo.lineTo(x, y) : furo.moveTo(x, y);
+        });
+        forma.holes.push(furo);
+      }
+      const geo = new THREE.ExtrudeGeometry(forma, {
+        depth: PROFUNDIDADE, bevelEnabled: true, bevelThickness: 0.5,
+        bevelSize: 0.4, bevelSegments: 2, curveSegments: 1
+      });
+      const m = new THREE.Mesh(geo, mat);
+      m.castShadow = true;
+      gUF.add(m);
     }
-    const geo = new THREE.ExtrudeGeometry(forma, {
-      depth: PROFUNDIDADE, bevelEnabled: true, bevelThickness: 0.5,
-      bevelSize: 0.4, bevelSegments: 2, curveSegments: 1
-    });
-    const m = new THREE.Mesh(geo, vidro);
-    m.castShadow = true;
-    grupo.add(m);
+    // afastamento no espaco do shape, antes da rotacao do grupo
+    gUF.position.set(infoUF[uf].off.x, infoUF[uf].off.y, 0);
+    grupo.add(gUF);
   }
   // deita o plano XY do shape sobre XZ; a latitude (shape-Y) vira -Z
   grupo.rotation.x = -Math.PI / 2;
   cena.add(grupo);
 
   const TOPO = PROFUNDIDADE;   // apos a rotacao, a face de cima fica em y = profundidade
+
+  // rotulo discreto por estado, distinto dos rotulos de cidade
+  const NOMES_UF = { SP: 'São Paulo', PR: 'Paraná' };
+  for (const uf in infoUF) {
+    const el = document.createElement('div');
+    el.className = 'mapa-rotulo-uf';
+    el.textContent = NOMES_UF[uf] || uf;
+    const ro = new CSS2DObject(el);
+    ro.position.set(infoUF[uf].cx + infoUF[uf].off.x, TOPO + 0.6, -(infoUF[uf].cy + infoUF[uf].off.y));
+    cena.add(ro);
+  }
 
   // sombra de contato: plano com ShadowMaterial (ContactShadows e do drei, nao do three)
   const chao = new THREE.Mesh(
@@ -183,7 +250,8 @@ export async function iniciar(palco, opcoes = {}) {
   const pinos = [];
   CIDADES.forEach((c, i) => {
     const [px, py] = projetar(c.lon, c.lat);
-    const pos = new THREE.Vector3(px, TOPO + 1.6, -py);   // shape-Y -> -Z
+    const desloc = infoUF[c.uf] ? infoUF[c.uf].off : { x: 0, y: 0 };
+    const pos = new THREE.Vector3(px + desloc.x, TOPO + 1.6, -(py + desloc.y));
 
     const esfera = new THREE.Mesh(
       new THREE.SphereGeometry(c.sede ? 2.1 : 1.4, 24, 16),
@@ -334,7 +402,7 @@ export async function iniciar(palco, opcoes = {}) {
   dimensionar();
   addEventListener('resize', dimensionar);
 
-  if (opcoes.debug) Object.assign(globalThis, { __cena: cena, __cam: camera, __grupo: grupo, __THREE: THREE, __pinos: pinos });
+  if (opcoes.debug) Object.assign(globalThis, { __cena: cena, __cam: camera, __grupo: grupo, __THREE: THREE, __pinos: pinos, __renderer: renderer, __rotulos: rotulos });
   return {
     ligar() { if (!rodando) { rodando = true; req = requestAnimationFrame(quadro); } },
     get rodando() { return rodando; },

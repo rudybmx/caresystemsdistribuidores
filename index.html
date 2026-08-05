@@ -1138,6 +1138,8 @@ footer{
   border:1px solid rgba(255,255,255,.14);transition:background 200ms,border-color 200ms,transform 200ms;
 }
 .mapa-rotulo--sede{font-weight:700;}
+/* rotulo de UF: tipografia aberta e sem capsula, para nao competir com as cidades */
+.mapa-rotulo-uf{font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.42);white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,.55);}
 .mapa-rotulo.is-ativo{background:rgba(124,194,92,.9);color:#0B3D2E;border-color:#7cc25c;transform:scale(1.08);}
 
 /* fallback: mesmo desenho, gerado da mesma projecao da cena */
@@ -2476,43 +2478,59 @@ document.querySelectorAll('.reveal').forEach(function(element){revealObserver.ob
 
   var cena=null,carregando=false,visivel=false;
 
-  /* o estado de visibilidade fica numa variavel e e reaplicado sempre que a cena
-     existe: reagir a cada entry isoladamente perdia a ordem enquanto o modulo
-     carregava, e a cena ficava parada ao voltar para a secao */
   function sincronizar(){
     if(!cena)return;
     if(visivel)cena.ligar(); else cena.desligar();
   }
 
+  function carregar(){
+    carregando=true;
+    import("/assets/mapa3d.js").then(function(mod){
+      return mod.iniciar(palco,{debug:/[?&]dbg/.test(location.search)});
+    }).then(function(api){
+      cena=api; api.dimensionar();
+      api.aoDestacar(function(id){
+        cards.forEach(function(c){c.classList.toggle("is-ativo",!!id&&c.dataset.cidade===id);});
+      });
+      /* Londrina tem dois cards: a chave e a cidade, nao o indice */
+      cards.forEach(function(c){
+        c.addEventListener("mouseenter",function(){api.destacar(c.dataset.cidade);});
+        c.addEventListener("focus",function(){api.destacar(c.dataset.cidade);});
+        c.addEventListener("mouseleave",function(){api.destacar(null);});
+        c.addEventListener("blur",function(){api.destacar(null);});
+        c.addEventListener("click",function(){api.focar(c.dataset.cidade);});
+      });
+      sincronizar();
+    }).catch(function(err){
+      console.warn("mapa 3D indisponivel:",err);
+      wrapper.classList.add("mapa-sem-3d");
+    });
+  }
+
+  function avaliar(){
+    var r=sec.getBoundingClientRect();
+    visivel=r.bottom>-200&&r.top<innerHeight+200;
+    if(visivel&&!cena&&!carregando){carregar();return;}
+    sincronizar();
+  }
+
   var obs=new IntersectionObserver(function(es){
     visivel=es[es.length-1].isIntersecting;
-    if(visivel&&!cena&&!carregando){
-      carregando=true;
-      import("/assets/mapa3d.js").then(function(mod){
-        return mod.iniciar(palco,{debug:/[?&]dbg/.test(location.search)});
-      }).then(function(api){
-        cena=api; api.dimensionar();
-        api.aoDestacar(function(id){
-          cards.forEach(function(c){c.classList.toggle("is-ativo",!!id&&c.dataset.cidade===id);});
-        });
-        /* Londrina tem dois cards: a chave e a cidade, nao o indice */
-        cards.forEach(function(c){
-          c.addEventListener("mouseenter",function(){api.destacar(c.dataset.cidade);});
-          c.addEventListener("focus",function(){api.destacar(c.dataset.cidade);});
-          c.addEventListener("mouseleave",function(){api.destacar(null);});
-          c.addEventListener("blur",function(){api.destacar(null);});
-          c.addEventListener("click",function(){api.focar(c.dataset.cidade);});
-        });
-        sincronizar();
-      }).catch(function(err){
-        console.warn("mapa 3D indisponivel:",err);
-        wrapper.classList.add("mapa-sem-3d");
-      });
-      return;
-    }
+    if(visivel&&!cena&&!carregando){carregar();return;}
     sincronizar();
   },{rootMargin:"200px 0px"});
   obs.observe(sec);
+
+  /* alguns webviews suspendem o IntersectionObserver; o scroll cobre o vao
+     com o mesmo avaliar idempotente, coalescido por rAF */
+  var pendente=false;
+  function aoRolar(){
+    if(pendente)return; pendente=true;
+    requestAnimationFrame(function(){pendente=false; avaliar();});
+  }
+  addEventListener("scroll",aoRolar,{passive:true});
+  addEventListener("resize",aoRolar,{passive:true});
+  avaliar();
 })();
 </script>
 </body>
