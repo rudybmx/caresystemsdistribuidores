@@ -209,14 +209,9 @@ img{max-width:100%;display:block;}
 .offer-card.featured .offer-btn{background:var(--orange);}
 .offer-btn:hover{transform:scale(1.02);background:var(--green-lt);}
 .faq{background:var(--off);padding:96px 0;}
-.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:start;}
-.faq-intro h2{font-size:clamp(var(--fs-h2),3.2vw,var(--fs-display-md));font-weight:900;color:var(--ink);line-height:1.1;letter-spacing:-.02em;margin:12px 0 16px;}
-.faq-intro p{font-size:var(--fs-body-lg);color:var(--ink2);line-height:1.7;}
 .faq-list{display:flex;flex-direction:column;gap:10px;}
 .faq-item{background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
 .faq-question{width:100%;display:flex;justify-content:space-between;align-items:center;gap:18px;background:none;border:0;padding:20px;text-align:left;font:700 14px var(--font);color:var(--ink);cursor:pointer;}
-.faq-question span:last-child{font-size:var(--fs-h3);font-weight:400;color:var(--green-mid);transition:transform .2s;}
-.faq-item.open .faq-question span:last-child{transform:rotate(45deg);}
 .faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease;}
 .faq-answer > div{overflow:hidden;}
 .faq-answer p{padding:0 20px 20px;font-size:var(--fs-body);color:var(--ink2);line-height:1.7;}
@@ -332,7 +327,6 @@ footer{background:var(--ink);padding:60px 0 32px;color:rgba(255,255,255,.7);}
   .produto-cards{grid-template-columns:1fr;}
   .dif-grid{grid-template-columns:1fr 1fr;}
   .offer-grid{grid-template-columns:1fr;max-width:560px;margin:0 auto;}
-  .faq-grid{grid-template-columns:1fr;gap:36px;}
   .cadastro-grid{grid-template-columns:1fr !important;}
   .footer-grid{grid-template-columns:1fr 1fr;}
 }
@@ -379,8 +373,8 @@ section{margin:0 .75rem 1rem;border-radius:1.6rem;overflow:hidden;}
 .video-play-btn svg{fill:var(--sage-dark);}
 .historia,.produtos,.diferenciais,.distribuidores,.offer,.faq{background:var(--surface);}
 .historia,.produtos,.diferenciais,.distribuidores,.offer,.faq{box-shadow:var(--shadow-soft);}
-.historia-content h2,.produtos-header h2,.dif-header h2,.distrib-header h2,.offer-header h2,.faq-intro h2{font-weight:400;color:var(--slate-dark);}
-.historia-content p,.prod-desc,.dif-text,.distrib-header p,.offer-header p,.faq-intro p{color:var(--slate);}
+.historia-content h2,.produtos-header h2,.dif-header h2,.distrib-header h2,.offer-header h2{font-weight:400;color:var(--slate-dark);}
+.historia-content p,.prod-desc,.dif-text,.distrib-header p,.offer-header p{color:var(--slate);}
 .historia-img{background:linear-gradient(160deg,#e5e9e1,#c9d3c7);border:1px solid var(--line-soft);box-shadow:var(--shadow-soft);}
 .historia-badge{
   background:rgba(11,61,46,.42);
@@ -415,7 +409,6 @@ section{margin:0 .75rem 1rem;border-radius:1.6rem;overflow:hidden;}
 .offer-card h3{font-weight:400;color:var(--slate-dark);}
 .faq{background:#F7F7F5;}
 .faq-question{font-weight:500;color:var(--slate-dark);}
-.faq-question span:last-child{color:var(--sage-dark);}
 
 /* CTAs principais */
 .nav-cta,
@@ -817,21 +810,21 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 
 /* H2 de secao */
 .video-in h2,.historia-content h2,.produtos-header h2,.offer-header h2,
-.faq-intro h2,.distrib-header h2,.linhas-header h2,.pm-title,
+.distrib-header h2,.linhas-header h2,.pm-title,
 .dif-header h2,.slogan-cta h2{
   font-family:var(--font-display);font-weight:var(--fw-bold);
   line-height:var(--lh-heading);letter-spacing:var(--ls-tight);
 }
 
 /* subtitulo de apoio abaixo do H2 */
-.video-in p,.historia-content p,.offer-header p,.faq-intro p,
+.video-in p,.historia-content p,.offer-header p,.faq-sub,
 .distrib-header p,.slogan-cta p,.cs-lead{
   font-family:var(--font-body);line-height:var(--lh-body);
 }
 
 /* titulo de card */
 .prod-name,.pm-name,.dm-title,.dif-title,.offer-card h3,.offer-price,
-.faq-question span:last-child,.cs-steptitle,.cs-done-title{
+.cs-steptitle,.cs-done-title{
   font-family:var(--font-display);font-weight:var(--fw-semibold);
 }
 
@@ -873,14 +866,14 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
   margin-bottom:var(--space-12);
 }
 /* H2 -> subtitulo */
-.offer-header h2,.faq-intro h2,.distrib-header h2,.historia-content h2{
+.offer-header h2,.distrib-header h2,.historia-content h2{
   margin-bottom:var(--space-4);
 }
 
 /* gap entre cards de um grid */
 .produto-cards,.dif-grid,.offer-grid,.pm-grid,.dm-grid,.footer-grid{gap:var(--space-8);}
 /* grids de layout (nao-cards) e listas internas */
-.historia-grid,.faq-grid{gap:var(--space-16);}
+.historia-grid{gap:var(--space-16);}
 .distrib-layout{gap:var(--space-10);}
 .historia-pilares,.pm-specs{gap:var(--space-3);}
 .prod-specs{gap:var(--space-2);}
@@ -1014,6 +1007,67 @@ footer{
 .cad-card{
   background:var(--white);border-radius:20px;overflow:hidden;
   box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 60px rgba(124,194,92,.12);
+}
+
+/* ══════════ FAQ · redesenho ════════════════════════════════════════════ */
+.faq{background:#F3F4F6;}
+.faq .sec-in{max-width:720px;}
+
+.faq-head{text-align:center;margin-bottom:var(--space-10);}
+.faq-title{
+  font-family:var(--font-display);
+  font-size:clamp(var(--fs-h1),4vw,var(--fs-display-md));
+  font-weight:var(--fw-bold);line-height:var(--lh-heading);letter-spacing:var(--ls-tight);
+  color:#14261E;
+}
+/* green-700: 5.99:1 sobre #F3F4F6; o 600 para em 4.46 e o 500 em 3.2 */
+.faq-title span{color:var(--green-700);}
+.faq-sub{font-size:var(--fs-body);color:#4B5563;margin-top:var(--space-3);}
+
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{
+  background:#FFFFFF;border-radius:12px;border:1px solid rgba(0,0,0,.05);
+  border-left:3px solid transparent;margin-bottom:10px;overflow:hidden;
+  transition:box-shadow 250ms ease-out,border-color 250ms ease-out;
+}
+/* a faixa ja existe transparente no estado fechado: so troca de cor ao abrir,
+   entao o conteudo nao desloca 3px quando o item expande */
+.faq-item:hover{box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.faq-item.open{border-left-color:var(--green-700);box-shadow:0 4px 20px rgba(0,0,0,.08);}
+
+.faq-question{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:18px 20px;background:none;border:0;text-align:left;cursor:pointer;
+}
+.faq-q-txt{
+  font-family:var(--font-display);font-size:var(--fs-body);
+  font-weight:var(--fw-semibold);color:#14261E;line-height:1.4;
+}
+.faq-item.open .faq-q-txt{font-weight:var(--fw-bold);}
+
+.faq-ico{
+  position:relative;flex:none;display:flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:50%;background:transparent;
+  transition:background 250ms ease-out,transform 250ms ease-out;
+}
+.faq-item.open .faq-ico{background:var(--green-700);transform:rotate(180deg);}
+.faq-ico-plus{font-size:20px;line-height:1;color:#6B7280;transition:opacity 250ms ease-out;}
+.faq-item.open .faq-ico-plus{opacity:0;}
+/* o chevron e desenhado apontando para CIMA: com o wrapper a 180deg ele aponta
+   para baixo, entao a rotacao do icone e a troca de simbolo sao o mesmo gesto */
+.faq-ico-chev{position:absolute;width:18px;height:18px;color:#FFFFFF;opacity:0;transition:opacity 250ms ease-out;}
+.faq-item.open .faq-ico-chev{opacity:1;}
+
+.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows 250ms ease-out;}
+.faq-answer > div{overflow:hidden;}
+.faq-item.open .faq-answer{grid-template-rows:1fr;}
+.faq-answer p{
+  margin:0 20px 18px;padding-top:16px;border-top:1px solid #E5E7EB;
+  font-size:15px;color:#4B5563;line-height:1.6;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .faq-item,.faq-ico,.faq-ico-plus,.faq-ico-chev,.faq-answer{transition:none;}
 }
 </style>
 </head>
@@ -1733,14 +1787,45 @@ footer{
 
 <section class="faq" id="faq">
   <div class="sec-in">
-    <div class="faq-grid">
-      <div class="faq-intro reveal"><span class="sec-tag" style="color:var(--orange);">Dúvidas frequentes</span><h2>Pronto para começar uma parceria mais limpa?</h2><p>Reunimos as respostas que ajudam a avaliar se a distribuição Care Systems faz sentido para o seu negócio.</p></div>
-      <div class="faq-list reveal">
-        <div class="faq-item open"><button class="faq-question" type="button"><span>Quem pode ser distribuidor?</span><span>+</span></button><div class="faq-answer"><div><p>Empresas e profissionais com atuação comercial no segmento odontológico, médico, hospitalar, agro ou de higiene profissional podem conversar com nossa equipe.</p></div></div></div>
-        <div class="faq-item"><button class="faq-question" type="button"><span>Quais produtos posso distribuir?</span><span>+</span></button><div class="faq-answer"><div><p>O destaque atual é a linha Dental Med, com LIPAX ENZYME para instrumentais e LIPAX CLEAN para cuspideiras e tubulações. Também existem outras linhas profissionais.</p></div></div></div>
-        <div class="faq-item"><button class="faq-question" type="button"><span>A Care Systems oferece suporte?</span><span>+</span></button><div class="faq-answer"><div><p>Sim. A parceria inclui orientação técnica e comercial, materiais de apoio e contato direto com a equipe para desenvolver sua região.</p></div></div></div>
-        <div class="faq-item"><button class="faq-question" type="button"><span>Como recebo as condições comerciais?</span><span>+</span></button><div class="faq-answer"><div><p>Preencha o cadastro com seus dados e a equipe analisará seu perfil e sua região para retornar com as condições adequadas ao seu cenário.</p></div></div></div>
-        <div class="faq-item"><button class="faq-question" type="button"><span>Em quanto tempo terei retorno?</span><span>+</span></button><div class="faq-answer"><div><p>O compromisso informado pela Care Systems é de retorno da equipe comercial em até 24 horas.</p></div></div></div>
+    <div class="faq-head reveal">
+      <h2 class="faq-title">Dúvidas <span>Frequentes</span></h2>
+      <p class="faq-sub">Reunimos as respostas que ajudam a avaliar se a distribuição Care Systems faz sentido para o seu negócio.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item open">
+        <button class="faq-question" type="button" aria-expanded="true">
+          <span class="faq-q-txt">Quem pode ser distribuidor?</span>
+          <span class="faq-ico" aria-hidden="true"><span class="faq-ico-plus">+</span><svg class="faq-ico-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"></path></svg></span>
+        </button>
+        <div class="faq-answer"><div><p>Empresas e profissionais com atuação comercial no segmento odontológico, médico, hospitalar, agro ou de higiene profissional podem conversar com nossa equipe.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-q-txt">Quais produtos posso distribuir?</span>
+          <span class="faq-ico" aria-hidden="true"><span class="faq-ico-plus">+</span><svg class="faq-ico-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"></path></svg></span>
+        </button>
+        <div class="faq-answer"><div><p>O destaque atual é a linha Dental Med, com LIPAX ENZYME para instrumentais e LIPAX CLEAN para cuspideiras e tubulações. Também existem outras linhas profissionais.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-q-txt">A Care Systems oferece suporte?</span>
+          <span class="faq-ico" aria-hidden="true"><span class="faq-ico-plus">+</span><svg class="faq-ico-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"></path></svg></span>
+        </button>
+        <div class="faq-answer"><div><p>Sim. A parceria inclui orientação técnica e comercial, materiais de apoio e contato direto com a equipe para desenvolver sua região.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-q-txt">Como recebo as condições comerciais?</span>
+          <span class="faq-ico" aria-hidden="true"><span class="faq-ico-plus">+</span><svg class="faq-ico-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"></path></svg></span>
+        </button>
+        <div class="faq-answer"><div><p>Preencha o cadastro com seus dados e a equipe analisará seu perfil e sua região para retornar com as condições adequadas ao seu cenário.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" type="button" aria-expanded="false">
+          <span class="faq-q-txt">Em quanto tempo terei retorno?</span>
+          <span class="faq-ico" aria-hidden="true"><span class="faq-ico-plus">+</span><svg class="faq-ico-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 15 6-6 6 6"></path></svg></span>
+        </button>
+        <div class="faq-answer"><div><p>O compromisso informado pela Care Systems é de retorno da equipe comercial em até 24 horas.</p></div></div>
       </div>
     </div>
   </div>
@@ -2087,7 +2172,11 @@ function submitForm() {
   },1500);
 }
 document.querySelectorAll('.faq-question').forEach(function(button){
-  button.addEventListener('click',function(){button.closest('.faq-item').classList.toggle('open');});
+  button.addEventListener('click',function(){
+    var item=button.closest('.faq-item');
+    item.classList.toggle('open');
+    button.setAttribute('aria-expanded',item.classList.contains('open')?'true':'false');
+  });
 });
 var revealObserver = new IntersectionObserver(function(entries){
   entries.forEach(function(entry){
