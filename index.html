@@ -1069,6 +1069,41 @@ footer{
 @media(prefers-reduced-motion:reduce){
   .faq-item,.faq-ico,.faq-ico-plus,.faq-ico-chev,.faq-answer{transition:none;}
 }
+
+/* ══════════ PRODUTOS · profundidade dos cards ═════════════════════════ */
+/* --pm-rgb: o mesmo tom de --pm em canais separados, para compor os alfas */
+.pm-card{
+  --pm-rgb:46,155,138;
+  border:1px solid rgba(var(--pm-rgb),.18);
+  box-shadow:
+    0 1px 2px rgba(20,38,30,.04),
+    0 8px 24px rgba(20,38,30,.08),
+    0 0 48px rgba(var(--pm-rgb),.10);
+  transition:transform 260ms ease-out,box-shadow 260ms ease-out;
+}
+.pm-card--enzyme{--pm-rgb:46,155,138;}
+.pm-card--clean {--pm-rgb:123,94,167;}
+
+.pm-card:hover{
+  transform:translateY(-3px);
+  box-shadow:
+    0 1px 2px rgba(20,38,30,.04),
+    0 14px 32px rgba(20,38,30,.12),
+    0 0 56px rgba(var(--pm-rgb),.16);
+}
+
+/* separa a coluna tonal da coluna branca */
+.pm-content{border-left:1px solid rgba(0,0,0,.05);}
+.pm-strip{border-bottom:1px solid rgba(var(--pm-rgb),.12);}
+
+@media(max-width:768px){
+  /* empilhado, a divisa entre as colunas deixa de ser vertical */
+  .pm-content{border-left:0;border-top:1px solid rgba(0,0,0,.05);}
+}
+@media(prefers-reduced-motion:reduce){
+  .pm-card{transition:none;}
+  .pm-card:hover{transform:none;}
+}
 </style>
 </head>
 <body>
