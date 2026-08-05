@@ -12,6 +12,10 @@
 <link rel="stylesheet" href="design-system/tokens/colors.css">
 <link rel="stylesheet" href="design-system/tokens/spacing.css">
 <link rel="stylesheet" href="design-system/tokens/effects.css">
+<!-- three moderno (ESM) para a cena 3D do mapa; o r128 UMD abaixo segue servindo as particulas -->
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 /* ── RESET & TOKENS ─────────────────────────────────────────────────────── */
@@ -264,15 +268,11 @@ img{max-width:100%;display:block;}
 .map-state:hover{transform:translateY(-1.5px);opacity:.98;}
 .map-state-extrude{fill:#3B8F61;stroke:#2E7650;stroke-width:.8;opacity:.72;transform:translateY(2.2px);filter:drop-shadow(0 3px 4px rgba(0,67,38,.18));vector-effect:non-scaling-stroke;}
 .map-state-face{stroke:#58B978;stroke-width:1;paint-order:stroke;vector-effect:non-scaling-stroke;}
-.map-territory-label{font-family:'Gotham',Arial,sans-serif;font-size:5.8px;font-weight:600;letter-spacing:.12em;fill:#2E7370;text-anchor:middle;}
-.map-territory-sub{font-family:'Gotham',Arial,sans-serif;font-size:3.2px;font-weight:500;letter-spacing:.08em;fill:#0B3D2E;text-anchor:middle;text-transform:uppercase;}
 .map-connection{stroke:#20C85A;stroke-width:1.6;stroke-dasharray:5 4;opacity:.94;filter:drop-shadow(0 0 1.5px rgba(32,200,90,.42));vector-effect:non-scaling-stroke;animation:connectionFlow 2.4s linear infinite;}
 .map-pin-group{cursor:pointer;}
 .map-pin-pulse{fill:none;stroke-width:1.2;stroke-linecap:round;opacity:.56;transform-box:fill-box;transform-origin:center;animation:pinPulse 1.8s ease-out infinite;}
 .map-pin-core{fill:#A8D156;filter:url(#glow);}
 .map-pin-center{fill:#fff;}
-.map-pin-label{font-family:'Gotham',Arial,sans-serif;font-size:4.6px;font-weight:700;fill:#2E7370;}
-.map-pin-sub{font-family:'Gotham',Arial,sans-serif;font-size:3.6px;fill:#0B3D2E;}
 @keyframes pinPulse{0%{transform:scale(.9);stroke-opacity:.65;}50%{transform:scale(1.35);stroke-opacity:.22;}100%{transform:scale(1.8);stroke-opacity:0;}}
 @keyframes connectionFlow{to{stroke-dashoffset:-26;}}
 
@@ -921,9 +921,6 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .cad-privacy{font-size:var(--fs-caption);color:var(--ink3);text-align:center;margin-top:var(--space-4);}
 .hist-meta{font-family:var(--font-body);font-size:var(--fs-overline);font-weight:var(--fw-semibold);letter-spacing:var(--ls-overline);text-transform:uppercase;color:var(--ink3);}
 .sede-card--mt{margin-top:var(--space-5);}
-.tip-strong{display:block;margin-bottom:var(--space-1);}
-.tip-sub{font-size:var(--fs-caption);color:rgba(255,255,255,.65);}
-.map-tip{position:absolute;font-family:var(--font-body);font-size:var(--fs-overline);padding:var(--space-3) var(--space-4);background:#2E7370;color:#fff;border-radius:10px;pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.35);z-index:10;}
 
 .mapa-wrapper--plain{background:#E8F5F2;padding:0;}
 .footer-mail{display:block;margin-top:var(--space-2);color:var(--green-lt);}
@@ -1103,6 +1100,61 @@ footer{
 @media(prefers-reduced-motion:reduce){
   .pm-card{transition:none;}
   .pm-card:hover{transform:none;}
+}
+
+/* ══════════ DISTRIBUIDORES · mapa 3D ══════════════════════════════════ */
+.distribuidores{background:var(--green-hero);}
+.distrib-header .sec-tag{color:var(--lime-400)!important;}
+.distrib-header h2{color:var(--white);}
+.distrib-header p{color:rgba(255,255,255,.72);}
+
+/* lista adaptada ao fundo escuro */
+.distrib-item{
+  background:rgba(255,255,255,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.12);border-radius:12px;
+  transition:border-color 200ms ease-out,box-shadow 200ms ease-out,background 200ms ease-out;
+  cursor:pointer;
+}
+.distrib-item:hover,.distrib-item:focus-visible,.distrib-item.is-ativo{
+  background:rgba(255,255,255,.10);border-color:var(--lime-400);
+  box-shadow:0 0 0 1px rgba(124,194,92,.35),0 0 24px rgba(124,194,92,.22);outline:none;
+}
+.distrib-nome{color:var(--white);}
+.distrib-cidade{color:rgba(255,255,255,.62);}
+.sede-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.sede-card h4{color:var(--white);}
+.sede-card p{color:rgba(255,255,255,.62);}
+
+/* palco */
+.mapa-wrapper{background:transparent;border:1px solid rgba(255,255,255,.10);border-radius:16px;overflow:hidden;}
+.mapa-label{color:rgba(255,255,255,.72);}
+.mapa-palco{position:relative;width:100%;height:540px;}
+.mapa-palco canvas{display:block;width:100%!important;height:100%!important;}
+/* o CSS2DRenderer nao pode capturar o mouse: o raycast acontece no palco */
+.mapa-rotulos{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.mapa-rotulo{
+  padding:4px 9px;border-radius:999px;font-size:11px;line-height:1.3;color:#fff;white-space:nowrap;
+  background:rgba(6,32,24,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.14);transition:background 200ms,border-color 200ms,transform 200ms;
+}
+.mapa-rotulo--sede{font-weight:700;}
+.mapa-rotulo.is-ativo{background:rgba(124,194,92,.9);color:#0B3D2E;border-color:#7cc25c;transform:scale(1.08);}
+
+/* fallback: mesmo desenho, gerado da mesma projecao da cena */
+.mapa-estatico{display:none;padding:16px 20px 24px;}
+.mapa-estatico svg{width:100%;height:auto;max-height:420px;}
+.mf-uf{fill:rgba(200,240,220,.10);stroke:rgba(168,209,86,.45);stroke-width:.4;}
+.mf-pin{fill:#7cc25c;}
+.mf-pin--sede{fill:#A8D156;}
+.mapa-sem-3d .mapa-palco{display:none;}
+.mapa-sem-3d .mapa-estatico{display:block;}
+
+@media(max-width:900px){
+  .mapa-palco{display:none;}
+  .mapa-estatico{display:block;}
+}
+@media(prefers-reduced-motion:reduce){
+  .distrib-item,.mapa-rotulo{transition:none;}
 }
 </style>
 </head>
@@ -1664,43 +1716,41 @@ footer{
   <div class="sec-in">
     <div class="distrib-header">
       <span class="sec-tag">Parceiros oficiais</span>
-      <h2>Distribuidores Care Systems no Paraná</h2>
+      <h2>Distribuidores Care Systems em SP e PR</h2>
       <p>Parceiros selecionados que levam a tecnologia enzimática LIPAX até os profissionais de saúde.</p>
     </div>
     <div class="distrib-layout">
-
-      <!-- Lista -->
       <div>
         <div class="distrib-list">
-          <div class="distrib-item sede">
+          <div class="distrib-item sede" data-cidade="sjbv" tabindex="0">
             <div class="distrib-dot laranja"></div>
             <div class="distrib-info">
               <div class="distrib-nome">Care Systems Bio Enzymes - Sede</div>
               <div class="distrib-cidade">São João da Boa Vista, SP</div>
             </div>
           </div>
-          <div class="distrib-item">
+          <div class="distrib-item" data-cidade="apucarana" tabindex="0">
             <div class="distrib-dot verde"></div>
             <div class="distrib-info">
               <div class="distrib-nome">Dental Ice</div>
               <div class="distrib-cidade">Apucarana, PR</div>
             </div>
           </div>
-          <div class="distrib-item">
+          <div class="distrib-item" data-cidade="londrina" tabindex="0">
             <div class="distrib-dot verde"></div>
             <div class="distrib-info">
               <div class="distrib-nome">Dental Classe A</div>
               <div class="distrib-cidade">Londrina, PR</div>
             </div>
           </div>
-          <div class="distrib-item">
+          <div class="distrib-item" data-cidade="londrina" tabindex="0">
             <div class="distrib-dot verde"></div>
             <div class="distrib-info">
               <div class="distrib-nome">Dental Odonthomaz</div>
               <div class="distrib-cidade">Londrina, PR</div>
             </div>
           </div>
-          <div class="distrib-item">
+          <div class="distrib-item" data-cidade="guarapuava" tabindex="0">
             <div class="distrib-dot verde"></div>
             <div class="distrib-info">
               <div class="distrib-nome">Dental Odonthomaz</div>
@@ -1708,8 +1758,7 @@ footer{
             </div>
           </div>
         </div>
-
-        <div class="sede-card sede-card--mt" >
+        <div class="sede-card sede-card--mt">
           <div class="sede-card-icon"></div>
           <div>
             <h4>Sede Care Systems Bio Enzymes</h4>
@@ -1717,105 +1766,11 @@ footer{
           </div>
         </div>
       </div>
-
-      <!-- Mapa SVG interativo SP + PR com pins -->
-      <div class="mapa-wrapper" class="mapa-wrapper--plain">
-        <div class="mapa-label">Rede de Distribuidores - SP e PR</div>
-        <div style="position:relative;width:100%;height:540px;overflow:hidden;">
-          <svg viewBox="274 370 220 170" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
-               style="width:100%;height:100%;display:block;">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#C8E5DF" stroke-width="0.5"/>
-              </pattern>
-              <linearGradient id="sp-gradient" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#E7F9EC"/>
-                <stop offset="58%" stop-color="#AFE7BF"/>
-                <stop offset="100%" stop-color="#76CE96"/>
-              </linearGradient>
-              <linearGradient id="pr-gradient" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#DDF5E5"/>
-                <stop offset="60%" stop-color="#8FD9A8"/>
-                <stop offset="100%" stop-color="#62BE82"/>
-              </linearGradient>
-              <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-                <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#A8D156" flood-opacity=".28"/>
-              </filter>
-            </defs>
-            <rect width="680" height="540" fill="#E8F5F2"/>
-            <rect width="680" height="540" fill="url(#grid)" opacity=".75"/>
-
-            <!-- ESTADO DE SÃO PAULO -->
-            <path class="map-state-extrude sp-extrude" d="M 300 430 L 500 430 L 500 520 L 300 520 Z"/>
-            <path class="map-state map-state-face sp" fill="url(#sp-gradient)" d="M 300 430 L 500 430 L 500 520 L 300 520 Z"/>
-            <text x="135" y="108" class="map-territory-label">SÃO PAULO</text>
-            <text x="135" y="128" class="map-territory-sub">sede e origem</text>
-
-            <!-- ESTADO DO PARANÁ -->
-            <path class="map-state-extrude pr-extrude" d="M 300 500 L 500 500 L 500 575 L 300 575 Z"/>
-            <path class="map-state map-state-face pr" fill="url(#pr-gradient)" d="M 300 500 L 500 500 L 500 575 L 300 575 Z"/>
-            <text x="420" y="335" class="map-territory-label">PARANÁ</text>
-            <text x="420" y="355" class="map-territory-sub">rede ativa</text>
-
-            <!-- Linhas tracejadas da sede para cada distribuidor -->
-            <line class="map-connection" x1="205" y1="142" x2="450" y2="285"/>
-            <line class="map-connection" x1="205" y1="142" x2="490" y2="255"/>
-            <line class="map-connection" x1="205" y1="142" x2="395" y2="375"/>
-
-            <!-- SEDE: São João da Boa Vista, SP -->
-            <g class="map-pin-group" onmouseenter="showMapTip(event,'Care Systems - Sede','São João da Boa Vista, SP')" onmouseleave="hideMapTip()">
-              <circle class="map-pin-pulse" cx="205" cy="142" r="18" stroke="#A8D156"/>
-              <circle class="map-pin-pulse" cx="205" cy="142" r="25" stroke="#A8D156"/>
-              <circle class="map-pin-core" cx="205" cy="142" r="9"/>
-              <circle class="map-pin-center" cx="205" cy="142" r="3.5"/>
-              <text x="245" y="128" class="map-pin-label">SEDE</text>
-              <text x="245" y="140" class="map-pin-sub">São João da Boa Vista</text>
-            </g>
-
-            <!-- Apucarana -->
-            <g class="map-pin-group" onmouseenter="showMapTip(event,'Dental Ice','Apucarana, PR')" onmouseleave="hideMapTip()">
-              <circle class="map-pin-pulse" cx="450" cy="285" r="16" stroke="#A8D156"/>
-              <circle class="map-pin-core" cx="450" cy="285" r="8"/>
-              <circle class="map-pin-center" cx="450" cy="285" r="3"/>
-              <text x="465" y="278" class="map-pin-label">Dental Ice</text>
-              <text x="465" y="289" class="map-pin-sub">Apucarana</text>
-            </g>
-
-            <!-- Londrina -->
-            <g class="map-pin-group" onmouseenter="showMapTip(event,'Dental Classe A · Dental Odonthomaz','Londrina, PR')" onmouseleave="hideMapTip()">
-              <circle class="map-pin-pulse" cx="490" cy="255" r="16" stroke="#A8D156"/>
-              <circle class="map-pin-core" cx="490" cy="255" r="8"/>
-              <circle class="map-pin-center" cx="490" cy="255" r="3"/>
-              <text x="505" y="248" class="map-pin-label">Classe A</text>
-              <text x="505" y="259" class="map-pin-sub">Londrina</text>
-            </g>
-
-            <!-- Guarapuava -->
-            <g class="map-pin-group" onmouseenter="showMapTip(event,'Dental Odonthomaz','Guarapuava, PR')" onmouseleave="hideMapTip()">
-              <circle class="map-pin-pulse" cx="395" cy="375" r="16" stroke="#A8D156"/>
-              <circle class="map-pin-core" cx="395" cy="375" r="8"/>
-              <circle class="map-pin-center" cx="395" cy="375" r="3"/>
-              <text x="410" y="368" class="map-pin-label">Odonthomaz</text>
-              <text x="410" y="379" class="map-pin-sub">Guarapuava</text>
-            </g>
-
-            <!-- Legenda -->
-            <rect x="22" y="458" width="220" height="66" rx="10" fill="white" opacity="0.92"/>
-            <circle cx="42" cy="477" r="7" fill="#A8D156"/>
-            <text x="56" y="481" font-family="Gotham,Arial,sans-serif" font-size="11" font-weight="700" fill="#2E7370">Centro logístico</text>
-            <circle cx="42" cy="498" r="7" fill="#A8D156"/>
-            <text x="56" y="502" font-family="Gotham,Arial,sans-serif" font-size="11" font-weight="700" fill="#2E7370">Distribuidor parceiro</text>
-            <text x="22" y="518" font-family="Gotham,Arial,sans-serif" font-size="9" fill="#0B3D2E">Rede São Paulo · Paraná</text>
-          </svg>
-
-          <!-- Tooltip -->
-          <div id="map-tip" class="map-tip">
-            <strong id="map-tip-nome" class="tip-strong"></strong>
-            <span id="map-tip-cidade" class="tip-sub"></span>
-          </div>
-        </div>
+      <div class="mapa-wrapper">
+        <div class="mapa-label">Rede de Distribuidores · SP e PR</div>
+        <div class="mapa-palco" id="mapa3d" aria-hidden="true"></div>
+        <div class="mapa-estatico"><svg class="mapa-fallback" viewBox="-49.9 -37.2 99.9 74.4" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa de São Paulo e Paraná com os pontos da sede e dos distribuidores"><path d="M23.75,-13.50L24.27,-14.16L24.42,-15.04L24.85,-15.02L24.94,-15.26L25.32,-16.10L25.22,-16.44L25.34,-16.83L25.25,-17.21L24.75,-17.42L24.40,-17.39L24.12,-17.88L23.88,-17.92L23.32,-17.75L23.10,-18.06L22.95,-17.96L22.47,-17.96L22.42,-17.79L22.04,-17.61L21.62,-17.44L20.91,-17.50L21.06,-18.09L20.88,-18.23L20.64,-18.95L20.36,-19.20L19.99,-19.73L19.99,-20.04L19.86,-20.24L20.02,-20.51L19.79,-20.69L19.73,-21.17L19.76,-21.68L19.43,-21.95L18.92,-22.61L19.03,-22.88L19.03,-22.89L19.14,-23.16L19.05,-23.41L19.37,-23.70L19.39,-24.08L19.54,-24.35L19.91,-24.29L20.14,-24.55L20.17,-24.92L19.94,-25.21L19.77,-25.67L19.82,-25.71L19.76,-25.90L19.67,-26.11L19.06,-26.38L18.47,-26.77L18.45,-27.07L18.52,-27.19L18.41,-27.74L18.60,-28.29L18.98,-28.90L19.00,-28.98L18.73,-29.55L18.42,-29.68L18.13,-29.97L17.76,-30.25L17.44,-30.31L17.16,-30.61L17.30,-30.93L16.96,-31.40L16.72,-31.37L16.20,-31.14L15.90,-31.11L15.80,-30.83L15.40,-30.62L15.08,-31.06L14.76,-31.29L14.32,-31.21L13.55,-31.17L13.33,-30.90L13.46,-30.65L13.38,-30.35L13.12,-29.87L12.84,-30.02L12.71,-30.50L12.40,-30.73L12.23,-30.11L12.06,-29.89L11.56,-29.66L11.31,-29.68L10.67,-30.16L10.45,-30.64L10.23,-30.81L10.01,-30.33L10.32,-29.85L9.91,-29.70L9.47,-29.99L8.94,-29.90L8.67,-29.99L8.27,-29.87L7.92,-29.75L7.51,-29.80L7.02,-29.78L6.55,-29.48L5.83,-29.64L5.37,-29.51L5.01,-29.53L4.72,-29.35L4.74,-29.02L4.44,-28.44L4.54,-28.03L4.52,-27.67L4.62,-27.26L4.45,-26.90L4.29,-26.88L3.77,-27.22L3.75,-28.40L3.69,-29.09L3.57,-29.44L3.16,-29.64L2.87,-29.61L2.39,-28.49L1.83,-28.07L1.47,-28.16L1.17,-28.60L1.12,-28.88L0.82,-29.48L0.76,-29.96L0.75,-30.50L0.84,-30.91L1.27,-31.08L1.25,-31.37L0.83,-31.45L0.32,-31.20L-0.54,-31.29L-0.88,-31.55L-1.07,-31.90L-1.40,-31.98L-1.94,-31.84L-2.13,-31.73L-3.14,-31.80L-3.89,-31.71L-4.05,-31.59L-4.52,-31.68L-5.08,-31.84L-5.37,-31.78L-5.73,-31.88L-6.27,-32.28L-6.85,-32.27L-7.24,-32.35L-7.50,-32.25L-8.31,-32.32L-9.01,-32.98L-9.33,-33.12L-9.47,-33.18L-10.28,-32.86L-10.42,-32.83L-10.74,-32.41L-11.13,-31.96L-11.37,-31.88L-12.23,-31.68L-12.76,-31.39L-13.13,-31.17L-13.32,-31.13L-13.65,-30.79L-13.86,-30.73L-14.13,-30.26L-14.14,-30.15L-14.32,-29.80L-14.74,-28.68L-15.09,-28.40L-15.54,-28.16L-16.73,-27.93L-17.15,-27.67L-17.81,-26.63L-18.08,-26.46L-18.53,-25.64L-19.12,-25.16L-19.19,-25.11L-19.43,-24.75L-19.71,-23.86L-19.60,-23.64L-19.69,-23.22L-19.54,-22.60L-19.61,-22.04L-19.99,-21.79L-20.40,-21.78L-20.81,-21.30L-20.92,-21.02L-21.07,-20.53L-21.37,-20.30L-21.74,-20.26L-21.86,-20.09L-21.86,-19.62L-21.59,-18.96L-21.70,-18.29L-22.04,-17.90L-22.29,-17.15L-22.59,-16.79L-22.92,-16.57L-23.42,-16.69L-23.60,-16.58L-23.82,-16.06L-23.53,-15.79L-23.35,-15.36L-23.41,-15.03L-23.83,-14.37L-24.34,-14.14L-24.58,-13.43L-25.10,-12.88L-25.34,-12.76L-25.72,-12.21L-25.90,-11.49L-26.36,-10.85L-26.51,-10.59L-26.93,-10.17L-27.21,-9.87L-28.08,-9.49L-28.68,-9.04L-29.03,-8.93L-29.94,-8.32L-30.43,-7.74L-31.25,-7.41L-31.70,-7.23L-31.84,-6.96L-32.36,-6.69L-32.66,-6.25L-32.63,-5.99L-32.51,-5.78L-32.05,-6.03L-31.81,-6.22L-31.47,-6.49L-31.05,-6.53L-30.46,-6.13L-30.09,-6.23L-29.80,-6.18L-29.64,-6.12L-29.05,-5.95L-28.10,-6.53L-27.65,-6.05L-27.30,-5.88L-26.84,-6.12L-26.62,-6.10L-26.26,-5.95L-25.56,-5.87L-25.47,-5.93L-25.12,-6.06L-24.92,-5.80L-24.88,-5.48L-24.53,-5.67L-24.30,-5.78L-24.26,-6.50L-24.11,-6.90L-23.88,-7.00L-23.21,-6.79L-23.17,-6.78L-22.40,-6.52L-22.05,-6.19L-21.95,-6.08L-21.65,-5.90L-20.91,-6.07L-20.57,-5.93L-20.44,-5.54L-19.67,-5.65L-19.65,-5.65L-19.05,-5.27L-18.68,-5.34L-18.31,-5.45L-18.05,-5.70L-17.66,-5.55L-17.41,-5.65L-17.06,-5.56L-16.75,-5.50L-16.46,-5.56L-16.01,-5.02L-15.68,-4.88L-15.25,-4.67L-14.64,-4.61L-14.17,-4.35L-13.94,-4.46L-13.49,-4.31L-13.21,-4.34L-12.75,-3.99L-12.58,-3.66L-12.31,-3.29L-12.34,-2.84L-11.58,-2.82L-11.34,-3.27L-10.94,-3.27L-10.65,-3.11L-10.41,-3.30L-10.00,-3.15L-9.97,-3.00L-9.08,-2.91L-9.00,-3.21L-8.50,-3.18L-8.33,-2.87L-7.76,-3.03L-7.48,-2.85L-7.13,-2.83L-6.51,-2.95L-5.80,-3.28L-5.47,-3.23L-5.22,-3.36L-5.00,-3.04L-5.11,-2.81L-5.10,-2.77L-4.94,-2.58L-4.48,-2.38L-4.56,-1.89L-4.18,-1.69L-3.88,-1.75L-3.75,-1.64L-3.67,-1.52L-3.49,-1.39L-2.93,-1.33L-2.85,-0.96L-2.51,-0.70L-2.30,-0.35L-2.06,0.32L-2.02,0.80L-2.16,0.97L-1.78,1.13L-1.85,1.53L-1.67,1.73L-1.81,2.01L-2.01,2.34L-2.04,2.63L-1.83,2.75L-1.85,3.21L-2.01,3.47L-1.84,3.86L-1.60,4.09L-1.38,4.36L-1.54,4.67L-1.47,5.21L-1.59,5.53L-1.90,5.65L-1.71,6.13L-1.26,6.50L-1.14,6.39L-0.88,7.13L-0.57,7.66L-0.33,7.85L-0.14,8.21L0.49,8.51L0.37,9.30L0.76,9.59L0.93,10.08L1.21,10.23L1.68,10.49L1.22,11.06L1.23,11.34L1.25,11.45L1.29,11.64L0.85,11.97L0.99,12.32L0.67,12.50L0.78,12.90L0.71,13.54L1.00,13.82L1.62,13.89L1.82,13.63L2.06,13.62L2.31,13.71L2.47,13.77L3.36,13.45L3.78,13.64L4.22,13.64L4.85,13.55L5.11,13.65L5.41,13.84L6.05,13.70L6.31,13.90L6.82,13.59L7.21,13.80L7.51,14.14L7.83,14.33L7.68,14.66L7.35,14.90L7.25,15.31L7.41,15.49L7.26,15.96L7.25,16.49L6.98,16.79L7.14,17.26L7.35,17.56L7.58,17.72L8.01,17.11L8.07,16.88L8.62,16.57L8.90,16.72L9.15,17.10L9.74,17.13L9.87,16.73L10.13,16.67L10.40,17.06L10.34,17.49L10.64,18.04L10.84,18.19L10.63,18.72L11.24,19.16L12.03,18.96L11.39,19.60L11.39,19.71L11.83,19.23L12.91,18.29L13.05,17.88L13.03,17.26L13.62,16.53L14.60,15.61L15.55,14.83L16.10,14.44L17.29,13.74L17.38,13.65L18.87,12.68L19.76,11.90L20.34,11.48L21.00,11.10L20.87,10.81L21.08,10.30L21.93,9.61L22.39,9.28L23.58,8.57L24.50,8.05L25.48,7.56L26.16,7.34L26.37,7.18L26.70,6.91L27.12,7.12L27.00,7.42L27.71,7.10L28.08,7.14L28.36,6.66L28.65,5.82L29.04,5.49L29.48,5.42L30.06,5.14L30.71,4.94L31.20,4.88L31.64,4.98L31.90,4.92L32.77,5.07L33.12,5.24L33.73,5.23L34.19,5.67L34.52,5.46L34.82,5.59L35.12,5.35L35.12,5.09L34.85,4.40L34.84,3.92L35.03,3.59L35.47,3.58L35.87,3.13L36.17,3.15L36.46,3.30L36.74,3.04L36.68,2.68L37.21,2.77L37.08,2.37L37.98,2.38L38.13,1.61L38.47,1.63L38.81,1.45L39.12,1.04L39.44,0.82L40.04,1.16L40.01,1.34L40.80,1.12L41.03,1.14L40.56,0.85L40.47,0.48L40.15,0.41L40.12,0.21L39.58,-0.21L39.64,-0.44L39.71,-0.61L40.15,-0.82L40.27,-1.28L40.20,-1.50L40.34,-1.91L40.44,-2.55L40.67,-2.54L40.86,-2.88L41.78,-3.20L41.86,-3.29L42.06,-3.47L42.52,-3.45L43.05,-3.84L43.29,-3.48L43.68,-3.81L44.05,-3.73L44.60,-3.86L45.04,-4.01L45.28,-4.37L45.13,-4.61L45.40,-4.92L45.87,-5.23L45.94,-5.50L45.78,-5.85L45.24,-6.14L44.39,-6.31L44.22,-6.09L44.03,-6.46L43.83,-6.21L43.30,-6.05L42.91,-5.82L42.60,-6.14L41.72,-6.17L41.73,-6.63L41.53,-6.64L41.35,-6.95L41.07,-7.51L40.76,-7.97L40.28,-8.06L39.98,-7.85L39.58,-7.81L39.14,-7.61L38.91,-7.40L38.69,-7.48L38.12,-7.44L37.70,-7.26L37.51,-7.19L37.14,-6.87L37.05,-6.71L36.37,-6.38L36.24,-6.09L35.68,-6.04L35.09,-5.69L34.91,-6.00L34.38,-6.29L34.31,-5.93L33.99,-5.76L33.50,-5.70L33.68,-5.94L33.54,-6.19L33.17,-5.84L32.75,-5.71L32.62,-5.86L32.81,-6.21L32.64,-6.46L32.22,-6.33L32.19,-6.02L32.47,-5.73L32.08,-5.64L31.68,-5.31L31.47,-5.26L31.53,-4.89L32.17,-5.04L32.35,-4.58L31.83,-4.23L31.86,-3.95L31.15,-3.93L30.95,-3.61L30.62,-4.01L30.20,-3.81L29.74,-3.43L29.37,-3.36L28.98,-3.39L28.59,-3.12L28.57,-3.64L28.13,-3.67L27.55,-3.42L27.36,-3.54L26.79,-3.28L26.51,-3.55L26.53,-4.10L26.64,-4.40L26.89,-4.61L26.54,-4.80L25.84,-4.98L25.66,-5.20L25.69,-5.50L26.36,-5.60L26.09,-6.21L26.17,-6.61L25.80,-6.95L25.05,-7.21L24.98,-7.45L24.94,-7.67L24.40,-7.75L23.96,-7.97L24.01,-8.44L23.46,-9.01L23.60,-9.48L23.84,-9.87L23.91,-10.24L24.14,-10.22L24.43,-10.51L24.33,-10.91L24.13,-11.06L23.66,-11.03L23.49,-11.15L23.97,-11.28L23.79,-11.59L24.10,-11.85L24.39,-11.99L24.17,-12.17L23.89,-12.79L24.13,-13.09L23.96,-13.39L23.75,-13.50Z" class="mf-uf"/><path d="M36.05,5.94L36.48,5.38L36.56,5.13L36.29,4.72L35.62,4.58L35.39,5.36L34.56,6.14L34.70,6.56L35.02,6.60L35.94,6.32L36.24,6.85L36.55,6.69L36.52,6.32L36.05,5.94Z" class="mf-uf"/><path d="M2.31,13.71L2.06,13.62L1.82,13.63L1.62,13.89L1.00,13.82L0.71,13.54L0.78,12.90L0.67,12.50L0.99,12.32L0.85,11.97L1.29,11.64L1.25,11.45L1.23,11.34L1.22,11.06L1.68,10.49L1.21,10.23L0.93,10.08L0.76,9.59L0.37,9.30L0.49,8.51L-0.14,8.21L-0.33,7.85L-0.57,7.66L-0.88,7.13L-1.14,6.39L-1.26,6.50L-1.71,6.13L-1.90,5.65L-1.59,5.53L-1.47,5.21L-1.54,4.67L-1.38,4.36L-1.60,4.09L-1.84,3.86L-2.01,3.47L-1.85,3.21L-1.83,2.75L-2.04,2.63L-2.01,2.34L-1.81,2.01L-1.67,1.73L-1.85,1.53L-1.78,1.13L-2.16,0.97L-2.02,0.80L-2.06,0.32L-2.30,-0.35L-2.51,-0.70L-2.85,-0.96L-2.93,-1.33L-3.49,-1.39L-3.67,-1.52L-3.75,-1.64L-3.88,-1.75L-4.18,-1.69L-4.56,-1.89L-4.48,-2.38L-4.94,-2.58L-5.10,-2.77L-5.11,-2.81L-5.00,-3.04L-5.22,-3.36L-5.47,-3.23L-5.80,-3.28L-6.51,-2.95L-7.13,-2.83L-7.48,-2.85L-7.76,-3.03L-8.33,-2.87L-8.50,-3.18L-9.00,-3.21L-9.08,-2.91L-9.97,-3.00L-10.00,-3.15L-10.41,-3.30L-10.65,-3.11L-10.94,-3.27L-11.34,-3.27L-11.58,-2.82L-12.34,-2.84L-12.31,-3.29L-12.58,-3.66L-12.75,-3.99L-13.21,-4.34L-13.49,-4.31L-13.94,-4.46L-14.17,-4.35L-14.64,-4.61L-15.25,-4.67L-15.68,-4.88L-16.01,-5.02L-16.46,-5.56L-16.75,-5.50L-17.06,-5.56L-17.41,-5.65L-17.66,-5.55L-18.05,-5.70L-18.31,-5.45L-18.68,-5.34L-19.05,-5.27L-19.65,-5.65L-19.67,-5.65L-20.44,-5.54L-20.57,-5.93L-20.91,-6.07L-21.65,-5.90L-21.95,-6.08L-22.05,-6.19L-22.40,-6.52L-23.17,-6.78L-23.21,-6.79L-23.88,-7.00L-24.11,-6.90L-24.26,-6.50L-24.30,-5.78L-24.53,-5.67L-24.88,-5.48L-24.92,-5.80L-25.12,-6.06L-25.47,-5.93L-25.56,-5.87L-26.26,-5.95L-26.62,-6.10L-26.84,-6.12L-27.30,-5.88L-27.65,-6.05L-28.10,-6.53L-29.05,-5.95L-29.64,-6.12L-29.80,-6.18L-30.09,-6.23L-30.46,-6.13L-31.05,-6.53L-31.47,-6.49L-31.81,-6.22L-32.05,-6.03L-32.51,-5.78L-32.63,-5.99L-32.83,-5.70L-33.34,-5.07L-33.82,-4.93L-34.59,-4.63L-35.05,-4.25L-35.32,-4.16L-35.97,-3.68L-36.52,-3.43L-36.73,-3.06L-37.05,-2.84L-37.28,-2.34L-37.30,-1.18L-37.86,-0.13L-37.99,0.33L-38.41,1.06L-39.90,1.89L-40.15,1.86L-40.39,2.09L-40.77,3.63L-40.95,4.20L-40.95,4.52L-41.16,4.94L-41.23,5.33L-41.24,5.90L-41.21,6.15L-41.39,6.73L-41.73,7.08L-41.98,7.18L-42.69,7.72L-43.01,7.84L-43.44,8.30L-43.54,8.69L-43.38,9.07L-43.33,9.60L-42.94,9.98L-42.76,10.59L-42.80,10.78L-43.10,11.28L-43.37,11.64L-43.45,12.05L-43.30,12.84L-43.37,13.50L-43.42,13.83L-43.93,14.62L-43.97,14.95L-44.34,16.19L-44.52,17.13L-44.54,17.73L-44.23,18.22L-44.43,18.37L-44.66,18.78L-44.82,19.41L-45.12,19.93L-45.65,20.55L-45.94,21.07L-45.80,21.37L-45.72,22.42L-45.36,22.38L-45.21,22.69L-44.92,22.63L-44.24,23.06L-43.99,22.87L-43.92,22.49L-43.54,22.54L-43.39,22.23L-43.10,22.09L-42.77,22.43L-42.28,22.31L-42.23,21.87L-41.93,21.95L-41.76,21.74L-41.52,21.52L-41.35,21.74L-41.55,22.05L-40.90,22.35L-40.59,22.17L-40.42,22.36L-40.15,22.77L-39.90,22.71L-39.29,23.06L-39.18,23.36L-39.43,23.52L-39.17,23.85L-39.12,24.13L-38.93,24.40L-39.17,24.74L-39.04,25.32L-38.91,25.48L-39.11,25.67L-38.91,26.10L-38.49,26.62L-38.16,26.73L-38.22,27.45L-37.95,27.57L-37.62,28.01L-37.43,28.30L-37.33,28.72L-36.84,28.80L-36.61,29.07L-36.07,29.22L-35.50,29.02L-35.50,29.02L-35.49,29.02L-35.01,28.63L-34.72,28.70L-34.38,28.79L-34.20,28.67L-34.03,29.09L-33.20,29.65L-33.12,29.68L-32.53,30.07L-31.96,29.86L-31.65,29.65L-31.16,29.79L-30.90,29.76L-30.36,29.62L-29.62,29.70L-29.40,29.59L-29.08,29.75L-28.90,29.70L-28.59,29.97L-28.16,30.30L-27.82,30.22L-27.52,30.14L-26.99,30.53L-26.81,30.51L-26.46,30.42L-26.26,30.52L-25.60,30.54L-25.35,30.73L-24.94,30.79L-24.56,30.58L-24.32,30.78L-23.90,30.87L-23.64,31.34L-23.18,31.55L-23.00,31.74L-22.04,31.86L-21.85,32.04L-21.37,31.89L-21.02,31.95L-20.61,31.80L-20.22,31.87L-19.92,31.73L-19.69,31.94L-18.84,31.98L-18.63,31.89L-18.48,31.94L-18.13,32.45L-17.75,33.18L-17.57,32.67L-17.18,32.53L-16.62,32.57L-16.23,32.33L-16.08,32.00L-16.14,31.63L-16.53,31.09L-16.36,30.74L-16.70,30.47L-16.51,30.02L-16.35,29.68L-15.91,29.17L-15.43,28.99L-15.03,28.93L-14.81,28.53L-14.63,28.65L-14.06,28.57L-13.88,28.82L-13.63,28.65L-13.33,28.71L-13.25,29.09L-12.78,28.87L-12.37,28.53L-12.04,28.45L-11.90,28.68L-11.63,28.66L-11.76,28.27L-11.52,28.12L-11.47,28.06L-11.34,27.79L-11.06,27.59L-11.11,27.29L-10.87,26.92L-10.57,26.99L-10.21,26.89L-10.18,26.69L-9.85,26.57L-9.39,26.57L-9.12,26.92L-8.61,27.08L-8.56,27.39L-8.17,27.60L-8.26,27.14L-7.70,26.73L-7.52,26.61L-7.29,26.90L-7.01,26.99L-6.57,26.58L-6.43,26.81L-5.28,26.43L-4.76,26.50L-4.19,26.64L-4.14,26.84L-3.80,27.22L-3.13,27.51L-2.46,28.14L-2.30,28.11L-1.85,28.49L-1.38,28.55L-0.96,28.42L-0.83,28.18L-0.82,28.09L-0.32,27.95L0.10,27.82L0.28,27.64L0.62,27.37L0.81,27.39L1.39,26.62L1.98,26.33L2.80,26.33L3.07,26.36L3.19,26.37L3.27,26.47L3.73,26.19L3.88,26.23L3.80,26.14L6.24,26.17L7.01,26.10L7.41,24.91L8.04,23.58L8.40,22.97L8.69,22.63L9.09,22.36L9.43,22.37L9.80,21.67L9.52,21.47L10.13,21.21L10.36,21.28L10.55,20.75L10.81,20.34L11.39,19.71L11.39,19.60L12.03,18.96L11.24,19.16L10.63,18.72L10.84,18.19L10.64,18.04L10.34,17.49L10.40,17.06L10.13,16.67L9.87,16.73L9.74,17.13L9.15,17.10L8.90,16.72L8.62,16.57L8.07,16.88L8.01,17.11L7.58,17.72L7.35,17.56L7.14,17.26L6.98,16.79L7.25,16.49L7.26,15.96L7.41,15.49L7.25,15.31L7.35,14.90L7.68,14.66L7.83,14.33L7.51,14.14L7.21,13.80L6.82,13.59L6.31,13.90L6.05,13.70L5.41,13.84L5.11,13.65L4.85,13.55L4.22,13.64L3.78,13.64L3.36,13.45L2.47,13.77L2.31,13.71Z" class="mf-uf"/><path d="M-37.46,20.11L-37.20,20.07L-37.22,20.07L-37.46,20.11Z" class="mf-uf"/><path d="M-35.03,-0.07L-35.03,-0.07L-35.02,-0.08L-35.03,-0.07Z" class="mf-uf"/><circle cx="22.80" cy="-12.24" r="2.2" class="mf-pin mf-pin--sede"/><circle cx="-15.56" cy="0.59" r="1.6" class="mf-pin"/><circle cx="-18.18" cy="2.89" r="1.6" class="mf-pin"/><circle cx="-18.14" cy="20.52" r="1.6" class="mf-pin"/></svg></div>
       </div>
-
     </div>
   </div>
 </section>
@@ -2160,22 +2115,6 @@ footer{
 
   render();
 })();
-
-/* ── MAPA TOOLTIP ── */
-function showMapTip(e, nome, cidade, tipo) {
-  var tip = document.getElementById('map-tip');
-  document.getElementById('map-tip-nome').textContent = nome;
-  document.getElementById('map-tip-cidade').textContent = cidade;
-  tip.style.opacity = '1';
-  var wrap = tip.parentElement.getBoundingClientRect();
-  var mx = e.clientX - wrap.left + 12;
-  var my = e.clientY - wrap.top - 54;
-  tip.style.left = mx + 'px';
-  tip.style.top  = my + 'px';
-}
-function hideMapTip() {
-  document.getElementById('map-tip').style.opacity = '0';
-}
 
 /* ── MODAL FORM (IDs f-*) ── */
 function nextStep(n) {
@@ -2522,5 +2461,59 @@ document.querySelectorAll('.reveal').forEach(function(element){revealObserver.ob
 })();
 </script>
 
+
+
+<script type="module">
+/* Mapa 3D: so carrega quando a secao aparece, e so em telas >=900px com WebGL. */
+(function(){
+  var sec=document.getElementById("distribuidores");
+  var palco=document.getElementById("mapa3d");
+  var wrapper=sec.querySelector(".mapa-wrapper");
+  var cards=[].slice.call(sec.querySelectorAll(".distrib-item[data-cidade]"));
+
+  function temWebGL(){try{return !!document.createElement("canvas").getContext("webgl2")}catch(e){return false}}
+  if(!temWebGL()||innerWidth<900){wrapper.classList.add("mapa-sem-3d");return;}
+
+  var cena=null,carregando=false,visivel=false;
+
+  /* o estado de visibilidade fica numa variavel e e reaplicado sempre que a cena
+     existe: reagir a cada entry isoladamente perdia a ordem enquanto o modulo
+     carregava, e a cena ficava parada ao voltar para a secao */
+  function sincronizar(){
+    if(!cena)return;
+    if(visivel)cena.ligar(); else cena.desligar();
+  }
+
+  var obs=new IntersectionObserver(function(es){
+    visivel=es[es.length-1].isIntersecting;
+    if(visivel&&!cena&&!carregando){
+      carregando=true;
+      import("/assets/mapa3d.js").then(function(mod){
+        return mod.iniciar(palco);
+      }).then(function(api){
+        cena=api; api.dimensionar();
+        api.aoDestacar(function(id){
+          cards.forEach(function(c){c.classList.toggle("is-ativo",!!id&&c.dataset.cidade===id);});
+        });
+        /* Londrina tem dois cards: a chave e a cidade, nao o indice */
+        cards.forEach(function(c){
+          c.addEventListener("mouseenter",function(){api.destacar(c.dataset.cidade);});
+          c.addEventListener("focus",function(){api.destacar(c.dataset.cidade);});
+          c.addEventListener("mouseleave",function(){api.destacar(null);});
+          c.addEventListener("blur",function(){api.destacar(null);});
+          c.addEventListener("click",function(){api.focar(c.dataset.cidade);});
+        });
+        sincronizar();
+      }).catch(function(err){
+        console.warn("mapa 3D indisponivel:",err);
+        wrapper.classList.add("mapa-sem-3d");
+      });
+      return;
+    }
+    sincronizar();
+  },{rootMargin:"200px 0px"});
+  obs.observe(sec);
+})();
+</script>
 </body>
 </html>
