@@ -5,7 +5,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
 
 const LARGURA_MUNDO = 100;   // largura do conjunto SP+PR em unidades de cena
-const PROFUNDIDADE = 8;
+const PROFUNDIDADE = 16;
 
 export const CIDADES = [
   { id: 'sjbv',       nome: 'Sede Care Systems', cidade: 'São João da Boa Vista, SP', lon: -46.7986, lat: -21.9686, sede: true },
@@ -38,7 +38,7 @@ export async function iniciar(palco, opcoes = {}) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
+  renderer.toneMappingExposure = 1.35;
   palco.appendChild(renderer.domElement);
 
   const rotulos = new CSS2DRenderer();
@@ -52,20 +52,60 @@ export async function iniciar(palco, opcoes = {}) {
   let RAIO = 120;
   const posBase = new THREE.Vector3();
   // enquadramento derivado do tamanho do conjunto e do FOV, nao de numero chutado
-  function enquadrar(aspecto) {
-    const fov = camera.fov * Math.PI / 180;
-    const apAlt = ALTURA_MUNDO * Math.sin(ELEV) + PROFUNDIDADE * Math.cos(ELEV);
-    const porAltura = (apAlt / 2) / Math.tan(fov / 2);
-    const porLargura = (LARGURA_MUNDO / 2) / (Math.tan(fov / 2) * aspecto);
-    RAIO = Math.max(porAltura, porLargura) * 1.12;   // 1.12 = respiro nas bordas
-    posBase.set(0, Math.sin(ELEV) * RAIO, Math.cos(ELEV) * RAIO);
-    camera.position.copy(posBase);
-    camera.lookAt(alvoCamera);
+  const OCUPACAO = 0.80;   // fracao do frame que o conjunto deve preencher
+  const caixa = new THREE.Box3(), cantos = [];
+  /* Enquadra pelos 8 cantos do bounding box REAL da geometria: projeta, mede a
+     ocupacao em NDC e corrige o raio. Duas passadas convergem. */
+  function enquadrar() {
+    if (!grupo.children.length) return;
+    caixa.setFromObject(grupo);
+    cantos.length = 0;
+    for (const x of [caixa.min.x, caixa.max.x])
+      for (const y of [caixa.min.y, caixa.max.y])
+        for (const z of [caixa.min.z, caixa.max.z])
+          cantos.push(new THREE.Vector3(x, y, z));
+    alvoCamera.copy(caixa.getCenter(new THREE.Vector3()));
+    for (let passada = 0; passada < 3; passada++) {
+      posBase.set(alvoCamera.x, alvoCamera.y + Math.sin(ELEV) * RAIO, alvoCamera.z + Math.cos(ELEV) * RAIO);
+      camera.position.copy(posBase);
+      camera.lookAt(alvoCamera);
+      camera.updateMatrixWorld();
+      camera.updateProjectionMatrix();
+      let m = 0;
+      for (const c of cantos) {
+        const p = c.clone().project(camera);
+        m = Math.max(m, Math.abs(p.x), Math.abs(p.y));
+      }
+      if (m > 0.001) RAIO *= m / OCUPACAO;
+    }
   }
 
   // transmission precisa de environment; sem PMREM o vidro fica cinza chapado
   const pmrem = new THREE.PMREMGenerator(renderer);
   cena.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+  // painel na cor da secao: da ao transmission o que refratar. Sem ele o buffer
+  // de transmissao fica vazio (canvas com alpha) e o vidro renderiza chapado.
+  // gradiente, nao cor chapada: um fundo uniforme nao da a refracao o que
+  // distorcer, e o vidro continua lendo como superficie fosca
+  const texFundo = (() => {
+    const c = document.createElement("canvas"); c.width = c.height = 256;
+    const x = c.getContext("2d");
+    // alfa que morre antes da borda: o painel existe so atras do mapa, para o
+    // transmission ter o que refratar, e nao pinta o resto do canvas
+    const g = x.createRadialGradient(128, 140, 6, 128, 140, 118);
+    g.addColorStop(0, "rgba(56,168,116,.95)");
+    g.addColorStop(0.45, "rgba(20,90,64,.72)");
+    g.addColorStop(1, "rgba(11,61,46,0)");
+    x.fillStyle = g; x.fillRect(0, 0, 256, 256);
+    return new THREE.CanvasTexture(c);
+  })();
+  const fundo = new THREE.Mesh(
+    new THREE.PlaneGeometry(320, 320),
+    new THREE.MeshBasicMaterial({ map: texFundo, toneMapped: false, transparent: true, depthWrite: false })
+  );
+  fundo.position.set(0, 6, -90);
+  cena.add(fundo);
 
   cena.add(new THREE.AmbientLight(0xbfe8d6, 0.55));
   const sol = new THREE.DirectionalLight(0xffffff, 2.1);
@@ -77,10 +117,17 @@ export async function iniciar(palco, opcoes = {}) {
   sol.shadow.camera.updateProjectionMatrix();
   cena.add(sol);
 
+  // rasante pela direita: e ela que desenha o brilho na aresta superior da extrusao
+  const realce = new THREE.DirectionalLight(0xdcffe9, 1.6);
+  realce.position.set(90, 30, -40);
+  cena.add(realce);
+
   // ── malha extrudada ─────────────────────────────────────────────────────
   const vidro = new THREE.MeshPhysicalMaterial({
-    color: 0xc8f0dc, transmission: 0.9, roughness: 0.15, thickness: 6,
-    ior: 1.4, clearcoat: 1, clearcoatRoughness: 0.1, metalness: 0
+    color: 0xd8f6e6, transmission: 0.72, roughness: 0.06, thickness: 10,
+    ior: 1.45, clearcoat: 1, clearcoatRoughness: 0.06, metalness: 0,
+    envMapIntensity: 2.0, attenuationDistance: 26,
+    attenuationColor: new THREE.Color(0x53c795)
   });
 
   const grupo = new THREE.Group();
@@ -234,7 +281,7 @@ export async function iniciar(palco, opcoes = {}) {
     rotulos.setSize(w, h);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    enquadrar(camera.aspect);
+    enquadrar();
   }
 
   function quadro() {
@@ -246,8 +293,9 @@ export async function iniciar(palco, opcoes = {}) {
       camera.position.x += (posBase.x + ax * 40 - camera.position.x) * 0.05;
       camera.position.y += (posBase.y - ay * 22 - camera.position.y) * 0.05;
       // preserva a distancia TOTAL: descontar so o X jogava a camera para tras
-      const resto = RAIO * RAIO - camera.position.x ** 2 - camera.position.y ** 2;
-      camera.position.z = Math.sqrt(Math.max(1, resto));
+      const dx = camera.position.x - alvoCamera.x, dy = camera.position.y - alvoCamera.y;
+      const resto = RAIO * RAIO - dx * dx - dy * dy;
+      camera.position.z = alvoCamera.z + Math.sqrt(Math.max(1, resto));
       pinos.forEach(p => {
         const f = 1 + Math.sin((t + p.atraso) * Math.PI) * 0.16;
         p.halo.scale.setScalar(p.halo0 * f * (p.ativo ? 1.5 : 1));
@@ -286,6 +334,7 @@ export async function iniciar(palco, opcoes = {}) {
   dimensionar();
   addEventListener('resize', dimensionar);
 
+  if (opcoes.debug) Object.assign(globalThis, { __cena: cena, __cam: camera, __grupo: grupo, __THREE: THREE, __pinos: pinos });
   return {
     ligar() { if (!rodando) { rodando = true; req = requestAnimationFrame(quadro); } },
     get rodando() { return rodando; },

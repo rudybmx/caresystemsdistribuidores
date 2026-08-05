@@ -2489,7 +2489,7 @@ document.querySelectorAll('.reveal').forEach(function(element){revealObserver.ob
     if(visivel&&!cena&&!carregando){
       carregando=true;
       import("/assets/mapa3d.js").then(function(mod){
-        return mod.iniciar(palco);
+        return mod.iniciar(palco,{debug:/[?&]dbg/.test(location.search)});
       }).then(function(api){
         cena=api; api.dimensionar();
         api.aoDestacar(function(id){
