@@ -798,6 +798,11 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 @media(max-width:768px){
   .linhas{padding:72px 0;}
   .dm-grid{grid-template-columns:1fr;gap:24px;}
+  /* a celula das enzimas e ~3x mais longa que as outras: em coluna de 125px
+     ela empilha 9 linhas. Ocupando a faixa inteira volta para ~4.
+     a ultima celula acompanha: com 3 celulas em 2 colunas sobraria um vao,
+     e o vao mostra o #E5E7EB do fundo que desenha os divisores */
+  .dm-spec--enzimas,.dm-specs .dm-spec:last-child{grid-column:1/-1;}
 }
 
 /* ── FOOTER · credito de desenvolvimento ────────────────────────────────── */
@@ -1493,9 +1498,9 @@ footer{
             <p class="pm-desc">Detergente multienzimático concentrado para limpeza de instrumentais odontológicos, médicos e hospitalares. pH neutro — não corrói, não mancha, não danifica.</p>
 
             <div class="pm-tags">
-              <span class="pm-tag">Lipase</span>
+              <span class="pm-tag">Amilase</span>
               <span class="pm-tag">Protease</span>
-              <span class="pm-tag">Carboidrase</span>
+              <span class="pm-tag">Lipase-Carboidrase</span>
             </div>
 
             <div class="pm-specs">
@@ -1549,9 +1554,9 @@ footer{
             <p class="pm-desc">Alta concentração enzimática para limpeza e remoção de incrustações em cuspideiras, pias e tubulações de consultórios. Previne entupimentos, mau odor e fermentações.</p>
 
             <div class="pm-tags">
-              <span class="pm-tag">Lipase</span>
+              <span class="pm-tag">Amilase</span>
               <span class="pm-tag">Protease</span>
-              <span class="pm-tag">Carboidrase</span>
+              <span class="pm-tag">Lipase-Carboidrase</span>
               <span class="pm-tag">Xilanase</span>
             </div>
 
@@ -1616,7 +1621,7 @@ footer{
           <h3 class="dm-title">Higienização de Instrumentais</h3>
           <p class="dm-desc">Detergente multienzimático concentrado para limpeza de instrumentais odontológicos, médicos e hospitalares. pH neutro — não corrói, não mancha.</p>
           <div class="dm-specs">
-            <div class="dm-spec">3 enzimas: Lipase · Protease · Carboidrase</div>
+            <div class="dm-spec dm-spec--enzimas">6 enzimas: Amilase · Protease · Lipase-Carboidrase (Lipase, Celulase, Pectinase, Protease)</div>
             <div class="dm-spec">Diluição 0,2-0,5% · Imersão 10 min</div>
             <div class="dm-spec">Manual e lavadoras ultrassônicas</div>
             <div class="dm-spec">Embalagens: 500 mL · 1 L · 5 L</div>
@@ -1633,7 +1638,7 @@ footer{
           <h3 class="dm-title">Manutenção de Cuspideiras</h3>
           <p class="dm-desc">Alta concentração enzimática para remoção de incrustações em cuspideiras, pias e tubulações. Fragrância camomila. Previne entupimentos e mau odor.</p>
           <div class="dm-specs">
-            <div class="dm-spec">4 enzimas: Lipase · Protease · Carboidrase · Xilanase</div>
+            <div class="dm-spec dm-spec--enzimas">7 enzimas: Amilase · Protease · Lipase-Carboidrase (Lipase, Celulase, Pectinase, Protease) · Xilanase</div>
             <div class="dm-spec">Diluição 10% · Aplicar ao final do turno</div>
             <div class="dm-spec">Uso regular para resultados prolongados</div>
             <div class="dm-spec">Embalagens: 500 mL · 1 L · 5 L</div>
