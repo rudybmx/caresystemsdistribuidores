@@ -1219,6 +1219,9 @@ footer{
 @media(prefers-reduced-motion:reduce){
   .mapa-dica{transition:none;}
 }
+
+/* desdobramento do blend: nao vira chip para nao repetir a Protease */
+.pm-tags-nota{flex-basis:100%;margin-top:2px;font-size:var(--fs-caption);color:var(--ink3);line-height:1.4;}
 </style>
 </head>
 <body>
@@ -1556,9 +1559,8 @@ footer{
             <div class="pm-tags">
               <span class="pm-tag">Amilase</span>
               <span class="pm-tag">Protease</span>
-              <span class="pm-tag">Lipase</span>
-              <span class="pm-tag">Celulase</span>
-              <span class="pm-tag">Pectinase</span>
+              <span class="pm-tag">Lipase-Carboidrase</span>
+              <div class="pm-tags-nota">(Lipase, Celulase, Pectinase, Protease)</div>
             </div>
 
             <div class="pm-specs">
@@ -1614,10 +1616,9 @@ footer{
             <div class="pm-tags">
               <span class="pm-tag">Amilase</span>
               <span class="pm-tag">Protease</span>
-              <span class="pm-tag">Lipase</span>
-              <span class="pm-tag">Celulase</span>
-              <span class="pm-tag">Pectinase</span>
+              <span class="pm-tag">Lipase-Carboidrase</span>
               <span class="pm-tag">Xilanase</span>
+              <div class="pm-tags-nota">(Lipase, Celulase, Pectinase, Protease)</div>
             </div>
 
             <div class="pm-specs">
@@ -1679,7 +1680,7 @@ footer{
         <div class="dm-body">
           <div class="dm-kicker">LIPAX ENZYME</div>
           <div class="dm-specs">
-            <div class="dm-spec dm-spec--enzimas">5 enzimas: Amilase · Protease · Lipase-Carboidrase (Lipase, Celulase, Pectinase, Protease)</div>
+            <div class="dm-spec dm-spec--enzimas">6 enzimas: Amilase · Protease · Lipase-Carboidrase (Lipase, Celulase, Pectinase, Protease)</div>
             <div class="dm-spec">Diluição 0,2-0,5% · Imersão 10 min</div>
             <div class="dm-spec">Manual e lavadoras ultrassônicas</div>
             <div class="dm-spec">Embalagens: 500 mL · 1 L · 5 L</div>
@@ -1694,7 +1695,7 @@ footer{
         <div class="dm-body">
           <div class="dm-kicker">LIPAX CLEAN</div>
           <div class="dm-specs">
-            <div class="dm-spec dm-spec--enzimas">6 enzimas: Amilase · Protease · Lipase-Carboidrase (Lipase, Celulase, Pectinase, Protease) · Xilanase</div>
+            <div class="dm-spec dm-spec--enzimas">7 enzimas: Amilase · Protease · Lipase-Carboidrase (Lipase, Celulase, Pectinase, Protease) · Xilanase</div>
             <div class="dm-spec">Diluição 10% · Aplicar ao final do turno</div>
             <div class="dm-spec">Uso regular para resultados prolongados</div>
             <div class="dm-spec">Embalagens: 500 mL · 1 L · 5 L</div>
