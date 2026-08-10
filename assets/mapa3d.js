@@ -7,14 +7,16 @@ import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer
 const LARGURA_MUNDO = 100;   // largura do conjunto SP+PR em unidades de cena
 const PROFUNDIDADE = 16;
 
+// as unidades chegam do markup (opcoes.cidades) — a lista da secao e a fonte.
+// esta tabela e so o fallback de quem chamar iniciar() sem passar nada.
 export const CIDADES = [
-  { id: 'sjbv',       nome: 'Sede Care Systems', cidade: 'São João da Boa Vista, SP', lon: -46.7986, lat: -21.9686, uf: 'SP', sede: true },
-  { id: 'londrina',   nome: 'Londrina',          cidade: 'Londrina, PR',              lon: -51.1628, lat: -23.3103, uf: 'PR', desvio: 5 },
-  { id: 'apucarana',  nome: 'Apucarana',         cidade: 'Apucarana, PR',             lon: -51.4608, lat: -23.5505, uf: 'PR', desvio: 17 },
-  { id: 'guarapuava', nome: 'Guarapuava',        cidade: 'Guarapuava, PR',            lon: -51.4562, lat: -25.3935, uf: 'PR' }
+  { id: 'sede',      nome: 'Sede Care Systems', cidade: 'São João da Boa Vista, SP', lon: -46.7986, lat: -21.9686, uf: 'SP', sede: true, rotulo: 'Sede Care Systems' },
+  { id: 'londrina',  nome: 'Londrina',          cidade: 'Londrina, PR',              lon: -51.1628, lat: -23.3103, uf: 'PR', desvio: 5 },
+  { id: 'apucarana', nome: 'Apucarana',         cidade: 'Apucarana, PR',             lon: -51.4608, lat: -23.5505, uf: 'PR', desvio: 17 }
 ];
 
 export async function iniciar(palco, opcoes = {}) {
+  const unidades = (opcoes.cidades && opcoes.cidades.length) ? opcoes.cidades : CIDADES;
   const semMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const malha = await fetch(opcoes.malha || '/public/malha-sp-pr.json').then(r => r.json());
 
@@ -248,10 +250,15 @@ export async function iniciar(palco, opcoes = {}) {
   })();
 
   const pinos = [];
-  CIDADES.forEach((c, i) => {
+  unidades.forEach((c, i) => {
     const [px, py] = projetar(c.lon, c.lat);
     const desloc = infoUF[c.uf] ? infoUF[c.uf].off : { x: 0, y: 0 };
-    const pos = new THREE.Vector3(px + desloc.x, TOPO + 1.6, -(py + desloc.y));
+    // dx/dy separam unidades que quase coincidem em tela; o resto vem da projecao
+    const pos = new THREE.Vector3(
+      px + desloc.x + (c.dx || 0),
+      TOPO + 1.6,
+      -(py + desloc.y + (c.dy || 0))
+    );
 
     const esfera = new THREE.Mesh(
       new THREE.SphereGeometry(c.sede ? 2.1 : 1.4, 24, 16),
@@ -274,8 +281,8 @@ export async function iniciar(palco, opcoes = {}) {
 
     const el = document.createElement('div');
     el.className = 'mapa-rotulo' + (c.sede ? ' mapa-rotulo--sede' : '');
-    el.textContent = c.sede ? c.nome : c.cidade.split(',')[0];
-    el.dataset.cidade = c.id;
+    el.textContent = c.rotulo || (c.sede ? c.nome : c.cidade.split(',')[0]);
+    el.dataset.unidade = c.id;
     const rot = new CSS2DObject(el);
     // Londrina e Apucarana quase coincidem em tela: escalona a altura para nao colidir
     rot.position.set(pos.x, pos.y + (c.sede ? 6 : c.desvio || 4), pos.z);
