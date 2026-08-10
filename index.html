@@ -1163,6 +1163,41 @@ footer{
 @media(prefers-reduced-motion:reduce){
   .distrib-item,.mapa-rotulo{transition:none;}
 }
+
+/* ── dados da unidade: o item vira acordeao, o cabecalho leva o padding ── */
+.distrib-item{display:block;padding:0;overflow:hidden;}
+/* a sede nao abre — os dados dela estao no .sede-card logo abaixo —,
+   entao ela mantem o padding e o flex que o cabecalho assumiu nas outras */
+.distrib-item.sede{display:flex;align-items:center;gap:14px;padding:14px 18px;}
+.distrib-head{
+  width:100%;display:flex;align-items:center;gap:14px;padding:14px 18px;
+  background:none;border:0;text-align:left;color:inherit;font:inherit;cursor:pointer;
+}
+/* dentro do botao nome e cidade sao span: sem isto empilham na mesma linha */
+.distrib-head .distrib-nome,.distrib-head .distrib-cidade{display:block;}
+.distrib-chev{margin-left:auto;flex:none;width:16px;height:16px;color:rgba(255,255,255,.42);
+  transition:transform 250ms ease-out,color 250ms ease-out;}
+.distrib-chev svg{width:100%;height:100%;display:block;}
+.distrib-item.aberto .distrib-chev{transform:rotate(180deg);color:var(--lime-400);}
+
+/* mesma mecanica do FAQ: 0fr->1fr anima altura sem medir nada em JS */
+.distrib-det{display:grid;grid-template-rows:0fr;transition:grid-template-rows 250ms ease-out;}
+.distrib-det > div{overflow:hidden;}
+.distrib-item.aberto .distrib-det{grid-template-rows:1fr;}
+
+.distrib-dados{
+  margin:0 18px 16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);
+  display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:var(--fs-caption);
+}
+/* .42 dava 3,18:1 sobre o vidro (#1a4939 composto); .58 fecha em 4,63:1 */
+.distrib-dados dt{color:rgba(255,255,255,.58);white-space:nowrap;}
+.distrib-dados dd{margin:0;color:rgba(255,255,255,.82);line-height:1.55;}
+.distrib-dados a{color:var(--lime-400);text-decoration:none;}
+.distrib-dados a:hover,.distrib-dados a:focus-visible{text-decoration:underline;}
+
+@media(prefers-reduced-motion:reduce){
+  .distrib-det,.distrib-chev{transition:none;}
+}
 </style>
 </head>
 <body>
@@ -1741,44 +1776,102 @@ footer{
             </div>
           </div>
           <div class="distrib-item" data-id="ice-apucarana" data-uf="PR"
-               data-lat="-23.5505" data-lon="-51.4608" data-rotulo="Apucarana" data-desvio="34" tabindex="0">
-            <div class="distrib-dot verde"></div>
-            <div class="distrib-info">
-              <div class="distrib-nome">Dental ICE</div>
-              <div class="distrib-cidade">Apucarana, PR</div>
-            </div>
+               data-lat="-23.5505" data-lon="-51.4608" data-rotulo="Apucarana" data-desvio="34">
+            <button class="distrib-head" type="button" aria-expanded="false" aria-controls="det-ice-apucarana">
+              <span class="distrib-dot verde"></span>
+              <span class="distrib-info">
+                <span class="distrib-nome">Dental ICE</span>
+                <span class="distrib-cidade">Apucarana, PR</span>
+              </span>
+              <span class="distrib-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+            </button>
+            <div class="distrib-det" id="det-ice-apucarana"><div>
+              <dl class="distrib-dados">
+                <dt>Endere&ccedil;o</dt><dd>Rua Dr. Nagib Daher, 1084 &ndash; Centro<br>Apucarana, PR &middot; CEP 86800-000</dd>
+                <dt>Telefone</dt><dd><a href="tel:+5543996080462">(43) 99608-0462</a></dd>
+                <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 18h</dd>
+                <dt>Instagram</dt><dd><a href="https://www.instagram.com/dentaliceapucarana/" target="_blank" rel="noopener">@dentaliceapucarana</a></dd>
+              </dl>
+            </div></div>
           </div>
           <div class="distrib-item" data-id="classea-londrina" data-uf="PR"
-               data-lat="-23.3175" data-lon="-51.1580" data-dx="1.6" data-rotulo="Classe A" data-desvio="4" tabindex="0">
-            <div class="distrib-dot verde"></div>
-            <div class="distrib-info">
-              <div class="distrib-nome">Dental Classe A</div>
-              <div class="distrib-cidade">Londrina, PR</div>
-            </div>
+               data-lat="-23.3175" data-lon="-51.1580" data-dx="1.6" data-rotulo="Classe A" data-desvio="4">
+            <button class="distrib-head" type="button" aria-expanded="false" aria-controls="det-classea-londrina">
+              <span class="distrib-dot verde"></span>
+              <span class="distrib-info">
+                <span class="distrib-nome">Dental Classe A</span>
+                <span class="distrib-cidade">Londrina, PR</span>
+              </span>
+              <span class="distrib-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+            </button>
+            <div class="distrib-det" id="det-classea-londrina"><div>
+              <dl class="distrib-dados">
+                <dt>Endere&ccedil;o</dt><dd>R. Goi&aacute;s, 1255 &ndash; Centro<br>Londrina, PR &middot; CEP 86020-410</dd>
+                <dt>Telefone</dt><dd><a href="tel:+5543991740116">(43) 99174-0116</a></dd>
+                <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 18h<br>S&aacute;bado, das 8h &agrave;s 12h</dd>
+                <dt>Instagram</dt><dd><a href="https://www.instagram.com/dentalclasse_a/" target="_blank" rel="noopener">@dentalclasse_a</a></dd>
+              </dl>
+            </div></div>
           </div>
           <div class="distrib-item" data-id="odonthomaz-londrina" data-uf="PR"
-               data-lat="-23.3103" data-lon="-51.1628" data-dx="-1.6" data-rotulo="Odonthomaz" data-desvio="20" tabindex="0">
-            <div class="distrib-dot verde"></div>
-            <div class="distrib-info">
-              <div class="distrib-nome">Dental Odonthomaz</div>
-              <div class="distrib-cidade">Londrina, PR</div>
-            </div>
+               data-lat="-23.3103" data-lon="-51.1628" data-dx="-1.6" data-rotulo="Odonthomaz" data-desvio="20">
+            <button class="distrib-head" type="button" aria-expanded="false" aria-controls="det-odonthomaz-londrina">
+              <span class="distrib-dot verde"></span>
+              <span class="distrib-info">
+                <span class="distrib-nome">Dental Odonthomaz</span>
+                <span class="distrib-cidade">Londrina, PR</span>
+              </span>
+              <span class="distrib-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+            </button>
+            <div class="distrib-det" id="det-odonthomaz-londrina"><div>
+              <dl class="distrib-dados">
+                <dt>Unidade</dt><dd>Sede matriz</dd>
+                <dt>Endere&ccedil;o</dt><dd>R. Camb&aacute;r&aacute;, 340 &ndash; Centro<br>Londrina, PR &middot; CEP 86010-530</dd>
+                <dt>WhatsApp</dt><dd><a href="tel:+554398750339">(43) 9 9875-0339</a></dd>
+                <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 12h e das 14h &agrave;s 18h</dd>
+                <dt>Site</dt><dd><a href="https://www.dentalodonthomaz.com.br" target="_blank" rel="noopener">dentalodonthomaz.com.br</a></dd>
+              </dl>
+            </div></div>
           </div>
           <div class="distrib-item" data-id="odonthomaz-guarapuava" data-uf="PR"
-               data-lat="-25.3935" data-lon="-51.4562" data-rotulo="Guarapuava" tabindex="0">
-            <div class="distrib-dot verde"></div>
-            <div class="distrib-info">
-              <div class="distrib-nome">Dental Odonthomaz</div>
-              <div class="distrib-cidade">Guarapuava, PR</div>
-            </div>
+               data-lat="-25.3935" data-lon="-51.4562" data-rotulo="Guarapuava">
+            <button class="distrib-head" type="button" aria-expanded="false" aria-controls="det-odonthomaz-guarapuava">
+              <span class="distrib-dot verde"></span>
+              <span class="distrib-info">
+                <span class="distrib-nome">Dental Odonthomaz</span>
+                <span class="distrib-cidade">Guarapuava, PR</span>
+              </span>
+              <span class="distrib-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+            </button>
+            <div class="distrib-det" id="det-odonthomaz-guarapuava"><div>
+              <dl class="distrib-dados">
+                <dt>Unidade</dt><dd>Filial Centro-Oeste Paranaense</dd>
+                <dt>Endere&ccedil;o</dt><dd>R. Vicente Machado, 1877 &ndash; Centro<br>Guarapuava, PR &middot; CEP 85010-260</dd>
+                <dt>Telefone</dt><dd><a href="tel:+554236276051">(42) 3627-6051</a></dd>
+                <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 12h e das 14h &agrave;s 18h</dd>
+                <dt>Site</dt><dd><a href="https://www.dentalodonthomaz.com.br" target="_blank" rel="noopener">dentalodonthomaz.com.br</a></dd>
+              </dl>
+            </div></div>
           </div>
           <div class="distrib-item" data-id="odonthomaz-prudente" data-uf="SP"
-               data-lat="-22.1256" data-lon="-51.3889" data-rotulo="Pres. Prudente" data-desvio="20" tabindex="0">
-            <div class="distrib-dot verde"></div>
-            <div class="distrib-info">
-              <div class="distrib-nome">Dental Odonthomaz</div>
-              <div class="distrib-cidade">Presidente Prudente, SP</div>
-            </div>
+               data-lat="-22.1256" data-lon="-51.3889" data-rotulo="Pres. Prudente" data-desvio="20">
+            <button class="distrib-head" type="button" aria-expanded="false" aria-controls="det-odonthomaz-prudente">
+              <span class="distrib-dot verde"></span>
+              <span class="distrib-info">
+                <span class="distrib-nome">Dental Odonthomaz</span>
+                <span class="distrib-cidade">Presidente Prudente, SP</span>
+              </span>
+              <span class="distrib-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+            </button>
+            <div class="distrib-det" id="det-odonthomaz-prudente"><div>
+              <dl class="distrib-dados">
+                <dt>Unidade</dt><dd>Filial S&atilde;o Paulo</dd>
+                <dt>Endere&ccedil;o</dt><dd>R. Major Fel&iacute;cio Tarabay, 834 &ndash; Loja 01 &ndash; Centro<br>Presidente Prudente, SP &middot; CEP 19010-051</dd>
+                <dt>Telefone</dt><dd><a href="tel:+551832173172">(18) 3217-3172</a></dd>
+                <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 12h e das 14h &agrave;s 18h</dd>
+                <dt>Site</dt><dd><a href="https://www.dentalodonthomaz.com.br" target="_blank" rel="noopener">dentalodonthomaz.com.br</a></dd>
+              </dl>
+            </div></div>
           </div>
         </div>
         <div class="sede-card sede-card--mt">
@@ -2486,6 +2579,25 @@ document.querySelectorAll('.reveal').forEach(function(element){revealObserver.ob
 
 
 
+<script>
+/* Acordeao dos distribuidores. Fica fora do modulo do mapa de proposito:
+   aquele script retorna cedo quando nao ha WebGL, e o dropdown tem que
+   funcionar no celular do mesmo jeito. */
+(function(){
+  var itens=[].slice.call(document.querySelectorAll(".distrib-item .distrib-head"));
+  itens.forEach(function(b){
+    b.addEventListener("click",function(){
+      var item=b.parentNode, abrir=!item.classList.contains("aberto");
+      itens.forEach(function(o){
+        o.parentNode.classList.remove("aberto");
+        o.setAttribute("aria-expanded","false");
+      });
+      if(abrir){item.classList.add("aberto");b.setAttribute("aria-expanded","true");}
+    });
+  });
+})();
+</script>
+
 <script type="module">
 /* Mapa 3D: so carrega quando a secao aparece, e so em telas >=900px com WebGL. */
 (function(){
@@ -2528,9 +2640,11 @@ document.querySelectorAll('.reveal').forEach(function(element){revealObserver.ob
       });
       cards.forEach(function(c){
         c.addEventListener("mouseenter",function(){api.destacar(c.dataset.id);});
-        c.addEventListener("focus",function(){api.destacar(c.dataset.id);});
+        /* focus/blur nao borbulham: com o cabecalho virando botao, o item
+           so fica sabendo pelo par focusin/focusout */
+        c.addEventListener("focusin",function(){api.destacar(c.dataset.id);});
         c.addEventListener("mouseleave",function(){api.destacar(null);});
-        c.addEventListener("blur",function(){api.destacar(null);});
+        c.addEventListener("focusout",function(){api.destacar(null);});
         c.addEventListener("click",function(){api.focar(c.dataset.id);});
       });
       sincronizar();
