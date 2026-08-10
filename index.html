@@ -1198,6 +1198,29 @@ footer{
 @media(prefers-reduced-motion:reduce){
   .distrib-det,.distrib-chev{transition:none;}
 }
+
+/* ── dialogo do pino ─────────────────────────────────────────────────── */
+.mapa-dica{
+  position:absolute;left:0;top:0;z-index:4;width:236px;padding:10px 12px;
+  border-radius:10px;background:rgba(6,32,24,.92);border:1px solid rgba(124,194,92,.45);
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;transform:translateY(4px);
+  transition:opacity 160ms ease-out,transform 160ms ease-out;
+  pointer-events:none;   /* o raycast acontece no palco: a dica nao pode roubar o mouse */
+}
+.mapa-dica.visivel{opacity:1;visibility:visible;transform:translateY(0);}
+.mapa-dica-nome{font-size:13px;font-weight:700;color:#fff;line-height:1.25;}
+.mapa-dica-cidade{font-size:11px;color:var(--lime-400);margin-top:1px;}
+.mapa-dica-end{font-size:11px;color:rgba(255,255,255,.82);line-height:1.5;margin-top:7px;
+  padding-top:7px;border-top:1px solid rgba(255,255,255,.14);}
+.mapa-dica-tel{font-size:11px;color:rgba(255,255,255,.82);margin-top:4px;}
+/* rotulo que a dica cobriria some em vez de ficar por baixo */
+.mapa-rotulo.encoberto{opacity:0;}
+
+@media(prefers-reduced-motion:reduce){
+  .mapa-dica{transition:none;}
+}
 </style>
 </head>
 <body>
@@ -1776,7 +1799,7 @@ footer{
             </div>
           </div>
           <div class="distrib-item" data-id="ice-apucarana" data-uf="PR"
-               data-lat="-23.5505" data-lon="-51.4608" data-rotulo="Apucarana" data-desvio="34">
+               data-lat="-23.5505" data-lon="-51.4608" data-dx="-1.5" data-dy="-1" data-rotulo="Apucarana" data-desvio="34">
             <button class="distrib-head" type="button" aria-expanded="false" aria-controls="det-ice-apucarana">
               <span class="distrib-dot verde"></span>
               <span class="distrib-info">
@@ -1787,15 +1810,15 @@ footer{
             </button>
             <div class="distrib-det" id="det-ice-apucarana"><div>
               <dl class="distrib-dados">
-                <dt>Endere&ccedil;o</dt><dd>Rua Dr. Nagib Daher, 1084 &ndash; Centro<br>Apucarana, PR &middot; CEP 86800-000</dd>
-                <dt>Telefone</dt><dd><a href="tel:+5543996080462">(43) 99608-0462</a></dd>
+                <dt>Endere&ccedil;o</dt><dd class="dd-endereco">Rua Dr. Nagib Daher, 1084 &ndash; Centro<br>Apucarana, PR &middot; CEP 86800-000</dd>
+                <dt>Telefone</dt><dd class="dd-tel"><a href="tel:+5543996080462">(43) 99608-0462</a></dd>
                 <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 18h</dd>
                 <dt>Instagram</dt><dd><a href="https://www.instagram.com/dentaliceapucarana/" target="_blank" rel="noopener">@dentaliceapucarana</a></dd>
               </dl>
             </div></div>
           </div>
           <div class="distrib-item" data-id="classea-londrina" data-uf="PR"
-               data-lat="-23.3175" data-lon="-51.1580" data-dx="1.6" data-rotulo="Classe A" data-desvio="4">
+               data-lat="-23.3175" data-lon="-51.1580" data-dx="3" data-rotulo="Classe A" data-desvio="4">
             <button class="distrib-head" type="button" aria-expanded="false" aria-controls="det-classea-londrina">
               <span class="distrib-dot verde"></span>
               <span class="distrib-info">
@@ -1806,15 +1829,15 @@ footer{
             </button>
             <div class="distrib-det" id="det-classea-londrina"><div>
               <dl class="distrib-dados">
-                <dt>Endere&ccedil;o</dt><dd>R. Goi&aacute;s, 1255 &ndash; Centro<br>Londrina, PR &middot; CEP 86020-410</dd>
-                <dt>Telefone</dt><dd><a href="tel:+5543991740116">(43) 99174-0116</a></dd>
+                <dt>Endere&ccedil;o</dt><dd class="dd-endereco">R. Goi&aacute;s, 1255 &ndash; Centro<br>Londrina, PR &middot; CEP 86020-410</dd>
+                <dt>Telefone</dt><dd class="dd-tel"><a href="tel:+5543991740116">(43) 99174-0116</a></dd>
                 <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 18h<br>S&aacute;bado, das 8h &agrave;s 12h</dd>
                 <dt>Instagram</dt><dd><a href="https://www.instagram.com/dentalclasse_a/" target="_blank" rel="noopener">@dentalclasse_a</a></dd>
               </dl>
             </div></div>
           </div>
           <div class="distrib-item" data-id="odonthomaz-londrina" data-uf="PR"
-               data-lat="-23.3103" data-lon="-51.1628" data-dx="-1.6" data-rotulo="Odonthomaz" data-desvio="20">
+               data-lat="-23.3103" data-lon="-51.1628" data-dx="-1.6" data-dy="2" data-rotulo="Odonthomaz" data-desvio="16">
             <button class="distrib-head" type="button" aria-expanded="false" aria-controls="det-odonthomaz-londrina">
               <span class="distrib-dot verde"></span>
               <span class="distrib-info">
@@ -1826,8 +1849,8 @@ footer{
             <div class="distrib-det" id="det-odonthomaz-londrina"><div>
               <dl class="distrib-dados">
                 <dt>Unidade</dt><dd>Sede matriz</dd>
-                <dt>Endere&ccedil;o</dt><dd>R. Camb&aacute;r&aacute;, 340 &ndash; Centro<br>Londrina, PR &middot; CEP 86010-530</dd>
-                <dt>WhatsApp</dt><dd><a href="tel:+554398750339">(43) 9 9875-0339</a></dd>
+                <dt>Endere&ccedil;o</dt><dd class="dd-endereco">R. Camb&aacute;r&aacute;, 340 &ndash; Centro<br>Londrina, PR &middot; CEP 86010-530</dd>
+                <dt>WhatsApp</dt><dd class="dd-tel"><a href="tel:+554398750339">(43) 9 9875-0339</a></dd>
                 <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 12h e das 14h &agrave;s 18h</dd>
                 <dt>Site</dt><dd><a href="https://www.dentalodonthomaz.com.br" target="_blank" rel="noopener">dentalodonthomaz.com.br</a></dd>
               </dl>
@@ -1846,8 +1869,8 @@ footer{
             <div class="distrib-det" id="det-odonthomaz-guarapuava"><div>
               <dl class="distrib-dados">
                 <dt>Unidade</dt><dd>Filial Centro-Oeste Paranaense</dd>
-                <dt>Endere&ccedil;o</dt><dd>R. Vicente Machado, 1877 &ndash; Centro<br>Guarapuava, PR &middot; CEP 85010-260</dd>
-                <dt>Telefone</dt><dd><a href="tel:+554236276051">(42) 3627-6051</a></dd>
+                <dt>Endere&ccedil;o</dt><dd class="dd-endereco">R. Vicente Machado, 1877 &ndash; Centro<br>Guarapuava, PR &middot; CEP 85010-260</dd>
+                <dt>Telefone</dt><dd class="dd-tel"><a href="tel:+554236276051">(42) 3627-6051</a></dd>
                 <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 12h e das 14h &agrave;s 18h</dd>
                 <dt>Site</dt><dd><a href="https://www.dentalodonthomaz.com.br" target="_blank" rel="noopener">dentalodonthomaz.com.br</a></dd>
               </dl>
@@ -1866,8 +1889,8 @@ footer{
             <div class="distrib-det" id="det-odonthomaz-prudente"><div>
               <dl class="distrib-dados">
                 <dt>Unidade</dt><dd>Filial S&atilde;o Paulo</dd>
-                <dt>Endere&ccedil;o</dt><dd>R. Major Fel&iacute;cio Tarabay, 834 &ndash; Loja 01 &ndash; Centro<br>Presidente Prudente, SP &middot; CEP 19010-051</dd>
-                <dt>Telefone</dt><dd><a href="tel:+551832173172">(18) 3217-3172</a></dd>
+                <dt>Endere&ccedil;o</dt><dd class="dd-endereco">R. Major Fel&iacute;cio Tarabay, 834 &ndash; Loja 01 &ndash; Centro<br>Presidente Prudente, SP &middot; CEP 19010-051</dd>
+                <dt>Telefone</dt><dd class="dd-tel"><a href="tel:+551832173172">(18) 3217-3172</a></dd>
                 <dt>Horário</dt><dd>Segunda a sexta, das 8h &agrave;s 12h e das 14h &agrave;s 18h</dd>
                 <dt>Site</dt><dd><a href="https://www.dentalodonthomaz.com.br" target="_blank" rel="noopener">dentalodonthomaz.com.br</a></dd>
               </dl>
@@ -2606,6 +2629,12 @@ document.querySelectorAll('.reveal').forEach(function(element){revealObserver.ob
   var wrapper=sec.querySelector(".mapa-wrapper");
   var cards=[].slice.call(sec.querySelectorAll(".distrib-item[data-id]"));
 
+  function enderecoSede(c){
+    if(c.dataset.sede!=="1")return "";
+    var p=sec.querySelector(".sede-card p");
+    return p?p.innerHTML.split(/<br\s*\/?>/i).slice(0,2).join("<br>"):"";
+  }
+
   /* o markup e a fonte: um pino por unidade, sem tabela paralela no modulo */
   var unidades=cards.map(function(c){
     var d=c.dataset;
@@ -2615,7 +2644,12 @@ document.querySelectorAll('.reveal').forEach(function(element){revealObserver.ob
       dx:parseFloat(d.dx)||0, dy:parseFloat(d.dy)||0,
       rotulo:d.rotulo, desvio:parseFloat(d.desvio)||0,
       nome:c.querySelector(".distrib-nome").textContent,
-      cidade:c.querySelector(".distrib-cidade").textContent
+      cidade:c.querySelector(".distrib-cidade").textContent,
+      /* a dica do mapa le do mesmo painel: um endereco so no arquivo.
+         a sede nao tem painel — o endereco dela vem do .sede-card, sem a
+         linha de e-mails, que na dica nao cabe */
+      endereco:(c.querySelector(".dd-endereco")||{}).innerHTML||enderecoSede(c),
+      telefone:(c.querySelector(".dd-tel")||{}).textContent||""
     };
   });
 

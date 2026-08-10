@@ -43,6 +43,12 @@ export async function iniciar(palco, opcoes = {}) {
   renderer.toneMappingExposure = 1.2;
   palco.appendChild(renderer.domElement);
 
+  // dialogo do pino: fora do CSS2D de proposito — precisa de posicionamento
+  // livre para virar de lado quando encosta na borda do palco
+  const dica = document.createElement('div');
+  dica.className = 'mapa-dica';
+  palco.appendChild(dica);
+
   const rotulos = new CSS2DRenderer();
   rotulos.domElement.className = 'mapa-rotulos';
   palco.appendChild(rotulos.domElement);
@@ -325,16 +331,66 @@ export async function iniciar(palco, opcoes = {}) {
 
   const ouvintes = new Set();
   const emitir = id => ouvintes.forEach(f => f(id));
-  let destacado = null, travado = false;
-  function destacar(id) {
+  let destacado = null, travado = false, dicaDe = null;
+  function destacar(id, origem) {
     if (destacado === id) return;
     destacado = id;
+    // a dica so responde ao hover no mapa: vinda da lista ela repetiria o
+    // dropdown que ja esta aberto do outro lado
+    dicaDe = origem === 'mapa' ? id : null;
+    montarDica(dicaDe);
     pinos.forEach(p => {
       p.ativo = p.dado.id === id;
       p.el.classList.toggle('is-ativo', p.ativo);
     });
     fluxos.forEach(f => { f.mat.opacity = !id || f.pino.dado.id === id ? 0.85 : 0.2; });
     emitir(id);
+  }
+
+  function montarDica(id) {
+    const p = id && pinos.find(x => x.dado.id === id);
+    if (!p) { dica.classList.remove('visivel'); limparEncobertos(); return; }
+    const d = p.dado;
+    dica.innerHTML =
+      '<div class="mapa-dica-nome">' + d.nome + '</div>' +
+      '<div class="mapa-dica-cidade">' + d.cidade + '</div>' +
+      (d.endereco ? '<div class="mapa-dica-end">' + d.endereco + '</div>' : '') +
+      (d.telefone ? '<div class="mapa-dica-tel">' + d.telefone + '</div>' : '');
+    dica.classList.add('visivel');
+    posicionarDica();
+  }
+
+  const vAux = new THREE.Vector3();
+  function posicionarDica() {
+    if (!dicaDe) return;
+    const p = pinos.find(x => x.dado.id === dicaDe);
+    if (!p) return;
+    const W = palco.clientWidth, H = palco.clientHeight;
+    vAux.copy(p.esfera.position).project(camera);
+    const px = (vAux.x * 0.5 + 0.5) * W, py = (-vAux.y * 0.5 + 0.5) * H;
+    const w = dica.offsetWidth, h = dica.offsetHeight, M = 8, FOLGA = 16;
+    // acima do pino por padrao; se nao couber, vira para baixo
+    let y = py - h - FOLGA;
+    if (y < M) y = py + FOLGA;
+    let x = px - w / 2;
+    x = Math.max(M, Math.min(W - w - M, x));
+    y = Math.max(M, Math.min(H - h - M, y));
+    // left/top, nao transform: o transform e do CSS, que anima a entrada
+    dica.style.left = Math.round(x) + 'px';
+    dica.style.top = Math.round(y) + 'px';
+    // nenhum rotulo fica encavalado: o que a dica cobre, some
+    const cx = x, cy = y, cw = w, ch = h;
+    pinos.forEach(q => {
+      const r = q.el.getBoundingClientRect(), base = palco.getBoundingClientRect();
+      const rx = r.left - base.left, ry = r.top - base.top;
+      const bate = q.dado.id === dicaDe ||
+        (rx < cx + cw && cx < rx + r.width && ry < cy + ch && cy < ry + r.height);
+      q.el.classList.toggle('encoberto', bate);
+    });
+  }
+
+  function limparEncobertos() {
+    pinos.forEach(q => q.el.classList.remove('encoberto'));
   }
 
   // tween da camera ao focar um pino
@@ -362,15 +418,33 @@ export async function iniciar(palco, opcoes = {}) {
   function quadro() {
     const t = relogio.getElapsedTime();
 
+    // raycast antes de mover a camera: testa contra o quadro que o usuario
+    // estava vendo quando apontou. Depois da camera andar, o pino ja saiu
+    // debaixo do cursor e os das bordas ficam impossiveis de acertar.
+    raycaster.setFromCamera(ponteiro, camera);
+    const hit = raycaster.intersectObjects(pinos.map(p => p.esfera))[0];
+    if (hit) {
+      const p = pinos.find(x => x.esfera === hit.object);
+      destacar(p.dado.id, 'mapa');
+      palco.style.cursor = 'pointer';
+    } else if (!travado) {
+      destacar(null, 'mapa');
+      palco.style.cursor = '';
+    }
+
     if (!semMovimento) {
-      // parallax suave; sem orbita livre, o mapa nunca sai da composicao
-      const ax = parallax.x * 0.18, ay = parallax.y * 0.10;
-      camera.position.x += (posBase.x + ax * 40 - camera.position.x) * 0.05;
-      camera.position.y += (posBase.y - ay * 22 - camera.position.y) * 0.05;
-      // preserva a distancia TOTAL: descontar so o X jogava a camera para tras
-      const dx = camera.position.x - alvoCamera.x, dy = camera.position.y - alvoCamera.y;
-      const resto = RAIO * RAIO - dx * dx - dy * dy;
-      camera.position.z = alvoCamera.z + Math.sqrt(Math.max(1, resto));
+      // com um pino sob o mouse a camera congela: o parallax anda junto com o
+      // ponteiro e empurrava o pino para fora do cursor, obrigando a persegui-lo
+      if (!dicaDe) {
+        // parallax suave; sem orbita livre, o mapa nunca sai da composicao
+        const ax = parallax.x * 0.18, ay = parallax.y * 0.10;
+        camera.position.x += (posBase.x + ax * 40 - camera.position.x) * 0.05;
+        camera.position.y += (posBase.y - ay * 22 - camera.position.y) * 0.05;
+        // preserva a distancia TOTAL: descontar so o X jogava a camera para tras
+        const dx = camera.position.x - alvoCamera.x, dy = camera.position.y - alvoCamera.y;
+        const resto = RAIO * RAIO - dx * dx - dy * dy;
+        camera.position.z = alvoCamera.z + Math.sqrt(Math.max(1, resto));
+      }
       pinos.forEach(p => {
         const f = 1 + Math.sin((t + p.atraso) * Math.PI) * 0.16;
         p.halo.scale.setScalar(p.halo0 * f * (p.ativo ? 1.5 : 1));
@@ -389,16 +463,8 @@ export async function iniciar(palco, opcoes = {}) {
     }
     camera.lookAt(alvoCamera);
 
-    raycaster.setFromCamera(ponteiro, camera);
-    const hit = raycaster.intersectObjects(pinos.map(p => p.esfera))[0];
-    if (hit) {
-      const p = pinos.find(x => x.esfera === hit.object);
-      destacar(p.dado.id);
-      palco.style.cursor = 'pointer';
-    } else if (!travado) {
-      destacar(null);
-      palco.style.cursor = '';
-    }
+    // a camera se move com o parallax: a dica reposiciona junto
+    if (dicaDe) posicionarDica();
 
     renderer.render(cena, camera);
     rotulos.render(cena, camera);
@@ -409,13 +475,13 @@ export async function iniciar(palco, opcoes = {}) {
   dimensionar();
   addEventListener('resize', dimensionar);
 
-  if (opcoes.debug) Object.assign(globalThis, { __cena: cena, __cam: camera, __grupo: grupo, __THREE: THREE, __pinos: pinos, __renderer: renderer, __rotulos: rotulos });
+  if (opcoes.debug) Object.assign(globalThis, { __cena: cena, __cam: camera, __grupo: grupo, __THREE: THREE, __pinos: pinos, __renderer: renderer, __rotulos: rotulos, __dica: dica, __posicionarDica: posicionarDica });
   return {
     ligar() { if (!rodando) { rodando = true; req = requestAnimationFrame(quadro); } },
     get rodando() { return rodando; },
     desligar() { rodando = false; cancelAnimationFrame(req); },
     // sincronia com a lista: o card manda acender e o pino avisa de volta
-    destacar(id) { travado = !!id; destacar(id); },
+    destacar(id) { travado = !!id; destacar(id, 'lista'); },
     focar,
     aoDestacar(f) { ouvintes.add(f); },
     dimensionar,
