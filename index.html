@@ -587,6 +587,9 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .cs-hero .cs-back{font-family:Mulish,sans-serif;font-size:var(--fs-caption);color:#6B7280;text-decoration:none;margin-top:14px;}
 .cs-hero .cs-back:hover{color:#0B3D2E;text-decoration:none;}
 .cs-hero .cs-privacy{margin:14px 0 0;font-family:Mulish,sans-serif;font-size:var(--fs-caption);line-height:1.4;color:#9AA39A;text-align:center;}
+.cs-hero .cs-submit-err{display:none;margin:12px 0 0;font-family:Mulish,sans-serif;font-size:var(--fs-caption);line-height:1.4;color:#D64545;text-align:center;}
+.cs-hero .cs-submit-err.is-on{display:block;}
+.cs-hero .cs-submit[disabled]{opacity:.7;cursor:wait;}
 /* sucesso */
 .cs-done{text-align:center;padding:36px 24px 40px;}
 .cs-done-ico{width:56px;height:56px;margin:0 auto 18px;border-radius:50%;background:var(--cs-green-mid);display:flex;align-items:center;justify-content:center;}
@@ -920,6 +923,7 @@ footer{margin:0 .75rem;border-radius:1.6rem 1.6rem 0 0;background:#2E7370;}
 .cad-done-txt{font-size:var(--fs-body-sm);color:var(--ink2);line-height:var(--lh-body);}
 .cad-done-sub{font-size:var(--fs-caption);color:var(--ink3);margin-top:var(--space-3);}
 .cad-privacy{font-size:var(--fs-caption);color:var(--ink3);text-align:center;margin-top:var(--space-4);}
+.cad-submit-err{font-size:var(--fs-caption);color:#D64545;text-align:center;margin-top:var(--space-3);}
 .hist-meta{font-family:var(--font-body);font-size:var(--fs-overline);font-weight:var(--fw-semibold);letter-spacing:var(--ls-overline);text-transform:uppercase;color:var(--ink3);}
 .sede-card--mt{margin-top:var(--space-5);}
 
@@ -1372,6 +1376,7 @@ footer{
             </div>
 
             <button type="button" class="cs-submit" id="cs-submit">Continuar →</button>
+            <p class="cs-submit-err" id="cs-submit-err" hidden></p>
 
             <div class="cs-card-foot">
               <a href="#" class="cs-back" id="cs-back" hidden>← voltar</a>
@@ -2042,7 +2047,7 @@ footer{
                   </div>
                   <div>
                     <label class="cad-label">Estado *</label>
-                    <select id="f-estado"
+                    <select id="f-estado" required
                       class="cad-select"
                       onfocus="this.style.borderColor='var(--green-lt)'" onblur="this.style.borderColor='var(--line)'">
                       <option value="">UF</option>
@@ -2080,6 +2085,7 @@ footer{
                 <button onclick="nextStep(2)" class="cad-btn-back">← Voltar</button>
                 <button id="f-submit" class="cta-button cad-btn cad-btn--grow cad-btn--orange" onclick="submitForm()" >Enviar solicitação</button>
               </div>
+              <p class="cad-submit-err" id="f-erro" hidden></p>
             </div>
 
             <!-- SUCESSO -->
@@ -2099,6 +2105,27 @@ footer{
 </section>
 
 <script>
+/* ── envio de lead: um POST so, mesmo payload para os dois formularios
+   da pagina (hero e #cadastro). O n8n distingue pela chave "origem". ── */
+var CS_LEAD_WEBHOOK = 'https://n8n.qozt.com.br/webhook/f71723ab-52b8-4f07-9a11-ba0c2be71578';
+function csEnviarLead(dados){
+  var ctrl = ('AbortController' in window) ? new AbortController() : null;
+  var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 12000) : null;
+  return fetch(CS_LEAD_WEBHOOK, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados),
+    signal: ctrl ? ctrl.signal : undefined
+  }).then(function(res){
+    if(timer) clearTimeout(timer);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res;
+  }, function(err){
+    if(timer) clearTimeout(timer);
+    throw err;
+  });
+}
+
 /* ── HERO CARE SYSTEMS (form em card, 5 etapas + rotação + menu) ── */
 (function(){
   var hero = document.querySelector('.cs-hero');
@@ -2113,7 +2140,7 @@ footer{
   ];
   var TOTAL = STEPS.length;
 
-  var state = { passo:1, menuAberto:false, enviado:false, erros:{},
+  var state = { passo:1, menuAberto:false, enviado:false, enviando:false, erroEnvio:'', erros:{},
     name:'', email:'', phone:'', profile:'', company:'', cnpj:'', city:'', uf:'', product:'' };
 
   function maskPhone(v){
@@ -2164,6 +2191,7 @@ footer{
   var elCorpo  = hero.querySelector('#cs-card-body');
   var elFeito  = hero.querySelector('#cs-done');
   var elMenu   = hero.querySelector('#cs-menu');
+  var elErroEnvio = hero.querySelector('#cs-submit-err');
 
   function campoEl(nome){ return hero.querySelector('[data-cs-field="' + nome + '"]'); }
   function erroEl(nome){ return hero.querySelector('[data-cs-err="' + nome + '"]'); }
@@ -2179,8 +2207,12 @@ footer{
       p.hidden = Number(p.getAttribute('data-cs-panel')) !== state.passo;
     });
 
-    elBotao.textContent = state.passo === TOTAL ? 'Enviar solicitação' : 'Continuar →';
+    elBotao.textContent = state.enviando ? 'Enviando...' : (state.passo === TOTAL ? 'Enviar solicitação' : 'Continuar →');
+    elBotao.disabled = state.enviando;
     elVoltar.hidden = state.passo === 1;
+
+    elErroEnvio.textContent = state.erroEnvio;
+    elErroEnvio.classList.toggle('is-on', !!state.erroEnvio);
 
     for (var nome in REGRAS) {
       var input = campoEl(nome), err = erroEl(nome);
@@ -2204,10 +2236,43 @@ footer{
     });
     state.erros = erros;
     if(temErro){ render(); focar(); return; }
-    if(state.passo === TOTAL) state.enviado = true;
-    else state.passo++;
+    if(state.passo === TOTAL){ enviar(); return; }
+    state.passo++;
     render();
     focar();
+  }
+  function textoSelecionado(nome){
+    var el = campoEl(nome);
+    var opt = el && el.options && el.options[el.selectedIndex];
+    return opt ? opt.textContent.trim() : (el ? el.value : '');
+  }
+  function enviar(){
+    state.enviando = true;
+    state.erroEnvio = '';
+    render();
+    csEnviarLead({
+      origem: 'hero',
+      nome: state.name,
+      email: state.email,
+      telefone: state.phone,
+      perfil: textoSelecionado('profile'),
+      empresa: state.company,
+      cnpj: state.cnpj,
+      cidade: state.city,
+      uf: state.uf,
+      produto: textoSelecionado('product'),
+      enviado_em: new Date().toISOString(),
+      pagina: location.href
+    }).then(function(){
+      state.enviando = false;
+      state.enviado = true;
+      render();
+    }).catch(function(){
+      state.enviando = false;
+      state.erroEnvio = 'Não foi possível enviar agora. Confira sua conexão e tente de novo.';
+      render();
+      focar();
+    });
   }
   function voltar(){
     if(state.passo > 1) state.passo--;
@@ -2270,14 +2335,45 @@ function nextStep(n) {
       '<strong>Cidade/UF:</strong> '+document.getElementById('f-cidade').value+' - '+document.getElementById('f-estado').value;
   }
 }
+/* required ja esta no HTML de cada campo (nome/whatsapp/empresa/cnpj/
+   cidade/estado); checkValidity funciona por input mesmo sem <form>,
+   entao nao duplica as regras do hero so para bloquear o vazio */
+function validarCadastro(){
+  var campos = ['f-nome','f-wapp','f-empresa','f-cnpj','f-cidade','f-estado'];
+  for (var i = 0; i < campos.length; i++){
+    var el = document.getElementById(campos[i]);
+    if (el && !el.checkValidity()){ el.reportValidity(); el.focus(); return false; }
+  }
+  return true;
+}
 function submitForm() {
+  if (!validarCadastro()) return;
   var btn = document.getElementById('f-submit');
+  var erro = document.getElementById('f-erro');
+  erro.hidden = true;
   btn.textContent = 'Enviando...'; btn.disabled = true;
-  setTimeout(function(){
+  csEnviarLead({
+    origem: 'cadastro',
+    nome: document.getElementById('f-nome').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    telefone: document.getElementById('f-wapp').value.trim(),
+    perfil: '',
+    empresa: document.getElementById('f-empresa').value.trim(),
+    cnpj: document.getElementById('f-cnpj').value.trim(),
+    cidade: document.getElementById('f-cidade').value.trim(),
+    uf: document.getElementById('f-estado').value,
+    produto: document.getElementById('f-interesse').value,
+    enviado_em: new Date().toISOString(),
+    pagina: location.href
+  }).then(function(){
     [1,2,3].forEach(function(i){document.getElementById('f-step'+i).style.display='none';});
     document.getElementById('f-success').style.display='block';
     document.getElementById('prog-bar').style.width='100%';
-  },1500);
+  }).catch(function(){
+    btn.textContent = 'Enviar solicitação'; btn.disabled = false;
+    erro.textContent = 'Não foi possível enviar agora. Confira sua conexão e tente de novo.';
+    erro.hidden = false;
+  });
 }
 document.querySelectorAll('.faq-question').forEach(function(button){
   button.addEventListener('click',function(){
